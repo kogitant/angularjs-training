@@ -42,7 +42,7 @@ public abstract class BaseIntegrationTest {
     
     private static Map<String, Object> properties() {
         Map<String, Object> properties = new HashMap<String, Object>();
-        properties.put("mongo.db", "score-tables");
+        properties.put("mongo.db", "score-tables-it");
         return properties;
     }
     
