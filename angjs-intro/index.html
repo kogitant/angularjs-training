@@ -41,16 +41,17 @@
             <a href="http://www.linkedin.com/in/tjaakkola">Tapio Jaakkola</a>
           </p>
           <center>
-            <a href="http://gofore.com/"><img src="images/gofore.png" class="borderless"></a>
+            <a href="http://gofore.com/"><img src="images/gofore_cmyk.png" class="borderless"></a>
           </center>
         </section>
 
         <section>
           <h2>What's up</h2>
           <ul>
-            <li>Background and overview</li>
-            <li>Conceptual Overview</li>
+            <li>Background</li>
+            <li>Design overview/li>
             <li>Use cases</li>
+            <li>Architecture and key concepts</li>
             <li>Demo time!</li>
           </ul>
 
@@ -59,7 +60,7 @@
 
         <section>
           <section>
-            <h2>Background and overview</h2>
+            <h2>Background</h2>
           </section>
           <section>
             <h2>AngularJS<sup>1</sup></h2>
@@ -88,7 +89,7 @@
         </section>
         <section>
           <section>
-            <h2>Conceptual Overview</h2>
+            <h2>Design Overview</h2>
           </section>
           <section>
             <h2>The Zen of Angular<sup>2</sup></h2>
@@ -115,12 +116,103 @@
               Luckily CRUD applications represent the majority of web applications." <sup>2</sup>
             </blockquote>
             <br>
-            <blockquote>
-              "Games and GUI editors are examples of applications with intensive and tricky DOM manipulation.
-               These kinds of apps are different from CRUD apps, and as a result are probably not a good fit for Angular."
-               <sup>2</sup>
-            </blockquote>
+            <p>Application examples:
+              <ul>
+                <li><a href="http://angularjs.org/">The canonical AngularJS CRUD apps</a></li>
+                <li><a href="http://www.sekas.de/ptr/ptr-0.2.3/src/html/ptr.html">http://builtwith.angularjs.org/project/Project-Time-Recorder</a></li>
+              </ul>
+            </p>
+            <br>
+            <p>Use of AngularJS for GUI editors and games is specifically discouraged <sup>2</sup></p>
           </section>
+          <section>
+            <h2>Real-time Web Applications</h2>
+            <div style="text-align: left">
+              <p>Extend Angular's two-way data binding to server-side. Still a little bit experimental, but doable:</p>
+              <ul>
+                <li>Hook up to socket.io interface with <a href="https://github.com/btford/angular-socket-io-seed">Angular Socket.io Seed</a></li>
+                <li>Use a Firebase backend with <a href="https://github.com/firebase/angularFire">AngularFire</a></li>
+              </ul>
+              <br><br>
+              <p>Application examples: <a href="http://firebase.github.io/angularFire/examples/chat/">chatroom</a>,
+                <a href="http://firebase.github.io/angularFire/examples/todomvc/#/">real-time TODO app</a></p>
+              <br>
+              <p>...But maybe just for real-time CRUD applications</p>
+            </Jus>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Architecture and Key Concepts</h2>
+          </section>
+
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/concepts#startup" target="_blank">Startup</a> <sup>3</sup></h2>
+            <p><img src="images/angularjs-concepts-startup.png" style="width: 70%"></p>
+          </section>
+
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/concepts#runtime" target="_blank">Runtime</a> <sup>3</sup></h2>
+            <p><img src="images/angularjs-concepts-runtime.png" style="width: 70%"></p>
+          </section>
+
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/concepts#scope" target="_blank">Scope</a> <sup>3</sup></h2>
+            <p>JavaScript</p>
+            <pre><code>function GreetCtrl($scope) {
+  $scope.name = 'World';
+}
+     
+function ListCtrl($scope) {
+  $scope.names = ['Igor', 'Misko', 'Vojta'];
+}</code></pre>
+
+            <p>HTML</p>
+            <pre><code><div ng-controller="GreetCtrl">
+  Hello {{name}}!
+</div>
+<div ng-controller="ListCtrl">
+  <ol>
+    <li ng-repeat="name in names">{{name}}</li>
+  </ol>
+</div></code></pre>
+          </section>
+
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/concepts#controller" target="_blank">Controller</a> <sup>3</sup></h2>
+            <p><img src="images/angularjs-concepts-controller.png" style="width: 70%"></p>
+          </section>
+
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/concepts#rview" target="_blank">View</a> <sup>3</sup></h2>
+            <p><img src="images/angularjs-concepts-view.png" style="width: 70%"></p>
+          </section>
+
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/concepts#directives" target="_blank">Directives</a> <sup>3</sup></h2>
+            <blockquote>"A directive is a behavior or DOM transformation which is triggered by the presence of a custom attribute, element name, class name or comment. A directive allows you to extend the HTML vocabulary in a declarative fashion. Following is an example which enables data-binding for the contenteditable in HTML." <sup>3</sup></blockquote>
+          </section>
+
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/concepts#filters" target="_blank">Filters</a> <sup>3</sup></h2>
+            <blockquote>"Filters perform data transformation. Typically they are used in conjunction with the locale to format the data in locale specific output. They follow the spirit of UNIX filters and use similar syntax | (pipe)." <sup>3</sup></blockquote>
+          </section>
+
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/concepts#injector" target="_blank">Modules and the Injector</a> <sup>3</sup></h2>
+            <p><img src="images/angularjs-concepts-module-injector.png" style="width: 70%"></p>
+          </section>
+
+          <section>
+            <h2>Angular Namespace</h2>
+            <blockquote>"To prevent accidental name collision, Angular prefixes names of objects which could potentially collide with $. Please do not use the $ prefix in your code as it may accidentally collide with Angular code." <sup>3</sup></blockquote>
+          </section>
+        </section>
+
+        <section>
+          <h2>And lastly:</h2>
+          <h1>Demo time!</h1>
         </section>
 
         <section>
@@ -128,7 +220,9 @@
           <div style="text-align: left">
             <p>[1] <a href="http://en.wikipedia.org/wiki/AngularJS">AngularJS (Wikipedia)</a></p>
             <p>[2] <a href="http://docs.angularjs.org/guide/overview">AngularJS Overview</a></p>
-            <p><a href="http://www.slideshare.net/olegp/oleg-podsechinfrontendconf">AngularJS - the folly of choice</a></p>
+            <p>[3] <a href="http://docs.angularjs.org/guide/concepts">AngularJS Conceptual Overview</a></p>
+            <p>[4] <a href="http://www.slideshare.net/olegp/oleg-podsechinfrontendconf">AngularJS - the folly of choice</a>, Frontend DEV Conf '13</p>
+            <p>[5] <a href="http://www.slideshare.net/olegp/tips-from-angular-js-users-anonymous-25199815">Tips from AngularJS Users Anonymous</a>, HelsinkiJS August 2013 at F-Secure.</p>
           </div>
         </section>
       </div>
