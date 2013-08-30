@@ -12,6 +12,9 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
+
 @Configuration
 @Import(ServiceConfiguration.class)
 @EnableWebMvc
@@ -22,6 +25,8 @@ public class SpringMvcConfiguration extends WebMvcConfigurerAdapter {
     public MappingJackson2HttpMessageConverter jsonConverter() {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         converter.setPrettyPrint(true);
+        converter.getObjectMapper().registerModule(new JodaModule());
+        converter.getObjectMapper().configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         return converter;
     }
     

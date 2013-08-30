@@ -1,13 +1,12 @@
 package org.eluder.score.tables.service.repository;
 
-import java.util.List;
-
 import org.eluder.score.tables.api.Player;
+import org.eluder.score.tables.api.query.BasicQuery;
 
 public interface PlayerRepositoryCustom {
 
-    Player findBySearchName(String name);
+    Player findBySearchName(BasicQuery query);
     
-    List<Player> findBySearchNameKeywords(String name);
+    Iterable<Player> findBySearchNameKeywords(BasicQuery query);
     
 }

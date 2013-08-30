@@ -7,14 +7,15 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 import java.util.Collections;
 import java.util.List;
 
-import org.eluder.score.tables.api.MatchTypeConfiguration;
 import org.eluder.score.tables.api.MatchType;
+import org.eluder.score.tables.api.MatchTypeConfiguration;
+import org.eluder.score.tables.api.Player;
 import org.eluder.score.tables.api.PlayerStats;
 import org.eluder.score.tables.api.Tournament;
 import org.eluder.score.tables.service.comparator.PlayerStatsComparator;
 import org.eluder.score.tables.service.exception.NotFoundException;
-import org.eluder.score.tables.service.repository.PlayerRepository;
 import org.eluder.score.tables.service.repository.TournamentRepository;
+import org.eluder.score.tables.service.utils.MongoDocumentResolver;
 import org.eluder.score.tables.service.utils.PlayerStatsPointsTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -33,10 +34,7 @@ public class SeriesStatisticsService {
     private static final MatchType SERIES = MatchType.SERIES;
     
     @Autowired
-    private MongoOperations mongoTemplate;
-    
-    @Autowired
-    private PlayerRepository playerRepository;
+    private MongoOperations mongoOperations;
     
     @Autowired
     private TournamentRepository tournamentRepository;
@@ -47,7 +45,7 @@ public class SeriesStatisticsService {
     public List<PlayerStats> getTournamentStatistics(final String tournamentId) {
         Tournament tournament = getTournament(tournamentId);
         Query query = query(where("tournamentId").is(tournamentId).and("type").is(SERIES.toString()));
-        MapReduceResults<PlayerStatsValue> results = mongoTemplate.mapReduce(query, "matches", "classpath:/mapreduce/player_stats_map.js", "classpath:/mapreduce/player_stats_reduce.js", options().javaScriptMode(true).outputTypeInline(), PlayerStatsValue.class);
+        MapReduceResults<PlayerStatsValue> results = mongoOperations.mapReduce(query, "matches", "classpath:/mapreduce/player_stats_map.js", "classpath:/mapreduce/player_stats_reduce.js", options().javaScriptMode(true).outputTypeInline(), PlayerStatsValue.class);
         List<PlayerStats> playerStats = Lists.newArrayList(transformResults(results, tournament.getConfigurations().get(SERIES)));
         Collections.sort(playerStats, playerStatsComparator);
         return playerStats;
@@ -55,7 +53,7 @@ public class SeriesStatisticsService {
     
     private Iterable<PlayerStats> transformResults(final Iterable<PlayerStatsValue> results, final MatchTypeConfiguration configuration) {
         Function<PlayerStatsValue, PlayerStats> transformer = Functions.compose(
-                new PlayerStatsPointsTransformer(configuration), new FlattenPlayerStats()
+                new PlayerStatsPointsTransformer(configuration), new FlattenPlayerStats(mongoOperations)
         );
         return Iterables.transform(results, transformer);
     }
@@ -68,17 +66,24 @@ public class SeriesStatisticsService {
         return tournament;
     }
     
-    private class PlayerStatsValue {
+    private static class PlayerStatsValue {
         public String id;
         public PlayerStats value;
     }
     
-    private class FlattenPlayerStats implements Function<PlayerStatsValue, PlayerStats> {
+    private static class FlattenPlayerStats implements Function<PlayerStatsValue, PlayerStats> {
+        
+        private final MongoDocumentResolver<Player> playerResolver;
+        
+        public FlattenPlayerStats(final MongoOperations mongoOperations) {
+            this.playerResolver = new MongoDocumentResolver<>(mongoOperations, Player.class, "name");
+        }
+        
         @Override
         public PlayerStats apply(final PlayerStatsValue input) {
             PlayerStats playerStats = input.value;
             playerStats.setPlayerId(input.id);
-            playerStats.setPlayerName(playerRepository.findOne(input.id).getName());
+            playerStats.setPlayerName(playerResolver.apply(input.id).getName());
             return playerStats;
         }
     }

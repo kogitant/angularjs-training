@@ -3,6 +3,7 @@ package org.eluder.score.tables.service;
 import java.util.List;
 
 import org.eluder.score.tables.api.Player;
+import org.eluder.score.tables.api.query.BasicQuery;
 import org.eluder.score.tables.service.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -31,7 +32,7 @@ public class PlayerService {
         return playerRepository.save(player);
     }
     
-    public List<Player> findByNameParts(final String term) {
-        return playerRepository.findBySearchNameKeywords(term);
+    public List<Player> findByNameKeywords(final BasicQuery query) {
+        return ImmutableList.copyOf(playerRepository.findBySearchNameKeywords(query));
     }
 }

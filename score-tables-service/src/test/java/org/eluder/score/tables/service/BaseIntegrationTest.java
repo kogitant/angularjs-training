@@ -28,14 +28,14 @@ public abstract class BaseIntegrationTest {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
     
     @Autowired
-    protected MongoOperations mongoTemplate;
+    protected MongoOperations mongoOperations;
     
     @Before
     public void init() {
-        logger.debug(mongoTemplate.getCollectionNames().toString());
-        for (String collection : mongoTemplate.getCollectionNames()) {
+        logger.debug(mongoOperations.getCollectionNames().toString());
+        for (String collection : mongoOperations.getCollectionNames()) {
             if (!collection.startsWith("system.")) {
-                mongoTemplate.dropCollection(collection);
+                mongoOperations.dropCollection(collection);
             }
         }
     }

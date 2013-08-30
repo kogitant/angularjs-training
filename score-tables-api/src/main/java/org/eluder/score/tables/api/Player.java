@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
         @CompoundIndex(name = "search.name", def = "{ 'search.name' : 1 }",  unique = true),
         @CompoundIndex(name = "search.nameKeywords", def = "{ 'search.nameKeywords' : 1 }")
 })
-public class Player extends BaseDocument implements NamedDocument {
+public class Player extends MutableDocument implements NamedDocument {
     
     private String name;
     

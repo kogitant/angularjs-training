@@ -1,16 +1,26 @@
 package org.eluder.score.tables.service;
 
+import java.util.List;
+
 import org.eluder.score.tables.api.Match;
 import org.eluder.score.tables.api.Player;
 import org.eluder.score.tables.api.Tournament;
+import org.eluder.score.tables.api.query.BasicQuery;
 import org.eluder.score.tables.service.exception.NotFoundException;
 import org.eluder.score.tables.service.exception.ValidationException;
 import org.eluder.score.tables.service.repository.MatchRepository;
 import org.eluder.score.tables.service.repository.PlayerRepository;
 import org.eluder.score.tables.service.repository.TournamentRepository;
-import org.eluder.score.tables.service.utils.LowerCaser;
+import org.eluder.score.tables.service.utils.MongoDocumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Service;
+
+import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 
 @Service
 public class MatchService {
@@ -24,8 +34,21 @@ public class MatchService {
     @Autowired
     private TournamentRepository tournamentRepository;
     
+    @Autowired
+    private MongoOperations mongoOperations;
+    
     public Match findOne(final String id) {
-        return matchRepository.findOne(id);
+        return compose(matchRepository.findOne(id));
+    }
+    
+    public List<Match> findAll() {
+        Iterable<Match> matches = matchRepository.findAll(new Sort(Direction.ASC, "created"));
+        return compose(matches);
+    }
+    
+    public List<Match> find(final BasicQuery query) {
+        Iterable<Match> matches = matchRepository.find(query);
+        return compose(matches);
     }
     
     public Match save(final Match match) {
@@ -56,7 +79,7 @@ public class MatchService {
         match.setBluePlayerId(getPreparedPlayerId(match.getBluePlayerId(), match.getBluePlayerName()));
         match.setPinkPlayerId(getPreparedPlayerId(match.getPinkPlayerId(), match.getPinkPlayerName()));
         
-        return matchRepository.save(match);
+        return compose(matchRepository.save(match));
     }
     
     private void verifyPeriods(final Match match, final Tournament tournament) {
@@ -76,7 +99,7 @@ public class MatchService {
         if (playerId != null) {
             return playerId;
         }
-        Player player = playerRepository.findBySearchName(new LowerCaser().apply(playerName));
+        Player player = playerRepository.findBySearchName(new BasicQuery().setValue(playerName));
         if (player != null) {
             return player.getId();
         }
@@ -84,5 +107,36 @@ public class MatchService {
         player.setName(playerName);
         player = playerRepository.save(player);
         return player.getId();
+    }
+    
+    private Match compose(final Match match) {
+        return new MatchComposer(mongoOperations).apply(match);
+    }
+    
+    private List<Match> compose(final Iterable<Match> matches) {
+        return ImmutableList.copyOf(Iterables.transform(matches, new MatchComposer(mongoOperations)));
+    }
+    
+    private static class MatchComposer implements Function<Match, Match> {
+        
+        private final MongoDocumentResolver<Player> playerResolver;
+        
+        public MatchComposer(final MongoOperations mongoOperations) {
+            this.playerResolver = new MongoDocumentResolver<>(mongoOperations, Player.class, "name");
+        }
+        
+        @Override
+        public Match apply(final Match input) {
+            if (input == null) {
+                return null;
+            }
+            if (input.getBluePlayerId() != null) {
+                input.setBluePlayerName(playerResolver.apply(input.getBluePlayerId()).getName());
+            }
+            if (input.getPinkPlayerId() != null) {
+                input.setPinkPlayerName(playerResolver.apply(input.getPinkPlayerId()).getName());
+            }
+            return input;
+        }
     }
 }

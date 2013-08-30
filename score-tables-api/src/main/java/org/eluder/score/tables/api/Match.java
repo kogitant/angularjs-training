@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @CompoundIndexes(
         @CompoundIndex(name = "tournament_type", def = "{ 'tournamentId' : 1, 'type' : 1 }")
 )
-public class Match extends BaseDocument {
+public class Match extends MutableDocument {
     
     private String tournamentId;
     

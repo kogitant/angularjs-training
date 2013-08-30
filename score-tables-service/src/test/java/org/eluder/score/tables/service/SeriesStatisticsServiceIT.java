@@ -4,8 +4,8 @@ package org.eluder.score.tables.service;
 import java.util.List;
 
 import org.eluder.score.tables.api.Match;
-import org.eluder.score.tables.api.MatchTypeConfiguration;
 import org.eluder.score.tables.api.MatchType;
+import org.eluder.score.tables.api.MatchTypeConfiguration;
 import org.eluder.score.tables.api.Period;
 import org.eluder.score.tables.api.Player;
 import org.eluder.score.tables.api.PlayerStats;
@@ -33,28 +33,28 @@ public class SeriesStatisticsServiceIT extends BaseIntegrationTest {
         tournament.setName("tournamet");
         tournament.getConfigurations().put(
                 MatchType.SERIES,
-                new MatchTypeConfiguration().setPointsForWin(2).setPointsForEven(1)
+                new MatchTypeConfiguration().setPeriods(2).setPointsForWin(2).setPointsForEven(1)
         );
-        mongoTemplate.save(tournament);
+        mongoOperations.save(tournament);
         this.tournament = tournament.getId();
         
         Player p1 = new Player().setName("p1");
-        mongoTemplate.save(p1);
+        mongoOperations.save(p1);
         this.player1 = p1.getId();
         
         Player p2 = new Player().setName("p2");
-        mongoTemplate.save(p2);
+        mongoOperations.save(p2);
         this.player2 = p2.getId();
 
         Player p3 = new Player().setName("p3");
-        mongoTemplate.save(p3);
+        mongoOperations.save(p3);
         this.player3 = p3.getId();
     }
     
     @Test
     public void testGetSimpleTournamentStatistics() {
-        mongoTemplate.save(match(player1, player2, period(10, 3), period(10, 3)));
-        mongoTemplate.save(match(player2, player1, period(6, 10), period(2, 10)));
+        mongoOperations.save(match(player1, player2, period(10, 3), period(10, 3)));
+        mongoOperations.save(match(player2, player1, period(6, 10), period(2, 10)));
         List<PlayerStats> stats = seriesStatisticsService.getTournamentStatistics(tournament);
         Assert.assertEquals(2, stats.size());
         Assert.assertEquals("p1", stats.get(0).getPlayerName());

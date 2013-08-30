@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "tournaments")
-public class Tournament extends BaseDocument {
+public class Tournament extends MutableDocument {
     
     @Indexed(unique = true)
     private String name;

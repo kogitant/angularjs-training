@@ -3,6 +3,8 @@ package org.eluder.score.tables.rest.springmvc;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.util.List;
+
 import org.eluder.score.tables.api.Match;
 import org.eluder.score.tables.service.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +29,10 @@ public class MatchController {
     @RequestMapping(method = POST)
     public @ResponseBody Match save(@RequestBody final Match match) {
         return matchService.save(match);
+    }
+    
+    @RequestMapping(method = GET)
+    public @ResponseBody List<Match> findAll() {
+        return matchService.findAll();
     }
 }

@@ -3,6 +3,7 @@ package org.eluder.score.tables.service;
 import java.util.List;
 
 import org.eluder.score.tables.api.Player;
+import org.eluder.score.tables.api.query.BasicQuery;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class PlayerServiceIT extends BaseIntegrationTest {
     public void save() {
         playerService.save(player("Test Player"));
         
-        List<Player> players = mongoTemplate.findAll(Player.class);
+        List<Player> players = mongoOperations.findAll(Player.class);
         Assert.assertEquals(1, players.size());
     }
     
@@ -36,10 +37,10 @@ public class PlayerServiceIT extends BaseIntegrationTest {
         
         List<Player> players = null;
         
-        players = playerService.findByNameParts("Test player");
+        players = playerService.findByNameKeywords(new BasicQuery("Test player"));
         Assert.assertEquals(1, players.size());
         
-        players = playerService.findByNameParts("pla");
+        players = playerService.findByNameKeywords(new BasicQuery("pla"));
         Assert.assertEquals(2, players.size());
     }
     

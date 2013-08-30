@@ -5,6 +5,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import java.util.List;
 
 import org.eluder.score.tables.api.AutoCompleteItem;
+import org.eluder.score.tables.api.query.BasicQuery;
 import org.eluder.score.tables.service.AutocompleteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,8 +21,8 @@ public class AutoCompleteController {
     private AutocompleteService autocompleteService;
     
     @RequestMapping(value = "/players", method = GET)
-    public @ResponseBody List<AutoCompleteItem> findPlayers(@RequestParam("token") final String token) {
-        return autocompleteService.findPlayers(token);
+    public @ResponseBody List<AutoCompleteItem> findPlayers(@RequestParam("query") final String query) {
+        return autocompleteService.findPlayers(new BasicQuery(query));
     }
     
 }
