@@ -5,10 +5,9 @@ import java.util.Map;
 
 import org.eluder.score.tables.service.BaseIntegrationTest.IntegrationContextInitializer;
 import org.eluder.score.tables.service.configuration.ServiceConfiguration;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.support.AbstractApplicationContext;
@@ -18,6 +17,8 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.mongodb.Mongo;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
         initializers = { IntegrationContextInitializer.class },
@@ -25,24 +26,23 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 )
 public abstract class BaseIntegrationTest {
     
-    protected final Logger logger = LoggerFactory.getLogger(getClass());
+    private static final String DATABASE = "score-tables-it";
     
     @Autowired
     protected MongoOperations mongoOperations;
     
+    @Autowired
+    private Mongo mongo;
+    
     @Before
-    public void init() {
-        logger.debug(mongoOperations.getCollectionNames().toString());
-        for (String collection : mongoOperations.getCollectionNames()) {
-            if (!collection.startsWith("system.")) {
-                mongoOperations.dropCollection(collection);
-            }
-        }
+    @After
+    public void clean() {
+        mongo.dropDatabase(DATABASE);
     }
     
     private static Map<String, Object> properties() {
         Map<String, Object> properties = new HashMap<String, Object>();
-        properties.put("mongo.db", "score-tables-it");
+        properties.put("mongo.db", DATABASE);
         return properties;
     }
     

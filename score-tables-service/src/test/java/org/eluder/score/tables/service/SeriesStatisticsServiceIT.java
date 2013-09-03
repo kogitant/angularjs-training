@@ -11,6 +11,7 @@ import org.eluder.score.tables.api.Player;
 import org.eluder.score.tables.api.PlayerStats;
 import org.eluder.score.tables.api.Tournament;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,9 +27,8 @@ public class SeriesStatisticsServiceIT extends BaseIntegrationTest {
     private String player2;
     private String player3;
     
-    @Override
+    @Before
     public void init() {
-        super.init();
         Tournament tournament = new Tournament();
         tournament.setName("tournamet");
         tournament.getConfigurations().put(

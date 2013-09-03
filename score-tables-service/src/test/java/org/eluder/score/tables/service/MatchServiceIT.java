@@ -6,6 +6,7 @@ import org.eluder.score.tables.api.MatchTypeConfiguration;
 import org.eluder.score.tables.api.Period;
 import org.eluder.score.tables.api.Player;
 import org.eluder.score.tables.api.Tournament;
+import org.hibernate.validator.method.MethodConstraintViolationException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,26 @@ public class MatchServiceIT extends BaseIntegrationTest {
     @Autowired
     private MatchService matchService;
     
-    @Test
-    public void findOne() {
+    @Test(expected = MethodConstraintViolationException.class)
+    public void saveWithInvalidPlayerId() {
+        Match match = createMatch("P1", "P2", MatchType.SERIES, 1);
+        match.setBluePlayerId("12345");
         
+        matchService.save(match);
+    }
+    
+    @Test(expected = MethodConstraintViolationException.class)
+    public void saveExistingWithoutVersion() {
+        Match match = createMatch("P1", "P2", MatchType.SERIES, 1);
+        match.getPeriods().add(new Period().setBluePlayerScore(10).setPinkPlayerScore(4));
+        match = matchService.save(match);
+        
+        match.setVersion(null);
+        matchService.save(match);
     }
     
     @Test
-    public void save() {
+    public void saveValid() {
         Match match = createMatch("P1", "P2", MatchType.SERIES, 1);
         match.getPeriods().add(new Period().setBluePlayerScore(10).setPinkPlayerScore(4));
         

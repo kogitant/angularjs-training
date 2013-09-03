@@ -3,6 +3,12 @@ package org.eluder.score.tables.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
+import org.eluder.score.tables.api.validation.AnyNotNull;
+import org.eluder.score.tables.api.validation.AnyNotNulls;
+import org.eluder.score.tables.api.validation.ExistingReference;
+import org.eluder.score.tables.api.validation.ValidPeriods;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
@@ -13,22 +19,32 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @CompoundIndexes(
         @CompoundIndex(name = "tournament_type", def = "{ 'tournamentId' : 1, 'type' : 1 }")
 )
+@AnyNotNulls({
+        @AnyNotNull({ "bluePlayerId", "bluePlayerName" }),
+        @AnyNotNull({ "pinkPlayerId", "pinkPlayerName" })
+})
+@ValidPeriods
 public class Match extends MutableDocument {
     
+    @NotNull
+    @ExistingReference(Tournament.class)
     private String tournamentId;
     
     @Indexed
+    @ExistingReference(Player.class)
     private String bluePlayerId;
     
     @Transient
     private String bluePlayerName;
     
     @Indexed
+    @ExistingReference(Player.class)
     private String pinkPlayerId;
     
     @Transient
     private String pinkPlayerName;
     
+    @NotNull
     private MatchType type;
     
     private List<Period> periods;

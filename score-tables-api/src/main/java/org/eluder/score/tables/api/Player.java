@@ -1,5 +1,8 @@
 package org.eluder.score.tables.api;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,6 +16,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 })
 public class Player extends MutableDocument implements NamedDocument {
     
+    @NotNull
+    @Size(min = 1, max = 500)
     private String name;
     
     @JsonIgnore
