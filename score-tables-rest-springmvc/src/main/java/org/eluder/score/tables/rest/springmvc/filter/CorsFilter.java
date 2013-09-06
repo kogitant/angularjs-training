@@ -16,6 +16,7 @@ public class CorsFilter extends OncePerRequestFilter {
     private static final String REQUEST_METHOD = "Access-Control-Request-Method";
     private static final String ALLOW_ORIGIN = "Access-Control-Allow-Origin";
     private static final String ALLOW_CREDENTIALS = "Access-Control-Allow-Credentials";
+    private static final String ALLOW_HEADERS = "Access-Control-Allow-Headers";
     private static final String MAX_AGE = "Access-Control-Max-Age";
     private static final String CONTENT_TYPE = "Content-Type";
     
@@ -23,6 +24,7 @@ public class CorsFilter extends OncePerRequestFilter {
     protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain) throws ServletException, IOException {
         response.addHeader(ALLOW_ORIGIN, "*");
         response.addHeader(ALLOW_CREDENTIALS, "true");
+        response.addHeader(ALLOW_HEADERS, "Accept, Accept-Language, Content-Language, Last-Event-ID, Content-Type");
         if (isPreflightRequest(request)) {
             response.addIntHeader(MAX_AGE, 300);
             response.setContentType(getContentType(request));
