@@ -5,12 +5,12 @@ public class PlayerStats implements Domain {
     private String playerId;
     private String playerName;
     
-    private int points;
-    private int wins;
-    private int losses;
-    private int evens;
-    private int pointsScored;
-    private int pointsAgainst;
+    private double points;
+    private double wins;
+    private double losses;
+    private double evens;
+    private double pointsScored;
+    private double pointsAgainst;
     
     public String getPlayerId() {
         return playerId;
@@ -28,7 +28,7 @@ public class PlayerStats implements Domain {
         this.playerName = playerName;
     }
 
-    public int getPoints() {
+    public double getPoints() {
         return points;
     }
     
@@ -36,7 +36,7 @@ public class PlayerStats implements Domain {
         this.points = points;
     }
     
-    public int getWins() {
+    public double getWins() {
         return wins;
     }
 
@@ -44,7 +44,7 @@ public class PlayerStats implements Domain {
         this.wins = wins;
     }
 
-    public int getLosses() {
+    public double getLosses() {
         return losses;
     }
 
@@ -52,7 +52,7 @@ public class PlayerStats implements Domain {
         this.losses = losses;
     }
 
-    public int getEvens() {
+    public double getEvens() {
         return evens;
     }
     
@@ -60,7 +60,7 @@ public class PlayerStats implements Domain {
         this.evens = evens;
     }
     
-    public int getPointsScored() {
+    public double getPointsScored() {
         return pointsScored;
     }
 
@@ -68,7 +68,7 @@ public class PlayerStats implements Domain {
         this.pointsScored = pointsScored;
     }
 
-    public int getPointsAgainst() {
+    public double getPointsAgainst() {
         return pointsAgainst;
     }
 
