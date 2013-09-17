@@ -24,6 +24,7 @@ public class MongoConfiguration extends AbstractMongoConfiguration {
         return env.getProperty("mongo.db", "score-tables");
     }
 
+    @Bean
     @Override
     public Mongo mongo() throws Exception {
         String host = env.getProperty("mongo.host", String.class, "localhost");
