@@ -1,18 +1,17 @@
 package org.eluder.score.tables.api;
 
-import org.springframework.data.annotation.Transient;
 
 public class PlayerStats implements Domain {
 
-    @Transient private String playerId;
-    @Transient private String playerName;
+    private String playerId;
+    private String playerName;
     
-    @Transient private double points;
-    private double wins;
-    private double losses;
-    private double evens;
-    private double pointsScored;
-    private double pointsAgainst;
+    private int points;
+    private int wins;
+    private int losses;
+    private int evens;
+    private int pointsScored;
+    private int pointsAgainst;
     
     public String getPlayerId() {
         return playerId;
@@ -30,7 +29,7 @@ public class PlayerStats implements Domain {
         this.playerName = playerName;
     }
 
-    public double getPoints() {
+    public int getPoints() {
         return points;
     }
     
@@ -38,7 +37,7 @@ public class PlayerStats implements Domain {
         this.points = points;
     }
     
-    public double getWins() {
+    public int getWins() {
         return wins;
     }
 
@@ -46,7 +45,7 @@ public class PlayerStats implements Domain {
         this.wins = wins;
     }
 
-    public double getLosses() {
+    public int getLosses() {
         return losses;
     }
 
@@ -54,7 +53,7 @@ public class PlayerStats implements Domain {
         this.losses = losses;
     }
 
-    public double getEvens() {
+    public int getEvens() {
         return evens;
     }
     
@@ -62,7 +61,7 @@ public class PlayerStats implements Domain {
         this.evens = evens;
     }
     
-    public double getPointsScored() {
+    public int getPointsScored() {
         return pointsScored;
     }
 
@@ -70,7 +69,7 @@ public class PlayerStats implements Domain {
         this.pointsScored = pointsScored;
     }
 
-    public double getPointsAgainst() {
+    public int getPointsAgainst() {
         return pointsAgainst;
     }
 
