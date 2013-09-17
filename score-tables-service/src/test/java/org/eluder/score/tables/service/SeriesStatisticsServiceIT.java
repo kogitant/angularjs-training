@@ -58,9 +58,9 @@ public class SeriesStatisticsServiceIT extends BaseIntegrationTest {
         List<PlayerStats> stats = seriesStatisticsService.getTournamentStatistics(tournament);
         Assert.assertEquals(2, stats.size());
         Assert.assertEquals("p1", stats.get(0).getPlayerName());
-        Assert.assertEquals(4, stats.get(0).getPoints());
+        Assert.assertEquals(4.0, stats.get(0).getPoints(), 0.0001);
         Assert.assertEquals("p2", stats.get(1).getPlayerName());
-        Assert.assertEquals(0, stats.get(1).getPoints());
+        Assert.assertEquals(0.0, stats.get(1).getPoints(), 0.0001);
     }
     
     private Match match(final String blueId, final String pinkId, final Period... periods) {
