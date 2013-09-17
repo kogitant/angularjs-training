@@ -5,11 +5,14 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.bson.types.ObjectId;
 import org.eluder.score.tables.api.Match;
 import org.eluder.score.tables.api.Player;
 import org.eluder.score.tables.api.query.BasicQuery;
 import org.eluder.score.tables.service.repository.MatchRepository;
 import org.eluder.score.tables.service.repository.PlayerRepository;
+import org.eluder.score.tables.service.repository.SlugRepository;
+import org.eluder.score.tables.service.utils.BasicQuerySlugTransformer;
 import org.eluder.score.tables.service.utils.MongoDocumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -33,6 +36,9 @@ public class MatchService {
     private PlayerRepository playerRepository;
     
     @Autowired
+    private SlugRepository slugRepository;
+    
+    @Autowired
     private MongoOperations mongoOperations;
     
     public Match findOne(final String id) {
@@ -45,7 +51,7 @@ public class MatchService {
     }
     
     public List<Match> find(final BasicQuery query) {
-        Iterable<Match> matches = matchRepository.find(query);
+        Iterable<Match> matches = matchRepository.find(new BasicQuerySlugTransformer(slugRepository).apply(query));
         return compose(matches);
     }
     
@@ -58,7 +64,7 @@ public class MatchService {
     
     private String getPreparedPlayerId(final String playerId, final String playerName) {
         if (playerId != null) {
-            return playerId;
+            return (ObjectId.isValid(playerId) ? playerId : slugRepository.findIdBySlug(playerId, Player.class));
         }
         Player player = playerRepository.findBySearchName(new BasicQuery().setValue(playerName));
         if (player != null) {

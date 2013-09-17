@@ -45,6 +45,10 @@ public class AutoCompleteItemTransformerTest {
             public String getName() {
                 return name;
             }
+            @Override
+            public String getSlug() {
+                return name;
+            }
         };
     }
 }

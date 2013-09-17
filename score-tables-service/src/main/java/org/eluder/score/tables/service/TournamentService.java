@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.eluder.score.tables.api.Tournament;
+import org.eluder.score.tables.service.repository.SlugRepository;
 import org.eluder.score.tables.service.repository.TournamentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,11 @@ public class TournamentService {
     @Autowired
     private TournamentRepository tournamentRepository;
     
+    @Autowired
+    private SlugRepository slugRepository;
+    
     public Tournament findOne(final String id) {
-        return tournamentRepository.findOne(id);
+        return slugRepository.findOneByIdOrSlug(id, Tournament.class);
     }
     
     public List<Tournament> findAll() {

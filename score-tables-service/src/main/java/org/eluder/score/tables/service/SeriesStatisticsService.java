@@ -14,7 +14,7 @@ import org.eluder.score.tables.api.PlayerStats;
 import org.eluder.score.tables.api.Tournament;
 import org.eluder.score.tables.service.comparator.PlayerStatsComparator;
 import org.eluder.score.tables.service.exception.NotFoundException;
-import org.eluder.score.tables.service.repository.TournamentRepository;
+import org.eluder.score.tables.service.repository.SlugRepository;
 import org.eluder.score.tables.service.utils.MongoDocumentResolver;
 import org.eluder.score.tables.service.utils.PlayerStatsPointsTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
@@ -37,14 +38,14 @@ public class SeriesStatisticsService {
     private MongoOperations mongoOperations;
     
     @Autowired
-    private TournamentRepository tournamentRepository;
+    private SlugRepository slugRepository;
     
     @Autowired
     private PlayerStatsComparator playerStatsComparator;
     
     public List<PlayerStats> getTournamentStatistics(final String tournamentId) {
         Tournament tournament = getTournament(tournamentId);
-        Query query = query(where("tournamentId").is(tournamentId).and("type").is(SERIES.toString()));
+        Query query = query(where("tournamentId").is(tournament.getId()).and("type").is(SERIES.toString()));
         MapReduceResults<PlayerStatsValue> results = mongoOperations.mapReduce(query, "matches", "classpath:/mapreduce/player_stats_map.js", "classpath:/mapreduce/player_stats_reduce.js", options().javaScriptMode(true).outputTypeInline(), PlayerStatsValue.class);
         List<PlayerStats> playerStats = Lists.newArrayList(transformResults(results, tournament.getConfigurations().get(SERIES)));
         Collections.sort(playerStats, playerStatsComparator);
@@ -59,7 +60,7 @@ public class SeriesStatisticsService {
     }
     
     private Tournament getTournament(final String tournamentId) {
-        Tournament tournament = tournamentRepository.findOne(tournamentId);
+        Tournament tournament = slugRepository.findOneByIdOrSlug(tournamentId, Tournament.class, ImmutableList.of("id", "configurations"));
         if (tournament == null) {
             throw new NotFoundException(Tournament.class, tournamentId);
         }

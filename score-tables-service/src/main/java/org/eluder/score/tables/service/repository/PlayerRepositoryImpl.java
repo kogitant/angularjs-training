@@ -7,17 +7,12 @@ import org.eluder.score.tables.api.Player;
 import org.eluder.score.tables.api.query.BasicQuery;
 import org.eluder.score.tables.service.repository.criteria.KeywordCriteria;
 import org.eluder.score.tables.service.utils.LowerCaser;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
 @Repository
-public class PlayerRepositoryImpl implements PlayerRepositoryCustom {
-    
-    @Autowired
-    private MongoOperations mongoOperations;
+public class PlayerRepositoryImpl extends AbstractCustomRepository implements PlayerRepositoryCustom {
     
     @Override
     public Player findBySearchName(final BasicQuery query) {

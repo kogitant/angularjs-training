@@ -10,21 +10,23 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "tournaments")
-public class Tournament extends MutableDocument {
+public class Tournament extends SlugDocument {
     
     @Indexed(unique = true)
     @NotNull
-    @Size(min = 2)
+    @Size(min = 2, max = 2000)
     private String name;
     
     private Map<MatchType, MatchTypeConfiguration> configurations;
     
+    @Override
     public String getName() {
         return name;
     }
     
-    public void setName(final String name) {
+    public Tournament setName(final String name) {
         this.name = name;
+        return this;
     }
     
     public Map<MatchType, MatchTypeConfiguration> getConfigurations() {

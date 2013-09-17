@@ -7,15 +7,22 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.eluder.score.tables.api.BaseDocument;
+import org.eluder.score.tables.api.SlugDocument;
 import org.eluder.score.tables.api.validation.ExistingReference;
+import org.eluder.score.tables.service.repository.SlugRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;
+
+import com.google.common.collect.ImmutableList;
 
 public class ExistingReferenceValidator implements ConstraintValidator<ExistingReference, String> {
 
     @Autowired
     private MongoOperations mongoOperations;
+    
+    @Autowired
+    private SlugRepository slugRepository;
     
     private Class<? extends BaseDocument> type;
     
@@ -29,9 +36,13 @@ public class ExistingReferenceValidator implements ConstraintValidator<ExistingR
         if (value == null) {
             return true;
         } else {
-            Query query = query(where("id").is(value));
-            query.fields();
-            return (mongoOperations.findOne(query, type) != null);
+            if (SlugDocument.class.isAssignableFrom(type)) {
+                return (slugRepository.findOneByIdOrSlug(value, type.asSubclass(SlugDocument.class), ImmutableList.<String>of()) != null);
+            } else {
+                Query query = query(where("id").is(value));
+                query.fields();
+                return (mongoOperations.findOne(query, type) != null);
+            }
         }
     }
 }

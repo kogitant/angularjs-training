@@ -11,4 +11,9 @@ public abstract class BaseDocument implements Domain {
         return id;
     }
     
+    public BaseDocument setId(final String id) {
+        this.id = id;
+        return this;
+    }
+    
 }

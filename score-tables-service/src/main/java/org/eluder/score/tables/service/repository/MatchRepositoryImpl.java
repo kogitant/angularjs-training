@@ -4,16 +4,11 @@ import static org.eluder.score.tables.service.repository.criteria.CollectionCrit
 
 import org.eluder.score.tables.api.Match;
 import org.eluder.score.tables.api.query.BasicQuery;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MatchRepositoryImpl implements MatchRepositoryCustom {
-
-    @Autowired
-    private MongoOperations mongoOperations;
+public class MatchRepositoryImpl extends AbstractCustomRepository implements MatchRepositoryCustom {
     
     @Override
     public Iterable<Match> find(final BasicQuery query) {

@@ -6,4 +6,5 @@ public interface NamedDocument extends Domain {
     
     String getName();
     
+    String getSlug();
 }
