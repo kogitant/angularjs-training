@@ -49,12 +49,14 @@
       <scope>compile</scope>
     </dependency>
     
+    <!-- 
     <dependency>
     <groupId>org.eluder.jetty</groupId>
     <artifactId>embedded-jetty-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <scope>provided</scope>
     </dependency>
+     -->
   </dependencies>
 
   <build>
