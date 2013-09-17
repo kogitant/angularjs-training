@@ -1,11 +1,13 @@
 package org.eluder.score.tables.api;
 
+import org.springframework.data.annotation.Transient;
+
 public class PlayerStats implements Domain {
 
-    private String playerId;
-    private String playerName;
+    @Transient private String playerId;
+    @Transient private String playerName;
     
-    private double points;
+    @Transient private double points;
     private double wins;
     private double losses;
     private double evens;

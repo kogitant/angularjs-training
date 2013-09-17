@@ -18,7 +18,9 @@ import org.eluder.score.tables.service.repository.SlugRepository;
 import org.eluder.score.tables.service.utils.MongoDocumentResolver;
 import org.eluder.score.tables.service.utils.PlayerStatsPointsTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapreduce.MapReduceResults;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
@@ -67,8 +69,9 @@ public class SeriesStatisticsService {
         return tournament;
     }
     
+    @Document
     private static class PlayerStatsValue {
-        public String id;
+        @Id public String id;
         public PlayerStats value;
     }
     
