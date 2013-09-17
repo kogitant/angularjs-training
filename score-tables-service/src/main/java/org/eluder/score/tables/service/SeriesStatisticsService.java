@@ -4,7 +4,6 @@ import static org.springframework.data.mongodb.core.mapreduce.MapReduceOptions.o
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.eluder.score.tables.api.MatchType;
@@ -17,6 +16,8 @@ import org.eluder.score.tables.service.exception.NotFoundException;
 import org.eluder.score.tables.service.repository.SlugRepository;
 import org.eluder.score.tables.service.utils.MongoDocumentResolver;
 import org.eluder.score.tables.service.utils.PlayerStatsPointsTransformer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -29,10 +30,11 @@ import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 
 @Service
 public class SeriesStatisticsService {
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(SeriesStatisticsService.class);
     
     private static final MatchType SERIES = MatchType.SERIES;
     
@@ -48,10 +50,14 @@ public class SeriesStatisticsService {
     public List<PlayerStats> getTournamentStatistics(final String tournamentId) {
         Tournament tournament = getTournament(tournamentId);
         Query query = query(where("tournamentId").is(tournament.getId()).and("type").is(SERIES.toString()));
-        MapReduceResults<PlayerStatsValue> results = mongoOperations.mapReduce(query, "matches", "classpath:/mapreduce/player_stats_map.js", "classpath:/mapreduce/player_stats_reduce.js", options().javaScriptMode(true).outputTypeInline(), PlayerStatsValue.class);
+        MapReduceResults<Object> results = mongoOperations.mapReduce(query, "matches", "classpath:/mapreduce/player_stats_map.js", "classpath:/mapreduce/player_stats_reduce.js", options().javaScriptMode(true).outputTypeInline(), Object.class);
+        LOGGER.info(results.getRawResults().toString());
+        return ImmutableList.of();
+        /*
         List<PlayerStats> playerStats = Lists.newArrayList(transformResults(results, tournament.getConfigurations().get(SERIES)));
         Collections.sort(playerStats, playerStatsComparator);
         return playerStats;
+        */
     }
     
     private Iterable<PlayerStats> transformResults(final Iterable<PlayerStatsValue> results, final MatchTypeConfiguration configuration) {
