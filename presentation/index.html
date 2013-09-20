@@ -33,15 +33,15 @@
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
         <section>
+          <p>20.9.2013</p>
           <h1>Introduction to <br>AngularJS</h1>          
-          <!--
           <p>
             <br>
             <a href="http://www.linkedin.com/in/jsalonen">Jaakko Salonen</a>
             &amp;
             <a href="http://www.linkedin.com/in/tjaakkola">Tapio Jaakkola</a>
           </p>
-        -->
+          <br>
           <center>
             <a href="http://gofore.com/"><img src="images/gofore_cmyk.png" class="borderless"></a>
           </center>
@@ -105,9 +105,6 @@
               <li>Decouple server side and client side (&rarr; reusability, testability)</li>
               <li>Guide developers (UI design &rarr; business logic &rarr; testing)</li>
             </ul>
-          </section>
-          <section>
-            <h2></h2>
           </section>
         </section>
         <section>
@@ -196,12 +193,26 @@ function ListCtrl($scope) {
 
           <section>
             <h2><a href="http://docs.angularjs.org/guide/concepts#directives" target="_blank">Directives</a> <sup>3</sup></h2>
-            <blockquote>"A directive is a behavior or DOM transformation which is triggered by the presence of a custom attribute, element name, class name or comment. A directive allows you to extend the HTML vocabulary in a declarative fashion. Following is an example which enables data-binding for the contenteditable in HTML." <sup>3</sup></blockquote>
+            <ul>
+              <li>A behaviour or DOM transformation, which is triggered by the presence of a custom attribute, element name, class name or comment</li>
+              <li>Allows you to extend the HTML vocabulary in a declarative fashion.</li>
+              <li>Examples: make content editable with <code>contentEditable="true"</code> attribute.</li>
+            </ul>
           </section>
 
           <section>
             <h2><a href="http://docs.angularjs.org/guide/concepts#filters" target="_blank">Filters</a> <sup>3</sup></h2>
-            <blockquote>"Filters perform data transformation. Typically they are used in conjunction with the locale to format the data in locale specific output. They follow the spirit of UNIX filters and use similar syntax | (pipe)." <sup>3</sup></blockquote>
+            <ul>
+              <li>Filters perform data transformation (similar in spirit to UNIX pipe (<code>|</code>) filters</li>
+              <li>Filters can and are often chained</li>
+              <li>Examples:
+                  <ul>
+                      <li>filter a list by search string</li>
+                      <li>format data according to a data type or locale</li>
+                      <li>convert data into a specific format (e.g. <code>json</code> filter)</li>
+                  </ul>
+              </li>
+            </ul>
           </section>
 
           <section>
@@ -216,8 +227,20 @@ function ListCtrl($scope) {
         </section>
 
         <section>
+          <h2>References and Further Reading</h2>
+          <div style="text-align: left">
+            <p>[1] <a href="http://en.wikipedia.org/wiki/AngularJS">AngularJS (Wikipedia)</a></p>
+            <p>[2] <a href="http://docs.angularjs.org/guide/overview">AngularJS Overview</a></p>
+            <p>[3] <a href="http://docs.angularjs.org/guide/concepts">AngularJS Conceptual Overview</a></p>
+            <p>[4] <a href="http://www.slideshare.net/olegp/oleg-podsechinfrontendconf">AngularJS - the folly of choice</a>, Frontend DEV Conf '13</p>
+            <p>[5] <a href="http://www.slideshare.net/olegp/tips-from-angular-js-users-anonymous-25199815">Tips from AngularJS Users Anonymous</a>, HelsinkiJS August 2013 at F-Secure.</p>
+            <p>[6] <a href="https://moot.it/blog/technology/frameworkless-javascript.html">Why Angular, Ember, or Backbone don't work for us</a>, Tero Piirainen</p>
+          </div>
+        </section>
+
+        <section>
           <section>
-            <h2>Angular criticism</h2>
+            <h2>Appendix I:<br>Angular criticism</h2>
           </section>
 
           <section>
@@ -232,7 +255,7 @@ function ListCtrl($scope) {
             </div>
           </section>
           <section>
-            <h2>Know the implications</h2>
+            <h2>&rarr; Know the implications,<br>but don't worry too much!</h2>
             <p><b>Potential deal-breakers:</b></p>
             <ul>
               <li>Strict size, performance or interoperability requirements</li>
@@ -240,18 +263,6 @@ function ListCtrl($scope) {
               <li>Application domain outside CRUD</li>
             </ul>
           </section>
-        </section>
-
-        <section>
-          <h2>References and Further Reading</h2>
-          <div style="text-align: left">
-            <p>[1] <a href="http://en.wikipedia.org/wiki/AngularJS">AngularJS (Wikipedia)</a></p>
-            <p>[2] <a href="http://docs.angularjs.org/guide/overview">AngularJS Overview</a></p>
-            <p>[3] <a href="http://docs.angularjs.org/guide/concepts">AngularJS Conceptual Overview</a></p>
-            <p>[4] <a href="http://www.slideshare.net/olegp/oleg-podsechinfrontendconf">AngularJS - the folly of choice</a>, Frontend DEV Conf '13</p>
-            <p>[5] <a href="http://www.slideshare.net/olegp/tips-from-angular-js-users-anonymous-25199815">Tips from AngularJS Users Anonymous</a>, HelsinkiJS August 2013 at F-Secure.</p>
-            <p>[6] <a href="https://moot.it/blog/technology/frameworkless-javascript.html">Why Angular, Ember, or Backbone don't work for us</a>, Tero Piirainen</p>
-          </div>
         </section>
       </div>
     </div>
