@@ -13,11 +13,18 @@ AngularJS training, Fall 2013
 
 ### Running locally
 
-- start mongo
+- start mongo (default port)
 - start server:
-  server/mvn clean install
-  server/score-tables-rest-springmvc/mvn jetty:run
+
+```bash
+server/mvn clean install
+server/score-tables-rest-springmvc/mvn jetty:run
+```
+
 - start client:
-  client/npm install -d
-  client/bower install
-  client/grunt server
+
+```bash
+client/npm install -d
+client/bower install
+client/grunt server
+```
