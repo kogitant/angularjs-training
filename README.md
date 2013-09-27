@@ -17,15 +17,12 @@ Dependencies:
 
 First, start the server:
 
-```bash
-server/mvn clean install
-server/score-tables-rest-springmvc/mvn jetty:run
-```
+    server/mvn clean install
+    server/score-tables-rest-springmvc/mvn jetty:run
 
 Then, start the client:
 
-```bash
-client/npm install -d
-client/bower install
-client/grunt server
-```
+    client/npm install -d
+    client/bower install
+    client/grunt server
+
