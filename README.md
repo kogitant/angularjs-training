@@ -17,7 +17,6 @@ Dependencies:
 
 First, start the server:
 
-- 
 ```bash
 server/mvn clean install
 server/score-tables-rest-springmvc/mvn jetty:run
