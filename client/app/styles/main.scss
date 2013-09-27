@@ -1,0 +1,99 @@
+$iconSpritePath: "../images/glyphicons-halflings.png";
+$iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
+
+/* Put your CSS here */
+html, body {
+  margin: 20px;
+}
+
+body {
+    background: #fff;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #333;
+}
+
+.hero-unit {
+    margin: 50px auto 0 auto;
+    width: 300px;
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 30px;
+    background-color: #eee;
+    border-radius: 6px;
+    padding: 60px;
+}
+
+.hero-unit h1 {
+    font-size: 60px;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+.leader {
+    position: absolute;
+    z-index: 100;
+    border: 1px solid #888;
+    background-color: black;
+    padding: 20px;
+    color: white;
+}
+
+.red {
+    background-color: red;
+}
+
+
+.toggle-animation {
+        
+    &.ng-hide-add, 
+    &.ng-hide-remove {
+        -webkit-transition:0.3s ease all;
+        -moz-transition:0.3s ease all;
+        -o-transition:0.3s ease all;
+        transition:0.3s ease all;
+    }
+
+    &.ng-hide-remove {
+        opacity: 0;
+    }
+
+    &.ng-hide-remove.ng-hide-remove-active {
+        opacity: 1;
+    }
+
+    &.ng-hide-add {
+        opacity: 1;
+    }
+
+    &.ng-hide-add.ng-hide-add-active {
+        opacity: 0;
+    }
+}
+
+
+.class-change-animation {
+    
+    &.color-change-add, 
+    &.color-change-remove {
+        -webkit-transition:0.3s ease all;
+        -moz-transition:0.3s ease all;
+        -o-transition:0.3s ease all;
+        transition:0.3s ease all;
+    }
+
+    &.color-change-add, 
+    &.color-change-remove.color-change-remove-active {
+        background-color: white;
+        width: 200px;
+    }
+    &.color-change,
+    &.color-change-remove, 
+    &.color-change-add.color-change-add-active {
+        background-color: red;
+        width: 600px;
+    }
+
+}
+
+
+
