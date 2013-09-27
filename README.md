@@ -1,16 +1,18 @@
-AngularJS training, Fall 2013:
+AngularJS training, Fall 2013
 
 - presentation - contains intro slides
 - server - backend (from: https://github.com/trautonen/score-tables)
 - client - frontend implementation using angularjs
 
 
---- DEPENCIES ---
-node
-npm
-bower
+### Dependencies 
 
---- RUNNING LOCALLY ---
+- node
+- npm
+- bower
+
+### Running locally
+
 - start mongo
 - start server:
   server/mvn clean install
