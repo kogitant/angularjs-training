@@ -1,16 +1,13 @@
 'use strict';
-
+var kikkeriApp; // app.js
 
 kikkeriApp.factory('MatchModel', function($q, MatchesRsc, TournamentModel) {
-	var model = new function() {
-
-
-		this.match = {
-			type: "SERIES",
-			periods: [{},{}]
-		}
-
-		this.persistMatch = function(tournamentId) {
+	var model = {
+		match: {
+			type: 'SERIES',
+			periods: [{}, {}]
+		},
+		persistMatch: function(tournamentId) {
 			var deferred = $q.defer();
 			model.match.tournamentId = tournamentId;
 
@@ -20,7 +17,7 @@ kikkeriApp.factory('MatchModel', function($q, MatchesRsc, TournamentModel) {
 
 			return deferred.promise;
 		}
-	}
+	};
 	return model;
 });
 
@@ -30,11 +27,9 @@ function MatchCtrl($scope, $routeParams, $location, MatchModel, TournamentModel)
 	$scope.matchModel = MatchModel;
 
 	$scope.submit = function() {
-
 		var promise = $scope.matchModel.persistMatch($scope.tournamentId);
 		promise.then(function() {
 			$location.path('/tournament/' + $scope.tournamentId);
 		});
-	}
-
+	};
 }

@@ -1,16 +1,14 @@
 'use strict';
 
-var domain = "http://localhost:8080";
+// Configure domain
+var domain = 'http://localhost:8080';
 
-
-//INIT APPLICATION
+// Create application module
 var kikkeriApp = angular.module('kikkeriApp', ['ngResource', 'ngRoute', 'ngAnimate']);
 
-//ROUTING
+// Routing
 kikkeriApp.config(function ($routeProvider) {
-  
   $routeProvider
-    
     .when('/', {
       templateUrl: 'views/tournaments.html',
       controller: 'TournamentsCtrl'
@@ -25,34 +23,32 @@ kikkeriApp.config(function ($routeProvider) {
       templateUrl: 'views/match.html',
       controller: 'MatchCtrl'
     })
-
     .otherwise({redirectTo: '/'});
 });
 
-
-//REST SERVICES
+// Rest services
 kikkeriApp.factory('MatchesRsc', function($resource) {
   return $resource(domain + '/matches', {}, {
-    get: {method: "GET", isArray: true},
-    post: {method: "POST"},
+    get: {method: 'GET', isArray: true},
+    post: {method: 'POST'},
   });
 });
 
 kikkeriApp.factory('TournamentsRsc', function($resource) {
   return $resource(domain + '/tournaments', {}, {
-    get: {method: "GET", isArray: true},
-    post: {method: "POST"}
+    get: {method: 'GET', isArray: true},
+    post: {method: 'POST'}
   });
 });
 
 kikkeriApp.factory('TournamentStatisticsRsc', function($resource) {
   return $resource(domain + '/tournaments/:tournamentOid/statistics', {tournamentOid: '@tournamentOid'}, {
-    get: {method: "GET", isArray: true},
+    get: {method: 'GET', isArray: true},
   });
 });
 
 kikkeriApp.factory('TournamentRsc', function($resource) {
   return $resource(domain + '/tournaments/:tournamentOid', {tournamentOid: '@tournamentOid'}, {
-    get: {method: "GET"},
+    get: {method: 'GET'},
   });
 });

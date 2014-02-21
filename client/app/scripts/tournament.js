@@ -1,14 +1,12 @@
 'use strict';
+var kikkeriApp; // from app.js
 
 kikkeriApp.factory('TournamentModel', function(MatchesRsc, TournamentStatisticsRsc, TournamentRsc) {
-	var model = new function() {
-		this.tournament = {};
-		this.matches = [];
-		this.statistics = []; 
-
-
-		this.refresh = function(tournamentOid) {
-			
+	var model = {
+		tournament: {},
+		matches: [],
+		statistics: [],
+		refresh: function(tournamentOid) {		
 			TournamentRsc.get({tournamentOid: tournamentOid}, function(result) {
 				model.tournament = result;
 			});
@@ -25,8 +23,7 @@ kikkeriApp.factory('TournamentModel', function(MatchesRsc, TournamentStatisticsR
 				console.log(error);
 			});
 		}
-	} 
-
+	};
 	return model;
 });
 
@@ -38,5 +35,5 @@ function TournamentCtrl($rootScope, $scope, $routeParams, TournamentModel) {
 	$scope.showLeader = function() {
 		$scope.showPlayer = !$scope.showPlayer;
 		$rootScope.$broadcast('centralizeElement');
-	}
+	};
 }
