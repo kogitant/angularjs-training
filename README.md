@@ -1,4 +1,4 @@
-# AngularJS Training Workshop Materials
+# AngularJS Training Materials
 
 In this repository:
 
