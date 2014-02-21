@@ -17,12 +17,15 @@ Dependencies:
 
 First, start the server:
 
-    server/mvn clean install
-    server/score-tables-rest-springmvc/mvn jetty:run
+    cd server
+    mvn clean install
+    cd score-tables-rest-springmvc
+    mvn jetty:run
 
 Then, start the client:
 
-    client/npm install
-    client/bower install
-    client/grunt server
+    cd client
+    npm install
+    bower install
+    grunt server
 
