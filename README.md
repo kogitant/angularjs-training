@@ -1,4 +1,4 @@
-# AngularJS training, Fall 2013
+# AngularJS Training Workshop Materials
 
 In this repository:
 
