@@ -22,7 +22,7 @@ First, start the server:
 
 Then, start the client:
 
-    client/npm install -d
+    client/npm install
     client/bower install
     client/grunt server
 
