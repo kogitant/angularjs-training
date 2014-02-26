@@ -173,12 +173,54 @@
 
         <section>
           <section>
-            <h2>Architecture and Key Concepts</h2>
+            <h2>Architecture and Conceptual Overview (with examples)</h2>
           </section>
 
           <section>
-            <h2><a href="http://docs.angularjs.org/guide/concepts#startup" target="_blank">Startup</a> <sup>3</sup></h2>
+            <h2><a href="http://docs.angularjs.org/guide/bootstrap" target="_blank">Bootstrapping</a> <sup>3</sup></h2>
+            <pre><code>&lt;!doctype html>
+&lt;html ng-app>
+  &lt;body>
+    <!-- ... -->
+    &lt;script src="angular.js">&lt;/script>
+  &lt;/body>
+&lt;/html>
+            </code></pre>
+            <div><b>Minimal Angular app = </b> put <code>ng-app</code> somewhere + load <code>angular.js</code></div>
+            (If IE7 support is required add <code>id="ng-app"</code> too)
+          </section>
+
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/bootstrap#automatic-initialization">Automatic Initialization</a></h2>
             <p><img src="images/angularjs-concepts-startup.png" style="width: 70%"></p>
+          </section>
+
+          <section>
+            <h2>Automatic Initialization</h2>
+            <h3><a href="http://docs.angularjs.org/api/ng/directive/ngApp">ngApp</a> in Detail</h3>
+            <ol>
+              <li class="fragment">Automatically initialize Angular after document has loaded</li>
+              <li class="fragment">Look for <code>ng-app</code> attribute in the DOM hierarchy</li>
+              <li class="fragment">If a <b>module</b> was referenced, load it (here: <code>myModule</code>)</li>
+              <li class="fragment">Create application <b>injector</b></li>
+              <li class="fragment">Compile DOM that resides inside the element containg <code>ng-app</code> attribute</li>
+            </ol>
+          </section>
+
+          <section>
+            <h2>Example</h2>
+            <h3><a href="http://jsfiddle.net/jsalonen/Z9XC9/">jsfiddle.net/jsalonen/Z9XC9/</a></h3>
+<pre><code>&lt;script type="text/javascript">
+    var myApp = angular.module('myApp', []);
+&lt;/script>
+&lt;div ng-app="myApp">
+  1, 2, ..., 10 = {{1+2+3+4+5+6+7+8+910}}
+&lt;/div>
+&lt;div class="some-container">
+  1 + 2 = {{1+2}}
+&lt;/div>  
+</code></pre>
+<iframe width="100%" height="300" src="http://jsfiddle.net/jsalonen/Z9XC9/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
           </section>
 
           <section>
@@ -189,7 +231,7 @@
           <section>
             <h2><a href="http://docs.angularjs.org/guide/concepts#scope" target="_blank">Scope</a> <sup>3</sup></h2>
             <p>JavaScript</p>
-            <pre><code>function GreetCtrl($scope) {
+<pre><code>function GreetCtrl($scope) {
   $scope.name = 'World';
 }
      
