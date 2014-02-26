@@ -1,10 +1,10 @@
-# AngularJS Training Materials
+# AngularJS Training Workshop Materials
 
 In this repository:
 
-- presentation - contains intro slides
-- server - backend (from: https://github.com/trautonen/score-tables)
-- client - frontend implementation using angularjs
+- presentations - Contains presentations
+- server - Backend implementation (from: https://github.com/trautonen/score-tables)
+- client - Frontend implementation
 
 ## Running the app
 
@@ -28,4 +28,3 @@ Then, start the client:
     npm install
     bower install
     grunt server
-

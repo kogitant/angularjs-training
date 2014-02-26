@@ -1,0 +1,15 @@
+<tr>
+	<td rowspan="2">{{$index + 1}}</td>
+	<td>{{match.bluePlayerName}}</td>
+	<td>{{match.periods[0].bluePlayerScore}}</td>
+	<td>{{match.periods[1].bluePlayerScore}}</td>
+	<td>{{match.bluePlayerPointsScored}} / {{match.pinkPlayerPointsScored}}</td>
+	<td>{{match.bluePlayerPeriodsWon}}</td>
+</tr>
+<tr>
+	<td>{{match.pinkPlayerName}}</td>
+	<td>{{match.periods[0].pinkPlayerScore}}</td>
+	<td>{{match.periods[1].pinkPlayerScore}}</td>
+	<td>{{match.pinkPlayerPointsScored}} / {{match.bluePlayerPointsScored}}</td>
+	<td>{{match.pinkPlayerPeriodsWon}}</td>
+</tr>

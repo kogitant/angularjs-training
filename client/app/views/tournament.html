@@ -58,7 +58,9 @@
 					<th>Pisteet</th>
 				</tr>
 			</thead>
-			<tbody ng-repeat="match in tournamentModel.matches">
+			<tbody ng-repeat="match in tournamentModel.matches" match="match">
+				<match-result></match-result>				
+				<!--
 				<tr>
 					<td rowspan="2">{{$index + 1}}</td>
 					<td>{{match.bluePlayerName}}</td>
@@ -74,6 +76,7 @@
 					<td>{{match.pinkPlayerPointsScored}} / {{match.bluePlayerPointsScored}}</td>
 					<td>{{match.pinkPlayerPeriodsWon}}</td>
 				</tr>
+				-->
 			</tbody>
 		</table>
 	</div>
