@@ -224,6 +224,28 @@
           </section>
 
           <section>
+            <h2>Manual Initialization</h2>
+            <h3>Omit <code>ng-app</code> to manually orchestrate initialization</h3>
+<pre><code>&lt;!doctype html>
+&lt;html xmlns:ng="http://angularjs.org">
+  &lt;body>
+    Hello {{'World'}}!
+    &lt;script src="http://code.angularjs.org/angular.js">&lt;/script>
+    &lt;script&gt;
+      angular.element(document).ready(function() {
+        angular.module('myApp', []);
+        angular.bootstrap(document, ['myApp']);
+      });
+    &lt;/script>
+  &lt;/body>
+&lt;/html></code></pre>
+            <ul>
+              <li class="fragment">element = <a href="http://docs.angularjs.org/api/ng/function/angular.element">angular.element</a> ("Wraps a raw DOM element or HTML string as a jQuery element")</li>
+              <li class="fragment">angular.bootstrap invokes compile to turn the element into an executable, bi-directionally bound application.</li>
+            </ul>
+          </section>
+
+          <section>
             <h2><a href="http://docs.angularjs.org/guide/concepts#runtime" target="_blank">Runtime</a> <sup>3</sup></h2>
             <p><img src="images/angularjs-concepts-runtime.png" style="width: 70%"></p>
           </section>
