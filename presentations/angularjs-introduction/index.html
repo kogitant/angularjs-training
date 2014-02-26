@@ -47,15 +47,19 @@
         </section>
 
         <section>
-          <h2>What's up</h2>
+          <h2>Contents</h2>
           <ul>
-            <li>Background</li>
-            <li>Design overview</li>
-            <li>Use cases</li>
-            <li>Architecture and key concepts</li>
+            <li>Part 1: Background and a High-level Overview</li>
+            <li>Part 2: Architecture, Key Concepts and Core Features</li>
+            <li>Part 3: More on Features</li>
           </ul>
 
           <p><br><em>Hint: Use up/down arrows to navigate inside topics</em></p>
+        </section>
+
+        <section>
+          <h1>Part 1</h1>
+          <h2>Background and a High-level Overview</h2>
         </section>
 
         <section>
@@ -170,14 +174,30 @@
             </ul>
           </section>
         </section>
+        <section>
+          <h2>References and Further Reading</h2>
+          <div style="text-align: left">
+            <p>[1] <a href="http://en.wikipedia.org/wiki/AngularJS">AngularJS (Wikipedia)</a></p>
+            <p>[2] <a href="http://docs.angularjs.org/guide/overview">AngularJS Overview</a></p>
+            <p>[3] <a href="http://docs.angularjs.org/guide/concepts">AngularJS Conceptual Overview</a></p>
+            <p>[4] <a href="http://www.slideshare.net/olegp/oleg-podsechinfrontendconf">AngularJS - the folly of choice</a>, Frontend DEV Conf '13</p>
+            <p>[5] <a href="http://www.slideshare.net/olegp/tips-from-angular-js-users-anonymous-25199815">Tips from AngularJS Users Anonymous</a>, HelsinkiJS August 2013 at F-Secure.</p>
+            <p>[6] <a href="https://moot.it/blog/technology/frameworkless-javascript.html">Why Angular, Ember, or Backbone don't work for us</a>, Tero Piirainen</p>
+          </div>
+        </section>
+
+        <section>
+          <h1>Part 2</h1>
+          <h2>Architecture, Key Concepts<br>and Core Features</h2>
+        </section>
 
         <section>
           <section>
-            <h2>Architecture and Conceptual Overview (with examples)</h2>
+            <h2>Bootstrap and Initialization</h2>
           </section>
 
           <section>
-            <h2><a href="http://docs.angularjs.org/guide/bootstrap" target="_blank">Bootstrapping</a> <sup>3</sup></h2>
+            <h2><a href="http://docs.angularjs.org/guide/bootstrap" target="_blank">Bootstrapping</a></h2>
             <pre><code>&lt;!doctype html>
 &lt;html ng-app>
   &lt;body>
@@ -220,7 +240,6 @@
   1 + 2 = {{1+2}}
 &lt;/div>  
 </code></pre>
-<iframe width="100%" height="300" src="http://jsfiddle.net/jsalonen/Z9XC9/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
           </section>
 
           <section>
@@ -246,12 +265,49 @@
           </section>
 
           <section>
-            <h2><a href="http://docs.angularjs.org/guide/concepts#runtime" target="_blank">Runtime</a> <sup>3</sup></h2>
-            <p><img src="images/angularjs-concepts-runtime.png" style="width: 70%"></p>
+            <h3><a href="http://docs.angularjs.org/guide/concepts#injector" target="_blank">Modules and the Injector</a></sup></h3>
+            <p><img src="images/angularjs-concepts-module-injector.png" style="width: 70%"></p>
           </section>
 
           <section>
-            <h2><a href="http://docs.angularjs.org/guide/concepts#scope" target="_blank">Scope</a> <sup>3</sup></h2>
+            <h2>$ Prefix Indicates Angular Namespace</h2>
+            <blockquote>"To prevent accidental name collision, Angular prefixes names of objects which could potentially collide with $. Please do not use the $ prefix in your code as it may accidentally collide with Angular code." <sup>3</sup></blockquote>
+            <br>
+            <h3>But note: <code>$</code> alone refers to <code>jQuery</code> if in use</h3>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Data Binding, Scopes and Controllers</h2>
+          </section>
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/concepts#a-first-example-data-binding">Data Binding</a></h2>
+            <h3><a href="http://jsfiddle.net/jsalonen/ZWu2s/">jsfiddle.net/jsalonen/ZWu2s/</a></h3>
+<pre><code>&lt;div ng-app ng-init="firstname='John'; lastname='Doe';">
+  &lt;div>
+    &lt;input type="text" ng-model="firstname">
+    &lt;input type="text" ng-model="lastname">
+  &lt;div>
+  &lt;h1>Hello {{firstname + " " + lastname}}</h1>
+&lt;/div></code></pre>
+          </section>
+          <section>
+            <h2>Data Binding Glues Models to Views</h2>
+            <div>
+              <img src="images/concepts-databinding1.png" style="width: 75%">
+            </div>
+            <ul>
+              <li class="fragment">Initialize model variables with <a href="http://docs.angularjs.org/api/ng/directive/ngInit">ng-init directive</a></li>
+              <li class="fragment">Bind variables to view with <a href="http://docs.angularjs.org/api/ng/directive/ngModel">ng-model</code> directive</a></li>
+              <li class="fragment">No distinct model object - data is stored inside <b>scope</b> along with functions</li>
+            </ul>
+          </section>
+          <section>
+            <h2>$scope</h2>
+                        
+          </section>
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/concepts#adding-ui-logic-controllers">Controllers</a></h2>
             <p>JavaScript</p>
 <pre><code>function GreetCtrl($scope) {
   $scope.name = 'World';
@@ -281,16 +337,11 @@ function ListCtrl($scope) {
             <h2><a href="http://docs.angularjs.org/guide/concepts#rview" target="_blank">View</a> <sup>3</sup></h2>
             <p><img src="images/angularjs-concepts-view.png" style="width: 70%"></p>
           </section>
-
+        </section>
+        <section>
           <section>
-            <h2><a href="http://docs.angularjs.org/guide/concepts#directives" target="_blank">Directives</a> <sup>3</sup></h2>
-            <ul>
-              <li>A behaviour or DOM transformation, which is triggered by the presence of a custom attribute, element name, class name or comment</li>
-              <li>Allows you to extend the HTML vocabulary in a declarative fashion.</li>
-              <li>Examples: make content editable with <code>contentEditable="true"</code> attribute.</li>
-            </ul>
+            <h2>Filters, Expressions and Directives</h2>
           </section>
-
           <section>
             <h2><a href="http://docs.angularjs.org/guide/concepts#filters" target="_blank">Filters</a> <sup>3</sup></h2>
             <ul>
@@ -305,28 +356,83 @@ function ListCtrl($scope) {
               </li>
             </ul>
           </section>
-
           <section>
-            <h2><a href="http://docs.angularjs.org/guide/concepts#injector" target="_blank">Modules and the Injector</a> <sup>3</sup></h2>
-            <p><img src="images/angularjs-concepts-module-injector.png" style="width: 70%"></p>
+            <h2><a href="http://docs.angularjs.org/guide/concepts#directives" target="_blank">Directive</a></h2>
+            <ul>
+              <li>A behaviour or DOM transformation, which is triggered by the presence of a custom attribute, element name, class name or comment</li>
+              <li>Allows you to extend the HTML vocabulary in a declarative fashion.</li>
+              <li>Multiple directives have already been introduced<br>(can you recall them?)</li>
+              <li>A more advanced example: make content editable with <code>contentEditable="true"</code> attribute.</li>
+            </ul>
           </section>
-
+        </section>
+        <section>
           <section>
-            <h2>Angular Namespace</h2>
-            <blockquote>"To prevent accidental name collision, Angular prefixes names of objects which could potentially collide with $. Please do not use the $ prefix in your code as it may accidentally collide with Angular code." <sup>3</sup></blockquote>
+            <h2><a href="http://docs.angularjs.org/guide/concepts">Recap on Key Concepts</a></h2>
+          </section>
+          <section>
+            <h2>Template</h2>
+            <h3 class="fragment">HTML with additional markup</h3>
+          </section>
+          <section>
+            <h2>Model</h2>
+            <h3 class="fragment">The data that is shown to the user and with which the user interacts</h3>
+          </section>
+          <section>
+            <h2>View</h2>
+            <h3 class="fragment">What the user sees (the DOM)</h3>
+          </section>
+          <section>
+            <h2>Data Binding</h2>
+            <h3 class="fragment">Sync data between the model and the view</h3>
+          </section>
+          <section>
+            <h2>Expression</h2>
+            <h3 class="fragment">Access variables and functions from the scope</h3>
+          </section>
+          <section>
+            <h2>Filter</h2>
+            <h3 class="fragment">formats the value of an expression for display to the user</h3>              
+          </section>
+          <section>
+            <h2>Directive</h2>
+            <h3 class="fragment">Extends HTML with custom attributes and elements</h3>
+          </section>
+          <section>
+            <h2>Scope</h2>
+            <h3 class="fragment">Context where the model is stored so that controllers, directives and expressions can access it</h3>
+          </section>
+          <section>
+            <h2>Controller</h2>
+            <h3 class="fragment">The business logic behind views</h3>
           </section>
         </section>
 
         <section>
-          <h2>References and Further Reading</h2>
-          <div style="text-align: left">
-            <p>[1] <a href="http://en.wikipedia.org/wiki/AngularJS">AngularJS (Wikipedia)</a></p>
-            <p>[2] <a href="http://docs.angularjs.org/guide/overview">AngularJS Overview</a></p>
-            <p>[3] <a href="http://docs.angularjs.org/guide/concepts">AngularJS Conceptual Overview</a></p>
-            <p>[4] <a href="http://www.slideshare.net/olegp/oleg-podsechinfrontendconf">AngularJS - the folly of choice</a>, Frontend DEV Conf '13</p>
-            <p>[5] <a href="http://www.slideshare.net/olegp/tips-from-angular-js-users-anonymous-25199815">Tips from AngularJS Users Anonymous</a>, HelsinkiJS August 2013 at F-Secure.</p>
-            <p>[6] <a href="https://moot.it/blog/technology/frameworkless-javascript.html">Why Angular, Ember, or Backbone don't work for us</a>, Tero Piirainen</p>
-          </div>
+          <h1>Part 3</h1>
+          <h2>More on Features</h2>
+        </section>
+
+        <section>
+          <section>
+            <h2>More on Directives</h2>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Routing and Multiple Views</h2>
+          </section>
+          <section>
+            <h2>Layouts</h2>
+          </section>
+          <section>
+            <h2>$location</h2>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Services</h2>
+          </section>
         </section>
       </div>
     </div>
