@@ -416,6 +416,20 @@ myApp.controller('NameListCtrl', function($scope) {
 });</code></pre>
           </section> 
           <section>
+            <h2><a href="http://docs.angularjs.org/guide/module#recommended-setup">Recommended Setup</a></h2>
+            <p>While any number of components (controllers, services, directives, etc.) can be bound to a single module,
+               it is recommended to break your app into multiple modules:</p>
+            <ul>
+              <li><b>A service module</b>, for service declaration</li>
+              <li><b>A directive module</b>, for directive declaration</li>
+              <li><b>A filter module</b>, for filter declaration</li>
+              <li><b>And an application level module</b> which depends on the above modules, and which has initialization code.</li>
+            </ul>
+          </section>
+          <section>
+            <img src="images/myApp-module.png" style="width: 75%">
+          </section>
+          <section>
             <h2>
               <a href="http://docs.angularjs.org/guide/module#module-loading-dependencies">Module Loading &amp; Dependencies</a>
             </h2>
@@ -433,10 +447,29 @@ myApp.controller('NameListCtrl', function($scope) {
                <code>controllerProvider</code> in <code>config</code>:</b></div>
 <div class="fragment"><pre><code>angular.module('myApp', []).
   config(function($controllerProvider) {
-    $controllerProvider('NameListCtrl', function($scope) { ... });
+    $controllerProvider.register('NameListCtrl', function($scope) { ... });
   }
 );
-</code></pre></div>
+</code></pre>
+<h3><a href="http://jsfiddle.net/jsalonen/aW49w/">jsfiddle.net/jsalonen/aW49w</a></h3></div>
+          </section>
+          <section>
+            <h2>Configuration Block vs. Convenience Methods</h2>
+            <p>More examples:</p>
+            <pre><code>angular.module('myModule', []).
+  value('a', 123).
+  factory('a', function() { return 123; }).
+  directive('directiveName', ...).
+  filter('filterName', ...);</code></pre>
+<p>Is same as:</p>
+<pre><code>
+angular.module('myModule', []).
+  config(function($provide, $compileProvider, $filterProvider) {
+    $provide.value('a', 123);
+    $provide.factory('a', function() { return 123; });
+    $compileProvider.directive('directiveName', ...);
+    $filterProvider.register('filterName', ...);
+  });</code></pre>
           </section>
         </section>
         <section>
