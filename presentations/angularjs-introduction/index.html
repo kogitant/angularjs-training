@@ -278,7 +278,7 @@
         </section>
         <section>
           <section>
-            <h2>Data Binding, Scopes and Controllers</h2>
+            <h2>Getting Started with Data Binding and Controllers</h2>
           </section>
           <section>
             <h2><a href="http://docs.angularjs.org/guide/concepts#a-first-example-data-binding">Data Binding</a></h2>
@@ -302,40 +302,142 @@
               <li class="fragment">No distinct model object - data is stored inside <b>scope</b> along with functions</li>
             </ul>
           </section>
+
           <section>
-            <h2>$scope</h2>
-                        
+            <h2>Controllers</h2>
+            <ul>
+              <li><b>Controller:</b> a JavaScript construction function that is used to <em>augment</em> the <em>scope</em></li>
+              <li>The augmented scope inherits all properties from upper-level scope (top-level is <b>$rootScope</b>)</li>
+              <li><b>ng-controller:</b> directive that calls the construction function for the named controller</li>
+              <li>Controller-augmented scope is only visible inside the HTML block that declares <em>ng-controller</em></li>
+            </ul>
           </section>
-          <section>
-            <h2><a href="http://docs.angularjs.org/guide/concepts#adding-ui-logic-controllers">Controllers</a></h2>
-            <p>JavaScript</p>
-<pre><code>function GreetCtrl($scope) {
-  $scope.name = 'World';
-}
-     
-function ListCtrl($scope) {
-  $scope.names = ['Igor', 'Misko', 'Vojta'];
+          <section>          
+            <h3><a href="http://jsfiddle.net/jsalonen/nB4WU/">jsfiddle.net/jsalonen/nB4WU/</a></h3>
+<p><b>Simplified example - don't actually do it like this</b></p>
+<pre><code>function NameListCtrl($scope) {
+  $scope.title = "Participants";
+  $scope.names = ['Jaakko', 'Tapio', 'Juha'];
 }</code></pre>
 
-            <p>HTML</p>
-            <pre><code><div ng-controller="GreetCtrl">
-  Hello {{name}}!
-</div>
-<div ng-controller="ListCtrl">
-  <ol>
-    <li ng-repeat="name in names">{{name}}</li>
-  </ol>
-</div></code></pre>
+            <pre><code>&lt;div ng-app>
+  &lt;div ng-controller="NameListCtrl">
+    &lt;h1>Participants&lt;/h1>
+    &lt;ol>     
+      <li ng-repeat="name in names">{{name}}</li>
+    &lt;/ol>
+  &lt;/div>
+&lt;/div>
+</code>
+</pre>
+
+            <p>(<b>ng-repeat:</b> directive to instantiate template once per item from a collection)</p>
           </section>
 
           <section>
-            <h2><a href="http://docs.angularjs.org/guide/concepts#controller" target="_blank">Controller</a> <sup>3</sup></h2>
-            <p><img src="images/angularjs-concepts-controller.png" style="width: 70%"></p>
+<h2>Controller inside Controller</h2>
+<h3><a href="http://jsfiddle.net/jsalonen/tj78j/">jsfiddle.net/jsalonen/tj78j/</a></h3>
+<pre><code>function ParticipantCtrl($scope) {
+  $scope.title = "Participants";
+}
+
+function NameListCtrl($scope) {
+  $scope.title = "List";
+  $scope.names = ['Jaakko', 'Tapio', 'Juha'];
+}
+</code></pre>
+
+            <pre><code>&lt;div ng-app>
+  &lt;div ng-controller="ParticipantCtrl">
+    &lt;h1>Participants&lt;/h1>
+    &lt;ol ng-controller="NameListCtrl">     
+      <li ng-repeat="name in names">{{name}} (in list {{title}})</li>
+    &lt;/ol>
+  &lt;/div>
+&lt;/div>
+</code>
+</pre>
+</section>
+        
+          <section>          
+            <h3>Modular Controllers</h3>
+            <h4>(The right way of using controllers)</h4>
+            <h3><a href="http://jsfiddle.net/jsalonen/SdXG8/">jsfiddle.net/jsalonen/SdXG8/</a></h3>
+            <pre><code>&lt;div ng-app="myApp">
+  &lt;div ng-controller="NameListCtrl">
+    &lt;h1>Participants</h1>
+    &lt;ol>     
+      &lt;li ng-repeat="name in names">{{name}}</li>
+    &lt;/ol>
+  &lt;/div>
+&lt;/div></code></pre>
+            <pre><code>var myApp = angular.module('myApp',[]);
+ 
+myApp.controller('NameListCtrl', function($scope) {
+  $scope.names = ['Jaakko', 'Tapio', 'Juha'];
+});</code></pre>
+          </section> 
+
+          <section>
+            <h3>Testing Controllers</h3>
           </section>
 
           <section>
-            <h2><a href="http://docs.angularjs.org/guide/concepts#rview" target="_blank">View</a> <sup>3</sup></h2>
-            <p><img src="images/angularjs-concepts-view.png" style="width: 70%"></p>
+            <h2><a href="http://docs.angularjs.org/guide/controller#using-controllers-correctly">Using Controllers Correctly</a></h2>
+            <p><b>Do not</b> use controllers for:</p>
+            <ul>
+              <li>Direct DOM manipulation (&rarr; Angular's data binding instead)</li>
+              <li>Input formatting (&rarr; angular form controls)</li>
+              <li>Output formatting (&rarr; filters)</li>
+              <li>Sharing stateless or stateful code (&rarr; services)</li>
+              <li>Managing life-cycle of other components (&rarr; injector)</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Modules and Dependency Injection</h2>
+          </section>
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/module">Modules - What and Why?</a></h2>
+            <ul>
+              <li>Modules are a declarative approach to the ubiquitous (and imperative) "main" method</li>
+              <li>Angular applications are defined as <b>Modules</b></li>
+              <li>Also: package third-party code as reusable modules</li>
+              <li>Modules improve testability</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Angular Application Module</h2>
+            <h3><a href="http://jsfiddle.net/jsalonen/vAEnU/">jsfiddle.net/jsalonen/vAEnU</a></h3>
+            <p>
+              Declaring a module:
+            </p>
+            <pre><code>var myAppModule = angular.module('myApp', []);</code></pre>
+
+            <p>
+              Refer to <code>myApp</code> in your <code>ng-app</code> directive:
+            </p>
+            <pre><code>&lt;html ng-app="myApp">...&lt;/html></code></pre>
+          </section>      
+        </section>
+
+        <section>
+          <section>
+            <h2>Data Binding - In-depth</h2>
+          </section>
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/databinding">Out of the Box</a></h2>
+            <img src="images/Two_Way_Data_Binding.png" style="width: 50%">
+            <ul>
+              <li class="fragment">Changes to DOM trigger model (scope) updates</li>
+              <li class="fragment">And the other way around: scope updates are reflected in DOM</li>
+              <li class="fragment"><b>But how does it actually work and what happens underneath?</b></li>
+            </ul>
+          </section>
+          <section>
+            <h2>$scope</h2>
           </section>
         </section>
         <section>
