@@ -265,15 +265,14 @@
           </section>
 
           <section>
-            <h3><a href="http://docs.angularjs.org/guide/concepts#injector" target="_blank">Modules and the Injector</a></sup></h3>
-            <p><img src="images/angularjs-concepts-module-injector.png" style="width: 70%"></p>
-          </section>
-
-          <section>
             <h2>$ Prefix Indicates Angular Namespace</h2>
-            <blockquote>"To prevent accidental name collision, Angular prefixes names of objects which could potentially collide with $. Please do not use the $ prefix in your code as it may accidentally collide with Angular code." <sup>3</sup></blockquote>
+            <blockquote>"To prevent accidental name collision, Angular prefixes names of objects which could potentially collide with $. Please do not use the $ prefix in your code as it may accidentally collide with Angular code."</blockquote>
+            <ul>
+              <li>A handy convention to keep you on track what comes from Angular</li>
+              <li>Don't break the convention. Don't prefix your own objects with $.</li>
+              <li>Note that <code>$</code> object usually refers to <code>jQuery</code>, not Angular</li>
+            </ul>
             <br>
-            <h3>But note: <code>$</code> alone refers to <code>jQuery</code> if in use</h3>
           </section>
         </section>
         <section>
@@ -359,29 +358,6 @@ function NameListCtrl($scope) {
 </pre>
 </section>
         
-          <section>          
-            <h3>Modular Controllers</h3>
-            <h4>(The right way of using controllers)</h4>
-            <h3><a href="http://jsfiddle.net/jsalonen/SdXG8/">jsfiddle.net/jsalonen/SdXG8/</a></h3>
-            <pre><code>&lt;div ng-app="myApp">
-  &lt;div ng-controller="NameListCtrl">
-    &lt;h1>Participants</h1>
-    &lt;ol>     
-      &lt;li ng-repeat="name in names">{{name}}</li>
-    &lt;/ol>
-  &lt;/div>
-&lt;/div></code></pre>
-            <pre><code>var myApp = angular.module('myApp',[]);
- 
-myApp.controller('NameListCtrl', function($scope) {
-  $scope.names = ['Jaakko', 'Tapio', 'Juha'];
-});</code></pre>
-          </section> 
-
-          <section>
-            <h3>Testing Controllers</h3>
-          </section>
-
           <section>
             <h2><a href="http://docs.angularjs.org/guide/controller#using-controllers-correctly">Using Controllers Correctly</a></h2>
             <p><b>Do not</b> use controllers for:</p>
@@ -397,7 +373,7 @@ myApp.controller('NameListCtrl', function($scope) {
 
         <section>
           <section>
-            <h2>Modules and Dependency Injection</h2>
+            <h2>Modules</h2>
           </section>
           <section>
             <h2><a href="http://docs.angularjs.org/guide/module">Modules - What and Why?</a></h2>
@@ -409,7 +385,7 @@ myApp.controller('NameListCtrl', function($scope) {
             </ul>
           </section>
           <section>
-            <h2>Angular Application Module</h2>
+            <h2>Angular Application as a Module</h2>
             <h3><a href="http://jsfiddle.net/jsalonen/vAEnU/">jsfiddle.net/jsalonen/vAEnU</a></h3>
             <p>
               Declaring a module:
@@ -421,8 +397,48 @@ myApp.controller('NameListCtrl', function($scope) {
             </p>
             <pre><code>&lt;html ng-app="myApp">...&lt;/html></code></pre>
           </section>      
-        </section>
+          <section>          
+            <h3>Usage Example: Modular Controllers</h3>
+            <h4>(The right way of using controllers)</h4>
+            <h3><a href="http://jsfiddle.net/jsalonen/SdXG8/">jsfiddle.net/jsalonen/SdXG8/</a></h3>
+            <pre><code>&lt;div ng-app="myApp">
+  &lt;div ng-controller="NameListCtrl">
+    &lt;h1>Participants</h1>
+    &lt;ol>     
+      &lt;li ng-repeat="name in names">{{name}}</li>
+    &lt;/ol>
+  &lt;/div>
+&lt;/div></code></pre>
+            <pre><code>var myApp = angular.module('myApp',[]);
 
+myApp.controller('NameListCtrl', function($scope) {
+  $scope.names = ['Jaakko', 'Tapio', 'Juha'];
+});</code></pre>
+          </section> 
+          <section>
+            <h2>
+              <a href="http://docs.angularjs.org/guide/module#module-loading-dependencies">Module Loading &amp; Dependencies</a>
+            </h2>
+            <p><a href="http://docs.angularjs.org/guide/module#module-loading-dependencies">Two kinds of blocks:</a></p>              
+            <ul>
+              <li><b>Configuration blocks</b> - gets executed during the provider registrations and configuration phase.</li>
+              <li><b>Run blocks</b> - get executed after the injector is created and are used to kickstart the application.</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Configuration Blocks</h2>
+            <p>In the previous example we called:</p>
+            <pre><code>myApp.controller('NameListCtrl', function($scope) { ... });</code></pre>
+            <div class="fragment">It is, in fact, <b>a convenience method</b> for calling <br>
+               <code>controllerProvider</code> in <code>config</code>:</b></div>
+<div class="fragment"><pre><code>angular.module('myApp', []).
+  config(function($controllerProvider) {
+    $controllerProvider('NameListCtrl', function($scope) { ... });
+  }
+);
+</code></pre></div>
+          </section>
+        </section>
         <section>
           <section>
             <h2>Data Binding - In-depth</h2>
