@@ -10,17 +10,17 @@ var kikkeriApp = angular.module('kikkeriApp', ['ngResource', 'ngRoute', 'ngAnima
 kikkeriApp.config(function ($routeProvider) {
   $routeProvider
     .when('/', {
-      templateUrl: 'views/tournaments.html',
+      templateUrl: 'views/tournaments/tournaments.html',
       controller: 'TournamentsCtrl'
     })
     
     .when('/tournament/:tournamentOid/', {
-      templateUrl: 'views/tournament.html',
+      templateUrl: 'views/tournament/tournament.html',
       controller: 'TournamentCtrl'
     })
     
     .when('/tournament/:tournamentOid/match', {
-      templateUrl: 'views/match.html',
+      templateUrl: 'views/match/match.html',
       controller: 'MatchCtrl'
     })
     .otherwise({redirectTo: '/'});
@@ -43,7 +43,7 @@ kikkeriApp.factory('TournamentsRsc', function($resource) {
 
 kikkeriApp.factory('TournamentStatisticsRsc', function($resource) {
   return $resource(domain + '/tournaments/:tournamentOid/statistics', {tournamentOid: '@tournamentOid'}, {
-    get: {method: 'GET', isArray: true},
+    get: {method: 'GET', isArray: true}
   });
 });
 
