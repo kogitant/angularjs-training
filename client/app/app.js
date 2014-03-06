@@ -4,7 +4,7 @@
 var domain = 'http://localhost:8080';
 
 // Create application module
-var kikkeriApp = angular.module('kikkeriApp', ['ngResource', 'ngRoute', 'kikkeriDirectives']);
+var kikkeriApp = angular.module('kikkeriApp', ['ngResource', 'ngRoute', 'ngAnimate', 'kikkeriDirectives']);
 
 // Routing
 kikkeriApp.config(function ($routeProvider) {

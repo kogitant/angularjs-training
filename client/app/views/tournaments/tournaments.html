@@ -20,8 +20,11 @@
 			</tbody>
 		</table>
 	</div>
-	
-	<div ng-show="tournamentsModel.tournaments.length === 0" class="row">
-		<button class="btn btn-default" ng-click="createNewTournament()">Luo turnaus</button>
-	</div>
+
+    <div ng-if="tournamentsModel.tournaments.length == 0" class="form-inline">
+        <input type="text" class="form-control" ng-model="tournamentName" >
+        <button class="btn btn-default" ng-click="createNewTournament(tournamentName)">Luo turnaus</button>
+    </div>
+
 </div>
+
