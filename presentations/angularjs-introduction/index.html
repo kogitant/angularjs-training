@@ -384,27 +384,6 @@ function NameListCtrl($scope) {
 
         <section>
           <section>
-            <h2>Internals of Data Binding</h2>
-          </section>
-          <section>
-            <h2><a href="http://docs.angularjs.org/guide/databinding">Out of the Box</a></h2>
-            <img src="images/Two_Way_Data_Binding.png" style="width: 50%">
-            <ul>
-              <li class="fragment">Changes to DOM trigger model (scope) updates</li>
-              <li class="fragment">And the other way around: scope updates are reflected in DOM</li>
-              <li class="fragment"><b>But how does it actually work and what happens underneath?</b></li>
-            </ul>
-          </section>
-          <section>
-            <h2>$scope</h2>
-          </section>
-          <section>
-            <h2>@TBD@</h2>
-          </section>
-        </section>
-
-        <section>
-          <section>
             <h2>Modules</h2>
           </section>
           <section>
@@ -584,6 +563,25 @@ angular.module('myModule', []).
             <p class="fragment">More built-in filters: <i>lowercase</i>, <i>date</i>, <i>filter</i>,
             <i>json</i>, <i>limitTo</i>, <i>number</i>, <i>orderBy</i></p>
           </section>
+          <section>
+            <h2>Practical Example:<br>Simple filter-based search</h2>
+            <h3><a href="http://jsfiddle.net/jsalonen/9c8Tz/">jsfiddle.net/jsalonen/9c8Tz</a></h3>
+            <p>Template (with search filter):</p>
+            <pre><code>&lt;div ng-controller="ParticipantsCtrl">
+  &lt;p>Search participants: <input type="text" ng-model="search" value=""/></p>
+  &lt;ol>
+    &lt;li ng-repeat="participant in participants | filter:search">
+      {{participant.name}}
+    &lt;/li>
+  &lt;/ol>
+&lt;/div>
+</code></pre>
+            <p>Controller (with orderBy filter):</p>
+            <pre><code>function ParticipantsCtrl($scope, $filter) {
+  var participants = [{name: 'Jaakko'}, {name: 'Aaro'}, ...];
+  $scope.participants = $filter('orderBy')(participants, 'name');
+}</code></pre>
+          </section>
         </section>
         <section>
           <section>
@@ -655,7 +653,28 @@ angular.module('myModule', []).
         -->
         <section>
           <h1>Part 3</h1>
-          <h2>Additional Features</h2>
+          <h2>Angular In-depth and Additional Features</h2>
+        </section>
+
+        <section>
+          <section>
+            <h2>Internals of Data Binding</h2>
+          </section>
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/databinding">Out of the Box</a></h2>
+            <img src="images/Two_Way_Data_Binding.png" style="width: 50%">
+            <ul>
+              <li class="fragment">Changes to DOM trigger model (scope) updates</li>
+              <li class="fragment">And the other way around: scope updates are reflected in DOM</li>
+              <li class="fragment"><b>But how does it actually work and what happens underneath?</b></li>
+            </ul>
+          </section>
+          <section>
+            <h2>$scope</h2>
+          </section>
+          <section>
+            <h2>@TBD@</h2>
+          </section>
         </section>
 
         <section>
@@ -699,6 +718,13 @@ angular.module('myModule', []).
         <section>
           <h1>Part 4</h1>
           <h2>Some Practical Considerations</h2>
+        </section>
+        <section>
+          <section><h2>Extending Angular</h2></section>
+          <section>
+            <h2>@TBD@</h2>
+            <p>http://angular-ui.github.io/</p>
+          </section>
         </section>
         <section>
           <section>
