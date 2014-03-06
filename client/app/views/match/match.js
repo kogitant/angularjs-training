@@ -27,6 +27,13 @@ kikkeriApp.controller('MatchCtrl', ['$scope', '$routeParams', '$location', 'Matc
 	$scope.tournamentModel = TournamentModel;
 	$scope.matchModel = MatchModel;
 
+	$scope.toggleMatchForm = function() {
+		$scope.matchForm.$setPristine();
+		$scope.matchModel.match.bluePlayerName = "";
+		$scope.matchModel.match.pinkPlayerName = "";
+		$scope.$emit('toggleMatchForm');
+	}
+
 	$scope.submit = function() {
 		var promise = $scope.matchModel.persistMatch($scope.tournamentId);
 		promise.then(function() {

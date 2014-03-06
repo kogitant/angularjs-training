@@ -9,14 +9,14 @@ kikkeriApp.factory('TournamentModel',
 		tournament: {},
 		matches: [],
 		statistics: [],
-		refresh: function(tournamentOid) {		
+		refresh: function(tournamentOid) {
 			TournamentRsc.get({tournamentOid: tournamentOid}, function(result) {
 				model.tournament = result;
 			});
 
 			MatchesRsc.get(function(result) {
 				model.matches = result;
-			}, function(error) {	
+			}, function(error) {
 				console.log(error);
 			});
 
@@ -35,8 +35,12 @@ kikkeriApp.controller('TournamentCtrl', ['$rootScope', '$scope', '$routeParams',
 	$scope.tournamentModel = TournamentModel;
 	$scope.tournamentModel.refresh($routeParams.tournamentOid);
 
-	$scope.showLeader = function() {
-		$scope.showPlayer = !$scope.showPlayer;
-		$rootScope.$broadcast('centralizeElement');
-	};
+	$scope.$on('toggleMatchForm', function () {
+		$scope.showMatchForm = !$scope.showMatchForm;
+	});
+	$scope.showMatchForm = false;
+	$scope.toggleMatchForm = function() {
+		$scope.showMatchForm = !$scope.showMatchForm;
+	}
+
 }]);

@@ -1,51 +1,38 @@
+<div ng-controller="MatchCtrl">
 
-<div class="container">
-	<div class="row">
-		<div class="col-sm-12 col-md-12">
-			<h3>Lisää ottelutulos</h3>
-			<form class="form-inline" role="form" ng-submit="submit()">
-				<div class="form-group">
-					<div class="container">
-						<div class="row">
-							<div class="col-sm-12 col-md-3">
-								<label>Pelaaja 1</label>
-							</div>
+    <form name="matchForm" class="form-inline" role="form" ng-submit="submit()">
+        <div class="row">
+            <div class="col-sm-6">
+                <label>Pelaaja 1</label>
 
-							<div class="col-sm-12 col-md-3">
-								<input required type="text" class="form-control" ng-model="matchModel.match.bluePlayerName" placeholder="Pelaajan 1 nimi" />
-							</div>
+                <input required type="text" class="form-control" ng-model="matchModel.match.bluePlayerName"
+                       placeholder="Pelaajan 1 nimi"/>
 
 
+                <div ng-repeat="period in matchModel.match.periods">
+                    <input required type="number" min="0" max="10" class="form-control"
+                           ng-model="period.bluePlayerScore"
+                           placeholder="{{$index + 1}}. puoliaika tehdyt maalit"/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label>Pelaaja 2</label>
 
-							<div ng-repeat="period in matchModel.match.periods" class="col-sm-12 col-md-3">
-								<input required type="number" min="0" max="10" class="form-control" ng-model="period.bluePlayerScore" placeholder="1. puoliaika tehdyt maalit" />
-							</div>
+                <input required type="text" class="form-control" ng-model="matchModel.match.pinkPlayerName"
+                       placeholder="Pelaajan 2 nimi"/>
 
-						</div>
-					</div>
-					<div class="container">
-						<div class="row">
-							<div class="col-sm-12 col-md-3">
-								<label>Pelaaja 2</label>
-							</div>
-							
-							<div class="col-sm-12 col-md-3">
-								<input required type="text" class="form-control" ng-model="matchModel.match.pinkPlayerName" placeholder="Pelaajan 2 nimi" />
-							</div>
-							
-							<div ng-repeat="period in matchModel.match.periods" class="col-sm-12 col-md-3">
-								<input required type="number" min="0" max="10" class="form-control" ng-model="period.pinkPlayerScore" placeholder="1. puoliaika tehdyt maalit" />
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="container">
-					<div class="row">
-			  			<button type="submit" class="btn btn-default">Tallenna</button>
-			  			<a class="btn btn-default" ng-href="/#/tournament/{{tournamentId}}">Takaisin</a>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
+                <div ng-repeat="period in matchModel.match.periods">
+                    <input required type="number" min="0" max="10" class="form-control"
+                           ng-model="period.pinkPlayerScore"
+                           placeholder="1. puoliaika tehdyt maalit"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-default">Tallenna</button>
+                <div class="btn btn-default" ng-click="toggleMatchForm();">Piilota</div>
+            </div>
+        </div>
+    </form>
 </div>
