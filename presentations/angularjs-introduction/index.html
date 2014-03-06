@@ -52,11 +52,17 @@
             <li>Part 1: Background and a High-level Overview</li>
             <li>Part 2: Architecture, Concepts and Core Features</li>
             <li>Part 3: Features</li>
+            <li>Part 4: Practical Considerations</li>
           </ul>
 
           <p><br><em>Hint: Use up/down arrows to navigate inside topics</em></p>
         </section>
 
+        <!--
+
+          Part 1
+
+        -->
         <section>
           <h1>Part 1</h1>
           <h2>Background and a High-level Overview</h2>
@@ -186,6 +192,11 @@
           </div>
         </section>
 
+        <!--
+
+          Part 2
+
+        -->
         <section>
           <h1>Part 2</h1>
           <h2>Architecture, Concepts<br>and Core Features</h2>
@@ -488,11 +499,11 @@ angular.module('myModule', []).
           <section>
             <h2>$scope</h2>
           </section>
+          <section>
+            <h2>@TBD@</h2>
+          </section>
         </section>
         <section>
-          <section>
-            <h2>Filters, Expressions and Directives</h2>
-          </section>
           <section>
             <h2><a href="http://docs.angularjs.org/guide/concepts#filters" target="_blank">Filters</a> <sup>3</sup></h2>
             <ul>
@@ -508,31 +519,85 @@ angular.module('myModule', []).
             </ul>
           </section>
           <section>
+            <h2>@TBD@</h2>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Expressions</h2>
+          </section>
+          <section>
+            <h2>@TBD@</h2>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Directives</h2>
+          </section>
+          <section>
             <h2><a href="http://docs.angularjs.org/guide/concepts#directives" target="_blank">Directive</a></h2>
             <ul>
               <li>A behaviour or DOM transformation, which is triggered by the presence of a custom attribute, element name, class name or comment</li>
-              <li>Allows you to extend the HTML vocabulary in a declarative fashion.</li>
+              <li>Allows you to extend the HTML vocabulary in a declarative fashion.</li>              
               <li>Multiple directives have already been introduced<br>(can you recall them?)</li>
+              <li>Simple example: <code>ngHide</code> = hide/show element based on expression</li>
               <li>A more advanced example: make content editable with <code>contentEditable="true"</code> attribute.</li>
             </ul>
+          </section>
+          <section>
+            <h2>Example Attribute Directive:<br><code>centralize</code></h2>
+            <h3><a href="http://jsfiddle.net/jsalonen/A3dJW/">jsfiddle.net/jsalonen/A3dJW</a></h3>
+            <pre><code>myApp.directive('centralize', function() {
+ return {
+  restrict: 'A',
+  link: function($scope, element, attrs) {
+   var elemWidth = element.context.offsetWidth;
+   var elemHeight = element.context.offsetHeight;
+   var top = Math.max(0, (($(window).height() - elemHeight) / 2) + $(window).scrollTop());
+   var left = Math.max(0, (($(window).width() - elemWidth) / 2) + $(window).scrollLeft());
+   $(element).css({
+    position: 'absolute',
+    'z-index': 1000,
+    margin:0,
+    top: (top > 0 ? top : 0)+'px',
+    left: (left > 0 ? left : 0)+'px'
+   });
+  }
+ }
+});</code></pre>
           </section>
         </section>
         <section>
           <section>
             <h2>Services and Factories</h2>
           </section>
+          <section>
+            <h2>@TBD@</h2>
+          </section>
         </section>
         <section>
           <section>
             <h2>Values and Consts</h2>
+          </section>
+          <section>
+            <h2>@TBD@</h2>
           </section>
         </section>
         <section>
           <section>
             <h2>Providers</h2>
           </section>
+          <section>
+            <h2>@TBD@</h2>
+          </section>
         </section>
 
+
+        <!--
+
+          Part 3
+
+        -->
         <section>
           <h1>Part 3</h1>
           <h2>Features</h2>
@@ -561,6 +626,27 @@ angular.module('myModule', []).
         </section>
         <section>
           <section>
+            <h2>Routing and Multiple Views</h2>
+          </section>
+          <section>
+            <h2>Layouts</h2>
+          </section>
+          <section>
+            <h2>$location</h2>
+          </section>
+        </section>
+
+        <!--
+
+          Part 4
+
+        -->
+        <section>
+          <h1>Part 4</h1>
+          <h2>Practical Considerations</h2>
+        </section>
+        <section>
+          <section>
             <h2>Ensuring Browser Compatibility</h2>
           </section>
           <section>
@@ -576,13 +662,34 @@ angular.module('myModule', []).
         </section>
         <section>
           <section>
-            <h2>Routing and Multiple Views</h2>
+            <h2>Ensuring JavaScript Code Quality</h2>
           </section>
           <section>
-            <h2>Layouts</h2>
+            <h2><a href="http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/">ECMAScript 5 Strict Mode</a></h2>
+            <ul>
+              <li>A new feature in ECMAScript 5 that allows you to place a program, or a function, in a “strict” operating context.</li>
+              <li>Catches common coding "bloopers", throwing exceptions</li>
+              <li>Prevents or throws errors on unsafe actions</li>
+              <li>Disables confusing or poorly designed JavaScript features</li>
+            </ul>
           </section>
           <section>
-            <h2>$location</h2>
+            <h2>"use strict"</h2>
+            <p>Enable for whole script by adding in the beginning of the file:</p>
+            <pre><code>"use strict"</code></pre>
+            <p>Can be also used for individual functions:</p>
+            <pre><code>function myFunc() {
+              "use strict";
+            }</code></pre>
+            <p><b>Catch: </b>requires IE 10 or later (but does not break on older versions)</p>
+          </section>
+          <section>
+            <h2>Linting</h2>
+            <h3>@TBD@</h3>
+          </section>
+          <section>
+            <h2>Writing Angular Code for Minification</h2>
+            <h3>@TBD@</h3>
           </section>
         </section>
         <section>
