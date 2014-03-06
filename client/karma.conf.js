@@ -9,10 +9,12 @@ files = [
   JASMINE_ADAPTER,
   'app/bower_components/angular/angular.js',
   'app/bower_components/angular-resource/angular-resource.js',
+  'app/bower_components/angular-animate/angular-animate.js',
   'app/bower_components/angular-route/angular-route.js',
   'app/bower_components/angular-mocks/angular-mocks.js',
-  'app/scripts/*.js',
-  'app/scripts/**/*.js',
+  'app/app.js',
+  'app/common/**/*.js',
+  'app/views/**/*.js',
   'test/mock/**/*.js',
   'test/spec/**/*.js'
 ];
@@ -38,7 +40,7 @@ colors = true;
 logLevel = LOG_INFO;
 
 // enable / disable watching file and executing tests whenever any file changes
-autoWatch = false;
+autoWatch = true;
 
 // Start these browsers, currently available:
 // - Chrome

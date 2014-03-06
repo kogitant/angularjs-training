@@ -23,20 +23,18 @@ kikkeriApp.controller('TournamentsCtrl', ['$scope', '$location', 'TournamentsMod
 		$location.path('/tournament/' + tournamentId);
 	};
 
-	$scope.createNewTournament = function() {
-		var tournament = {};
-
-		var configurations = {
-			SERIES: {
-				periods: 2,
-				pointsForWin: 2,
-				pointsForLoss: 0,
-				pointsForEven: 1
-			}
+	$scope.createNewTournament = function(tournamentName) {
+		var tournament = {
+			configurations: {
+				SERIES: {
+					periods: 2,
+					pointsForWin: 2,
+					pointsForLoss: 0,
+					pointsForEven: 1
+				}
+			},
+			name: tournamentName
 		};
-
-		tournament.name = 'kikkeriturnaus';
-		tournament.configurations = configurations;
 
 		TournamentsRsc.post(tournament, function(result) {
 			$scope.tournamentsModel.refresh();
