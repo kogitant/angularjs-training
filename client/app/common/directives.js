@@ -15,7 +15,6 @@ kikkeriDirectives.directive('fastBindOnce', ['$parse', function($parse) {
 	};
 }]);
 
-
 kikkeriDirectives.directive('centralize', function() {
 	return {
 		restrict: 'A',

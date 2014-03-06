@@ -1,10 +1,11 @@
 'use strict';
 
-// Configure domain
-var domain = 'http://localhost:8080';
 
 // Create application module
 var kikkeriApp = angular.module('kikkeriApp', ['ngResource', 'ngRoute', 'ngAnimate', 'kikkeriDirectives']);
+
+//domain
+kikkeriApp.constant('domain', 'http://localhost:8080');
 
 // Routing
 kikkeriApp.config(function ($routeProvider) {
@@ -18,11 +19,7 @@ kikkeriApp.config(function ($routeProvider) {
       templateUrl: 'views/tournament/tournament.html',
       controller: 'TournamentCtrl'
     })
-    
-    .when('/tournament/:tournamentOid/match', {
-      templateUrl: 'views/match/match.html',
-      controller: 'MatchCtrl'
-    })
+
     .otherwise({redirectTo: '/'});
 });
 

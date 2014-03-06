@@ -10,9 +10,14 @@
 
 <div class="row">
 
+    <button class="btn btn-default" ng-click="toggleMatchForm()">Lisää ottelutulos</button>
+    <div class="slide matchInformation" ng-if="showMatchForm" ng-include="'views/match/match.html'"></div>
+
+
+    <h3>Pistetilanne</h3>
 	<div class="col-sm-12 col-md-12">
-		<a class="btn btn-default" ng-href="/#/tournament/{{tournamentModel.tournament.id}}/match">Lisää ottelutulos</a>
-		<h3>Pistetilanne</h3>
+
+
 
 		<!--
 		pistetilanteen paremmuusjärjestys: 
