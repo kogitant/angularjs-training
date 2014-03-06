@@ -611,42 +611,39 @@ angular.module('myModule', []).
             <p><br><b>Best practice: </b>use dash-delimited format in your names</p>         
           </section>
           <section>
-            <h2>Directive Types</h2>
-            <p>Angular's <code>$compile</code> can match directives in three ways. From:</p>
+            <h2>Options: restrict</h2>
+            <p>Restrict usage of directive by type:</p>
             <ul>
-              <li>Element names (<code>&lt;my-dir&gt;&lt;/my-dir&gt;</code>)</li>
-              <li>Attributes (<code>&lt;h1 my-dir="exp"&gt;&lt;h1&gt;</code>)</li>
-              <li>Comments (<code>&lt;!-- here is my-dir --&gt;)</code></li>
+              <li><b>E</b> - Element names (<code>&lt;my-dir&gt;&lt;/my-dir&gt;</code>)</li>
+              <li><b>A</b> - Attributes (<code>&lt;h1 my-dir="exp"&gt;&lt;h1&gt;</code>)</li>
+              <li><b>C</b> - Classes (<code>&lt;div class="my-dir"&gt;&lt;/div&gt;</code>)</li>
             </ul>
-            <p><br><b>Prefer tag name directives</b></p>
+            <p><br><b>Note: prefer tag name directives</b></p>
           </section>
           <section>
-            <h2>Example Attribute Directive:<br><code>centralize</code></h2>
-            <h3><a href="http://jsfiddle.net/jsalonen/A3dJW/">jsfiddle.net/jsalonen/A3dJW</a></h3>
-            <pre><code>myApp.directive('centralize', function() {
- return {
-  restrict: 'A',
-  link: function($scope, element, attrs) {
-   var elemWidth = element.context.offsetWidth;
-   var elemHeight = element.context.offsetHeight;
-   var top = Math.max(0, (($(window).height() - elemHeight) / 2) + $(window).scrollTop());
-   var left = Math.max(0, (($(window).width() - elemWidth) / 2) + $(window).scrollLeft());
-   $(element).css({
-    position: 'absolute',
-    'z-index': 1000,
-    margin:0,
-    top: (top > 0 ? top : 0)+'px',
-    left: (left > 0 ? left : 0)+'px'
-   });
-  }
- }
-});</code></pre>
-          </section>
-          <section>
-            <h2><a href="http://trochette.github.io/Angular-Design-Patterns-Best-Practices/#/directive_needed">When do I need a directive?</a></h2>
-            <blockquote>"If you end writing $(element) somewhere in your controller then its a indication
-that you need a directive."</blockquote>
+            <h2>Registering directive bindings (link)</h2>
+            <pre><code>function link(scope, element, attrs) { ... }</code></pre>
 
+            <ul>
+              <li>scope is an Angular scope object.</li>
+              <li>element is the jqLite-wrapped element that this directive matches.</li>
+              <li>attrs is a hash object with key-value pairs of normalized attribute names and their corresponding attribute values.</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Example: barchart directive</h2>
+            <p>Want to create custom barchart HTML element, like:</p>
+            <pre><code><barchart title="My chart" values="12,25,15,9,4,3,12,22"></barchart></code></pre>
+          </section>
+          <section>
+            <h3><a href="http://jsfiddle.net/jsalonen/A3dJW/">jsfiddle.net/jsalonen/A3dJW/</a></h3>
+            <p>Notes:</p>
+            <ul>          
+              <li><b>restrict: 'E'</b> - Only allow element directives</li>
+              <li><b>template: '...'</b> - Custom template for directive</li>
+              <li><b>scope: {...}</b> - Bind attribute values to
+              <li><b>link: ...</b> - Parse and clean values</li>
+            </ul>
           </section>
         </section>
         <section>
@@ -756,6 +753,7 @@ that you need a directive."</blockquote>
               <li>Rudimentary service for HTTP calls</li>
               <li>Supported methods: GET, HEAD, POST, PUT, DELETE</li>
               <li>Ability to use JSONP</li>
+              <li>Very well suited for testing since it can be easily mocked</li>
               <li>In practice very similar to jQuery's <code>ajax</code> method</li>
             </ul>
           </section>
