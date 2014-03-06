@@ -506,25 +506,6 @@ angular.module('myModule', []).
         </section>
         <section>
           <section>
-            <h2><a href="http://docs.angularjs.org/guide/concepts#filters" target="_blank">Filters</a> <sup>3</sup></h2>
-            <ul>
-              <li>Filters perform data transformation (similar in spirit to UNIX pipe (<code>|</code>) filters</li>
-              <li>Filters can and are often chained</li>
-              <li>Examples:
-                  <ul>
-                      <li>filter a list by search string</li>
-                      <li>format data according to a data type or locale</li>
-                      <li>convert data into a specific format (e.g. <code>json</code> filter)</li>
-                  </ul>
-              </li>
-            </ul>
-          </section>
-          <section>
-            <h2>@TBD@</h2>
-          </section>
-        </section>
-        <section>
-          <section>
             <h2>Expressions</h2>
           </section>
           <section>
@@ -559,7 +540,7 @@ angular.module('myModule', []).
             <ul>
               <li>If you really need window object, you can use <code>$window</code></li>
               <li>If you really need eval, you can use <a href="http://docs.angularjs.org/api/ng/type/$rootScope.Scope#$eval">$eval</a></li>
-              <li>Don't overdo expressions. Use:
+              <li>Don't overdo expressions:
                 <ul>
                   <li>Filters for data manipulation</li>
                   <li>Directives for reusable components</li>
@@ -567,6 +548,41 @@ angular.module('myModule', []).
                 </ul>
               </li>
             </ul>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/filter" target="_blank">Filters</a></h2>
+            <ul>
+              <li>Filters perform data transformation (similar in spirit to UNIX pipe (<code>|</code>) filters</li>
+              <li>Filters can and are often chained</li>
+              <li>Examples:
+                  <ul>
+                      <li>filter a list by search string</li>
+                      <li>format data according to a data type or locale</li>
+                      <li>convert data into a specific format (e.g. <code>json</code> filter)</li>
+                  </ul>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>Using Filters in View Templates</h2>
+            <p>Typical usage: apply filters to expressions in view templates:</p>
+            <pre>{{ expression | filter }}</pre>
+            <p>Filter chaining:</p>
+            <pre>{{ expression | filter1 | filter 2 }}</pre>
+            <p>With arguments</p>
+            <pre>{{ expression | filter1:arg1:arg2 }}</pre>
+          </section>
+          <section>
+            <h2>Examples of Built-in Filter Usage</h2>
+            <h3><a href="http://jsfiddle.net/jsalonen/QH9yw/">jsfiddle.net/jsalonen/QH9yw/</a></h3>
+            <p>Uppercasing:</p>
+            <pre><code>{{name|uppercase}}</code></pre>
+            <p>Currency formatter:</p>
+            <pre><code>{{salary|currency:"€"}}</code></pre>
+            <p class="fragment">More built-in filters: <i>lowercase</i>, <i>date</i>, <i>filter</i>,
+            <i>json</i>, <i>limitTo</i>, <i>number</i>, <i>orderBy</i></p>
           </section>
         </section>
         <section>
