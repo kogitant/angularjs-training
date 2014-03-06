@@ -598,6 +598,29 @@ angular.module('myModule', []).
             </ul>
           </section>
           <section>
+            <h2><a href="http://docs.angularjs.org/guide/directive#matching-directives">Directive Matching</a></h2>
+            <p>
+              Simple directive example:
+            </p>
+            <pre><code>&lt;input ng-click="action()"></code></pre>
+            <p><b>ng-click</b> is matched with <b>ngClick</b> directive due to normalization:</p>
+            <ul>
+              <li>Strip <code>x-</code> and <code>data-</code> from element/attribute name prefix</li>
+              <li>Convert <code>.</code>, <code>-</code> and <code>_</code> delimited names to <code>camelCase</code></li>
+            </ul>   
+            <p><br><b>Best practice: </b>use dash-delimited format in your names</p>         
+          </section>
+          <section>
+            <h2>Directive Types</h2>
+            <p>Angular's <code>$compile</code> can match directives in three ways. From:</p>
+            <ul>
+              <li>Element names (<code>&lt;my-dir&gt;&lt;/my-dir&gt;</code>)</li>
+              <li>Attributes (<code>&lt;h1 my-dir="exp"&gt;&lt;h1&gt;</code>)</li>
+              <li>Comments (<code>&lt;!-- here is my-dir --&gt;)</code></li>
+            </ul>
+            <p><br><b>Prefer tag name directives</b></p>
+          </section>
+          <section>
             <h2>Example Attribute Directive:<br><code>centralize</code></h2>
             <h3><a href="http://jsfiddle.net/jsalonen/A3dJW/">jsfiddle.net/jsalonen/A3dJW</a></h3>
             <pre><code>myApp.directive('centralize', function() {
@@ -722,6 +745,28 @@ that you need a directive."</blockquote>
             <h2>@TBD@</h2>
           </section>
         </section>
+
+        <section>
+          <section>
+            <h2>Server-side Communications</h2>
+          </section>
+          <section>
+            <h2><a href="http://docs.angularjs.org/api/ng/service/$http">$http</a></h2>
+            <ul>
+              <li>Rudimentary service for HTTP calls</li>
+              <li>Supported methods: GET, HEAD, POST, PUT, DELETE</li>
+              <li>Ability to use JSONP</li>
+              <li>In practice very similar to jQuery's <code>ajax</code> method</li>
+            </ul>
+          </section>
+          <section>
+            <h2><a href="http://docs.angularjs.org/api/ngResource/service/$resource">$resource</a></h2>
+            <ul>
+              <li>Higher-level service for accessing RESTful server-side resources</li>
+            </ul>
+          </section>
+        </section>      
+
         <section>
           <section>
             <h2><a href="http://docs.angularjs.org/guide/providers">Providers</a></h2>
