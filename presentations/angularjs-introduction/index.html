@@ -291,7 +291,15 @@
             <h2>Getting Started with Data Binding and Controllers</h2>
           </section>
           <section>
-            <h2><a href="http://docs.angularjs.org/guide/concepts#a-first-example-data-binding">Data Binding</a></h2>
+            <h2>Angular provides <a href="http://docs.angularjs.org/guide/databinding">Two-Way Data Binding</a></h2>
+            <img src="images/Two_Way_Data_Binding.png" style="width: 50%">
+            <ul>
+              <li class="fragment">Changes to DOM trigger model (scope) updates</li>
+              <li class="fragment">And the other way around: scope updates are reflected in DOM</li>
+            </ul>
+          </section>
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/concepts#a-first-example-data-binding">Data Binding Example</a></h2>
             <h3><a href="http://jsfiddle.net/jsalonen/ZWu2s/">jsfiddle.net/jsalonen/ZWu2s/</a></h3>
 <pre><code>&lt;div ng-app ng-init="firstname='John'; lastname='Doe';">
   &lt;div>
@@ -312,7 +320,6 @@
               <li class="fragment">No distinct model object - data is stored inside <b>scope</b> along with functions</li>
             </ul>
           </section>
-
           <section>
             <h2>Controllers</h2>
             <ul>
@@ -720,27 +727,6 @@ angular.module('myModule', []).
         <section>
           <h1>Part 3</h1>
           <h2>Additional Features and Aspects</h2>
-        </section>
-
-        <section>
-          <section>
-            <h2>Internals of Data Binding</h2>
-          </section>
-          <section>
-            <h2><a href="http://docs.angularjs.org/guide/databinding">Out of the Box</a></h2>
-            <img src="images/Two_Way_Data_Binding.png" style="width: 50%">
-            <ul>
-              <li class="fragment">Changes to DOM trigger model (scope) updates</li>
-              <li class="fragment">And the other way around: scope updates are reflected in DOM</li>
-              <li class="fragment"><b>But how does it actually work and what happens underneath?</b></li>
-            </ul>
-          </section>
-          <section>
-            <h2>$scope</h2>
-          </section>
-          <section>
-            <h2>@TBD@</h2>
-          </section>
         </section>
 
         <section>
