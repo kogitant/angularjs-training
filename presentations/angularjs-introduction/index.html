@@ -51,7 +51,7 @@
           <ul>
             <li>Part 1: Background and a High-level Overview</li>
             <li>Part 2: Architecture, Concepts and Core Features</li>
-            <li>Part 3: Additional Features</li>
+            <li>Part 3: Additional Features and Aspects</li>
             <li>Part 4: Some Practical Considerations</li>
           </ul>
 
@@ -619,32 +619,78 @@ angular.module('myModule', []).
  }
 });</code></pre>
           </section>
-        </section>
-        <section>
           <section>
-            <h2>Services and Factories</h2>
-          </section>
-          <section>
-            <h2>@TBD@</h2>
-          </section>
-        </section>
-        <section>
-          <section>
-            <h2>Values and Constants</h2>
-          </section>
-          <section>
-            <h2>@TBD@</h2>
-          </section>
-        </section>
-        <section>
-          <section>
-            <h2>Providers</h2>
-          </section>
-          <section>
-            <h2>@TBD@</h2>
-          </section>
-        </section>
+            <h2><a href="http://trochette.github.io/Angular-Design-Patterns-Best-Practices/#/directive_needed">When do I need a directive?</a></h2>
+            <blockquote>"If you end writing $(element) somewhere in your controller then its a indication
+that you need a directive."</blockquote>
 
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Services</h2>
+          </section>
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/services">Angular Services</a></h2>
+            <ul>
+              <li><b>Angular services</b> = substituable objects that are wired together using dependency injection</p></li>
+              <li>Use services to organize and share code across your application</li>
+              <li>General-purpose services are provided by Angular</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Using services</h2>
+            <h3><a href="http://jsfiddle.net/jsalonen/jtge8/">jsfiddle.net/jsalonen/jtge8/</a></h3>
+            <p>Example services: $timeout and $window</p>
+<p>Template:</p>
+<pre><code>&lt;div ng-app="myApp">&lt;div ng-controller="QueueCtrl">
+  &lt;input type="submit" value="Click to start queuing" ng-click="enterQueue()"></input>
+&lt;/div>&lt;/div></code></pre>
+<p>Code:</p>
+<pre><code>angular.module('myApp', []).
+  controller('QueueCtrl', ['$scope', '$timeout', '$window',
+    function($scope, $timeout, $window) {
+    $scope.enterQueue = function() {
+      $timeout(function() {
+        $window.location.href = 'http://www.gofore.com';
+      }, 5000);      
+    };
+  }]);</code></pre>
+          </section>
+          <section>
+            <h2>Creating Services</h2>
+            <p>Applications may (and often should) create their own services:</p>
+            <ol>
+              <li>Register service with service factory function</li>
+              <li>Specify dependencies</li>
+              <li>Use as required</li>
+            </ol>
+          </section>
+          <section>
+            <h2>Example Service: TaxCalculatorService</h2>
+            <h3><a href="http://jsfiddle.net/jsalonen/saG3p/">jsfiddle.net/jsalonen/saG3p</a></h3>
+            <pre><code>myApp.factory('TaxCalcService', function() {
+    return {
+      'calculateTax': function (income) {
+        if(income<10000) return income*0.1;       
+        if(income<20000) return income*0.2;        
+        return income*0.3;
+      }      
+    };
+  })</pre></code>
+          </section>
+          <section>
+            <h2>Services vs. Factories</h2>
+            <p>Both service and factory methods
+            allow you to create injectable singletons.</p>
+            <p>However:</p>
+<pre><code>myApp.service('serviceA', function a() { ... })</code></pre>
+<p>Returns instance of the function (<code>new function a())</code>
+<pre><code>myApp.factory('serviceB', function b() { ... })</code></pre>
+<p>Returns the value that is returned when invoking b</p>           
+
+          </section>
+        </section>
 
         <!--
 
@@ -653,7 +699,7 @@ angular.module('myModule', []).
         -->
         <section>
           <h1>Part 3</h1>
-          <h2>Angular In-depth and Additional Features</h2>
+          <h2>Additional Features and Aspects</h2>
         </section>
 
         <section>
@@ -674,6 +720,18 @@ angular.module('myModule', []).
           </section>
           <section>
             <h2>@TBD@</h2>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/providers">Providers</a></h2>
+            <ul>
+              <li><b>Provider</b> = the way how registration of various objects
+               for injector is handled in AngularJS</li>
+              <li>Value, Factory, Service and Constant methods are just
+               syntactic sugar on top of provider recipe</li>
+              <li>More details: <a href="http://docs.angularjs.org/guide/providers">at Angular guide on Providers</a></li>
+            </ul>
           </section>
         </section>
 
@@ -698,17 +756,6 @@ angular.module('myModule', []).
             </ul>
           </section>
         </section>
-        <section>
-          <section>
-            <h2>Routing and Multiple Views</h2>
-          </section>
-          <section>
-            <h2>Layouts</h2>
-          </section>
-          <section>
-            <h2>$location</h2>
-          </section>
-        </section>
 
         <!--
 
@@ -722,9 +769,13 @@ angular.module('myModule', []).
         <section>
           <section><h2>Extending Angular</h2></section>
           <section>
-            <h2>@TBD@</h2>
-            <p>http://angular-ui.github.io/</p>
+            <h2><a href="http://angular-ui.github.io/">Angular-UI</a></h2>
+            <p>A collection of extranous, somewhat often used components</p>
           </section>
+          <section>
+            <h2><a href="http://ngmodules.org/">ngModules</a></h2>
+            <p>Online repository of AngularJS modules</p>
+          </section>          
         </section>
         <section>
           <section>
@@ -829,6 +880,7 @@ angular.module('myModule', []).
               <p><a href="http://www.youtube.com/watch?v=zyYpHIOrk_Y">Karl Seamon on Angular Performance</a><br>
                 Excellent video from NG-Conf (check out the others too!)
               </p>
+              <p><a href="http://trochette.github.io/Angular-Design-Patterns-Best-Practices/#/intro">Advanced Design Patterns and Best Practices</a></p>
             </div>
           </section>
         </section>
