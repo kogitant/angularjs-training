@@ -51,8 +51,8 @@
           <ul>
             <li>Part 1: Background and a High-level Overview</li>
             <li>Part 2: Architecture, Concepts and Core Features</li>
-            <li>Part 3: Features</li>
-            <li>Part 4: Practical Considerations</li>
+            <li>Part 3: Additional Features</li>
+            <li>Part 4: Some Practical Considerations</li>
           </ul>
 
           <p><br><em>Hint: Use up/down arrows to navigate inside topics</em></p>
@@ -384,6 +384,27 @@ function NameListCtrl($scope) {
 
         <section>
           <section>
+            <h2>Internals of Data Binding</h2>
+          </section>
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/databinding">Out of the Box</a></h2>
+            <img src="images/Two_Way_Data_Binding.png" style="width: 50%">
+            <ul>
+              <li class="fragment">Changes to DOM trigger model (scope) updates</li>
+              <li class="fragment">And the other way around: scope updates are reflected in DOM</li>
+              <li class="fragment"><b>But how does it actually work and what happens underneath?</b></li>
+            </ul>
+          </section>
+          <section>
+            <h2>$scope</h2>
+          </section>
+          <section>
+            <h2>@TBD@</h2>
+          </section>
+        </section>
+
+        <section>
+          <section>
             <h2>Modules</h2>
           </section>
           <section>
@@ -485,26 +506,6 @@ angular.module('myModule', []).
         </section>
         <section>
           <section>
-            <h2>Data Binding - In-depth</h2>
-          </section>
-          <section>
-            <h2><a href="http://docs.angularjs.org/guide/databinding">Out of the Box</a></h2>
-            <img src="images/Two_Way_Data_Binding.png" style="width: 50%">
-            <ul>
-              <li class="fragment">Changes to DOM trigger model (scope) updates</li>
-              <li class="fragment">And the other way around: scope updates are reflected in DOM</li>
-              <li class="fragment"><b>But how does it actually work and what happens underneath?</b></li>
-            </ul>
-          </section>
-          <section>
-            <h2>$scope</h2>
-          </section>
-          <section>
-            <h2>@TBD@</h2>
-          </section>
-        </section>
-        <section>
-          <section>
             <h2><a href="http://docs.angularjs.org/guide/concepts#filters" target="_blank">Filters</a> <sup>3</sup></h2>
             <ul>
               <li>Filters perform data transformation (similar in spirit to UNIX pipe (<code>|</code>) filters</li>
@@ -600,7 +601,7 @@ angular.module('myModule', []).
         -->
         <section>
           <h1>Part 3</h1>
-          <h2>Features</h2>
+          <h2>Additional Features</h2>
         </section>
 
         <section>
@@ -643,7 +644,7 @@ angular.module('myModule', []).
         -->
         <section>
           <h1>Part 4</h1>
-          <h2>Practical Considerations</h2>
+          <h2>Some Practical Considerations</h2>
         </section>
         <section>
           <section>
@@ -679,8 +680,8 @@ angular.module('myModule', []).
             <pre><code>"use strict"</code></pre>
             <p>Can be also used for individual functions:</p>
             <pre><code>function myFunc() {
-              "use strict";
-            }</code></pre>
+  "use strict";
+}</code></pre>
             <p><b>Catch: </b>requires IE 10 or later (but does not break on older versions)</p>
           </section>
           <section>
@@ -701,9 +702,32 @@ angular.module('myModule', []).
               <li>However: study to linting errors in depth before tweaking</li>
             </ul>
           </section>
+        </section>
+        <section>
           <section>
-            <h2>Writing Angular Code for Minification</h2>
-            <h3>@TBD@</h3>
+            <h2>Minifying Angular Code</h2>
+          </section>
+          <section>
+            <h2><a href="http://docs.angularjs.org/tutorial/step_05#a-note-on-minification">Be Careful with Dependency Injection</a></h2>
+            <p>Be careful when using dependency injection in this fashion:</p>
+            <pre><code>angular.module('myApp').controller('MyControl', function ($scope, $http) {
+  ...
+});</code></pre>
+            <p>Minifiers can mangle object names, which break dependency injection (e.g. <code>$scope</code> &rarr; <code>s</code>)</p>
+            <p>To stay minification-safe, write:</p>
+            <pre><code>angular.module('myApp').controller('MyControl', ['$scope', '$http', function ($scope, $http) {
+  ...
+})</code></pre>
+            <p>Minifiers don't mangle string values, ensuring injections work even with renamed parameter variables</p>
+          </section>
+          <section>
+            <h2>AngularJS Pre-minifier</h2>
+            <ul>
+              <li>You may still prefer or need to use the shorter form</li>
+              <li>Work around the problem by using a preminifier (<a href="https://github.com/btford/ngmin">ngmin</a>)</li>
+              <li>Integrate to your build e.g. with <a href="https://www.npmjs.org/package/grunt-ngmin">grunt-ngmin</a> or
+                  <a href="https://github.com/sindresorhus/gulp-ngmin">gulp-ngmin</a></li>
+            </ul>
           </section>
         </section>
         <section>
