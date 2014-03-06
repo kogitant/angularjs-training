@@ -622,11 +622,11 @@ angular.module('myModule', []).
               <li>Simple example: <code>ngHide</code> = hide/show element based on expression</li>
               <li>A more advanced example: make content editable with <code>contentEditable="true"</code> attribute.</li>
             </ul>
-          </section>
+          </section>          
           <section>
             <h2><a href="http://docs.angularjs.org/guide/directive#matching-directives">Directive Matching</a></h2>
             <p>
-              Simple directive example:
+              Example:
             </p>
             <pre><code>&lt;input ng-click="action()"></code></pre>
             <p><b>ng-click</b> is matched with <b>ngClick</b> directive due to normalization:</p>
@@ -637,8 +637,7 @@ angular.module('myModule', []).
             <p><br><b>Best practice: </b>use dash-delimited format in your names</p>         
           </section>
           <section>
-            <h2>Options: restrict</h2>
-            <p>Restrict usage of directive by type:</p>
+            <h2>Directive Matching Types</h2>
             <ul>
               <li><b>E</b> - Element names (<code>&lt;my-dir&gt;&lt;/my-dir&gt;</code>)</li>
               <li><b>A</b> - Attributes (<code>&lt;h1 my-dir="exp"&gt;&lt;h1&gt;</code>)</li>
@@ -657,12 +656,29 @@ angular.module('myModule', []).
             </ul>
           </section>
           <section>
-            <h2>Example: barchart directive</h2>
-            <p>Want to create custom barchart HTML element, like:</p>
-            <pre><code><barchart title="My chart" values="12,25,15,9,4,3,12,22"></barchart></code></pre>
+            <h2>Example: mouseHighlighter Directive</h2>
+            <h3><a href="http://jsfiddle.net/jsalonen/b6dB2/">jsfiddle.net/jsalonen/b6dB2</a></h3>
+            <pre><code>.directive('mouseHighlighter', function() {
+  return {
+    link: function(scope, element, attrs) {
+      element.bind('mouseenter', function() {
+        element.addClass('highlight');
+      });
+      element.bind('mouseleave', function() {
+        element.removeClass('highlight');
+      });
+    }
+  }      
+});</code></pre>
           </section>
           <section>
+            <h2>Example: async-content directive</h2>
+          </section>
+          <section>
+            <h2>Example: barchart directive</h2>
             <h3><a href="http://jsfiddle.net/jsalonen/A3dJW/">jsfiddle.net/jsalonen/A3dJW/</a></h3>
+            <pre><code><barchart title="My chart" values="12,25,15,9,4,3,12,22"></barchart></code></pre>
+
             <p>Notes:</p>
             <ul>          
               <li><b>restrict: 'E'</b> - Only allow element directives</li>
