@@ -1,9 +1,9 @@
 'use strict';
 var kikkeriApp; // from app.js
 
-kikkeriApp.factory('TournamentsModel', function(TournamentsRsc) {
+kikkeriApp.factory('TournamentsModel', ['TournamentsRsc', function(TournamentsRsc) {
 	var model = {
-		tournaments: [],	
+		tournaments: [],
 		refresh: function () {
 			TournamentsRsc.get(function(result) {
 				model.tournaments = result;
@@ -13,9 +13,9 @@ kikkeriApp.factory('TournamentsModel', function(TournamentsRsc) {
 		}
 	};
 	return model;
-});
+}]);
 
-function TournamentsCtrl($scope, $location, TournamentsModel, TournamentsRsc) {
+kikkeriApp.controller('TournamentsCtrl', ['$scope', '$location', 'TournamentsModel', 'TournamentsRsc', function($scope, $location, TournamentsModel, TournamentsRsc) {
 	$scope.tournamentsModel = TournamentsModel;
 	$scope.tournamentsModel.refresh();
 
@@ -26,15 +26,14 @@ function TournamentsCtrl($scope, $location, TournamentsModel, TournamentsRsc) {
 	$scope.createNewTournament = function() {
 		var tournament = {};
 
-		var SERIES = {
-			periods: 2,
-			pointsForWin: 2,
-			pointsForLoss: 0,
-			pointsForEven: 1
+		var configurations = {
+			SERIES: {
+				periods: 2,
+				pointsForWin: 2,
+				pointsForLoss: 0,
+				pointsForEven: 1
+			}
 		};
-
-		var configurations = {};
-		configurations.SERIES = SERIES;
 
 		tournament.name = 'kikkeriturnaus';
 		tournament.configurations = configurations;
@@ -45,5 +44,5 @@ function TournamentsCtrl($scope, $location, TournamentsModel, TournamentsRsc) {
 			console.log(error);
 		});
 	};
-}
+}]);
 

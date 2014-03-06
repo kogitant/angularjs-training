@@ -4,7 +4,7 @@
 var domain = 'http://localhost:8080';
 
 // Create application module
-var kikkeriApp = angular.module('kikkeriApp', ['ngResource', 'ngRoute', 'ngAnimate']);
+var kikkeriApp = angular.module('kikkeriApp', ['ngResource', 'ngRoute']);
 
 // Routing
 kikkeriApp.config(function ($routeProvider) {
@@ -30,7 +30,7 @@ kikkeriApp.config(function ($routeProvider) {
 kikkeriApp.factory('MatchesRsc', function($resource) {
   return $resource(domain + '/matches', {}, {
     get: {method: 'GET', isArray: true},
-    post: {method: 'POST'},
+    post: {method: 'POST'}
   });
 });
 

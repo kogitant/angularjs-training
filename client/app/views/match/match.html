@@ -1,4 +1,4 @@
-{{matchModel.persistMatch}}
+
 <div class="container">
 	<div class="row">
 		<div class="col-sm-12 col-md-12">
@@ -10,11 +10,13 @@
 							<div class="col-sm-12 col-md-3">
 								<label>Pelaaja 1</label>
 							</div>
-							
+
 							<div class="col-sm-12 col-md-3">
-								<input required type="text" class="form-control" ng-model="matchModel.match.bluePlayerName" placeholder="Pelaajan 1 nimi" />	
+								<input required type="text" class="form-control" ng-model="matchModel.match.bluePlayerName" placeholder="Pelaajan 1 nimi" />
 							</div>
-							
+
+
+
 							<div ng-repeat="period in matchModel.match.periods" class="col-sm-12 col-md-3">
 								<input required type="number" min="0" max="10" class="form-control" ng-model="period.bluePlayerScore" placeholder="1. puoliaika tehdyt maalit" />
 							</div>
