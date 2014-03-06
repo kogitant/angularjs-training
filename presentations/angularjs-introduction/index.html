@@ -528,7 +528,45 @@ angular.module('myModule', []).
             <h2>Expressions</h2>
           </section>
           <section>
-            <h2>@TBD@</h2>
+            <h2><a href="http://docs.angularjs.org/guide/expression">Expression</a></h2>
+            <ul>
+              <li>JavaScript-like code snippets, mainly used for data binding</li>
+              <li>Usually placed in bindings like: <code>{{ expression }}</code></li>
+              <li>Are re-evaluated when bindings change</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Different from JavaScript Expressions</h2>
+            <ul>
+              <li>Evaluated against scope object (not window)</li>
+              <li>Silently handle <code>undefined</code> and <code>null</code> values</li>
+              <li>You cannot use control flow statements</li>
+              <li>Parsed with <a href="http://docs.angularjs.org/api/ng/service/$parse">$parse</a>, not with
+              <code>eval</code> (=safer)</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Expression Examples</h2>
+            <p>Some simple math with values from scope:</p>
+            <pre><code>{{ savings + income - moneySpent }}</code></pre>
+            <pre><code>{{ 3.14 * radius * radius }}</code></pre>
+            <p>String concatenation with null / undefined values:</p>
+            <pre><code>{{ "hello" + null + undefined + "world!" }}</code></pre>
+            <div class="fragment">&rarr; "hellonull world!"</div>
+          </section>
+          <section>
+            <h2>Additional Notes</h2>
+            <ul>
+              <li>If you really need window object, you can use <code>$window</code></li>
+              <li>If you really need eval, you can use <a href="http://docs.angularjs.org/api/ng/type/$rootScope.Scope#$eval">$eval</a></li>
+              <li>Don't overdo expressions. Use:
+                <ul>
+                  <li>Filters for data manipulation</li>
+                  <li>Directives for reusable components</li>
+                  <li>Controllers for logic</li>
+                </ul>
+              </li>
+            </ul>
           </section>
         </section>
         <section>
@@ -578,7 +616,7 @@ angular.module('myModule', []).
         </section>
         <section>
           <section>
-            <h2>Values and Consts</h2>
+            <h2>Values and Constants</h2>
           </section>
           <section>
             <h2>@TBD@</h2>
