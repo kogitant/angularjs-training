@@ -50,8 +50,8 @@
           <h2>Contents</h2>
           <ul>
             <li>Part 1: Background and a High-level Overview</li>
-            <li>Part 2: Architecture, Key Concepts and Core Features</li>
-            <li>Part 3: More on Features</li>
+            <li>Part 2: Architecture, Concepts and Core Features</li>
+            <li>Part 3: Features</li>
           </ul>
 
           <p><br><em>Hint: Use up/down arrows to navigate inside topics</em></p>
@@ -188,7 +188,7 @@
 
         <section>
           <h1>Part 2</h1>
-          <h2>Architecture, Key Concepts<br>and Core Features</h2>
+          <h2>Architecture, Concepts<br>and Core Features</h2>
         </section>
 
         <section>
@@ -519,54 +519,59 @@ angular.module('myModule', []).
         </section>
         <section>
           <section>
-            <h2><a href="http://docs.angularjs.org/guide/concepts">Recap on Key Concepts</a></h2>
+            <h2>Services and Factories</h2>
           </section>
+        </section>
+        <section>
           <section>
-            <h2>Template</h2>
-            <h3 class="fragment">HTML with additional markup</h3>
+            <h2>Values and Consts</h2>
           </section>
+        </section>
+        <section>
           <section>
-            <h2>Model</h2>
-            <h3 class="fragment">The data that is shown to the user and with which the user interacts</h3>
-          </section>
-          <section>
-            <h2>View</h2>
-            <h3 class="fragment">What the user sees (the DOM)</h3>
-          </section>
-          <section>
-            <h2>Data Binding</h2>
-            <h3 class="fragment">Sync data between the model and the view</h3>
-          </section>
-          <section>
-            <h2>Expression</h2>
-            <h3 class="fragment">Access variables and functions from the scope</h3>
-          </section>
-          <section>
-            <h2>Filter</h2>
-            <h3 class="fragment">formats the value of an expression for display to the user</h3>              
-          </section>
-          <section>
-            <h2>Directive</h2>
-            <h3 class="fragment">Extends HTML with custom attributes and elements</h3>
-          </section>
-          <section>
-            <h2>Scope</h2>
-            <h3 class="fragment">Context where the model is stored so that controllers, directives and expressions can access it</h3>
-          </section>
-          <section>
-            <h2>Controller</h2>
-            <h3 class="fragment">The business logic behind views</h3>
+            <h2>Providers</h2>
           </section>
         </section>
 
         <section>
           <h1>Part 3</h1>
-          <h2>More on Features</h2>
+          <h2>Features</h2>
         </section>
 
         <section>
           <section>
-            <h2>More on Directives</h2>
+            <h2><a href="http://docs.angularjs.org/guide/forms">Forms</a></h2>
+            <ul>
+              <li>A set of features for developing forms is provided</li>
+              <li>Included out of the box: form controller and validation facitilities</li>
+              <li>Combine with e.g. <code>$resource</code> to implement form submission</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/i18n">Localization</a></h2>
+            <ul>
+              <li>Support for datetime, number and currency localization via filters</li>
+              <li>Pluralization support via <a href="http://docs.angularjs.org/api/ng/directive/ngPluralize">ngPluralize</a> directive</li>
+              <li>Localizable Angular components depend on <a href="http://docs.angularjs.org/api/ng/service/$locale">$locale</a> service</li>              
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Ensuring Browser Compatibility</h2>
+          </section>
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/ie">Internet Explorer Compatibility</a></h2>
+            <ul>
+              <li>Add <code>id="ng-app"</code> to the element containing ng-app</li>
+              <li>If you use custom element tags (<code>&lt;ng:view&gt;</code>), extra boilerplate need to be added <b>(IE &lt; 8)</b></li>
+              <li>Polyfill <code>JSON.stringify</code> <b>(IE7 and below)</b></li>
+              <li>Use <code>ng-style</code> tags for styles containing expressions <b>(IE &lt; 11)</b></li>
+            </ul>
+            <p><br>For details see <a href="http://docs.angularjs.org/guide/ie">http://docs.angularjs.org/guide/ie</a></p>
           </section>
         </section>
         <section>
@@ -582,7 +587,24 @@ angular.module('myModule', []).
         </section>
         <section>
           <section>
-            <h2>Services</h2>
+            <h1>References</h1>
+          </section>
+          <section>
+            <h2>Recommended Materials</h2>
+            <div style="text-align: left;">
+              <p><a href="http://docs.angularjs.org/guide">Guide to AngularJS Documentation</a><br>
+                The canonical AngularJS reference documentation
+              </p>
+              <p><a href="http://shop.oreilly.com/product/0636920028055.do">AngularJS (Green, Seshadri)</a><br>
+                Introductionary book on basic features
+              </p>
+              <p>
+                <a href="http://egghead.io/">Egghead.io</a><br>Bite-sized web development training with AngularJS (videos)
+              </p>
+              <p><a href="http://www.youtube.com/watch?v=zyYpHIOrk_Y">Karl Seamon on Angular Performance</a><br>
+                Excellent video from NG-Conf (check out the others too!)
+              </p>
+            </div>
           </section>
         </section>
       </div>
