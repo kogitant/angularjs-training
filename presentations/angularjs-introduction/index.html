@@ -170,7 +170,7 @@
               <ul>
                 <li>large and monolithic,</li>
                 <li>has a huge API, and</li>
-                <li>requires you to wrap code to proprietary "directives" and "filters"</li>              
+                <li>requires you to wrap code to proprietary "directives" and "filters"</li>
               </ul></p>
             </div>
           </section>
@@ -254,7 +254,7 @@
 &lt;/div>
 &lt;div class="some-container">
   1 + 2 = {{1+2}}
-&lt;/div>  
+&lt;/div>
 </code></pre>
           </section>
 
@@ -337,7 +337,7 @@
             <h2><a href="http://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest">$digest</a></h2>
             <div style="text-align: left;">
               <p>Calls watches within the current scope</p>
-              <p>Since watchers may change the scope, digest keeps calling the watchers until 
+              <p>Since watchers may change the scope, digest keeps calling the watchers until
                  model no longer changes</p>
               <p>Typically <b>you don't need to call $digest yourself</b></p>
             </div>
@@ -353,7 +353,7 @@
               <li>Controller-augmented scope is only visible inside the HTML block that declares <em>ng-controller</em></li>
             </ul>
           </section>
-          <section>          
+          <section>
             <h3><a href="http://jsfiddle.net/jsalonen/nB4WU/">jsfiddle.net/jsalonen/nB4WU/</a></h3>
 <p><b>Simplified example - don't actually do it like this</b></p>
 <pre><code>function NameListCtrl($scope) {
@@ -364,7 +364,7 @@
             <pre><code>&lt;div ng-app>
   &lt;div ng-controller="NameListCtrl">
     &lt;h1>Participants&lt;/h1>
-    &lt;ol>     
+    &lt;ol>
       <li ng-repeat="name in names">{{name}}</li>
     &lt;/ol>
   &lt;/div>
@@ -391,7 +391,7 @@ function NameListCtrl($scope) {
             <pre><code>&lt;div ng-app>
   &lt;div ng-controller="ParticipantCtrl">
     &lt;h1>Participants&lt;/h1>
-    &lt;ol ng-controller="NameListCtrl">     
+    &lt;ol ng-controller="NameListCtrl">
       <li ng-repeat="name in names">{{name}} (in list {{title}})</li>
     &lt;/ol>
   &lt;/div>
@@ -399,7 +399,7 @@ function NameListCtrl($scope) {
 </code>
 </pre>
 </section>
-        
+
           <section>
             <h2><a href="http://docs.angularjs.org/guide/controller#using-controllers-correctly">Using Controllers Correctly</a></h2>
             <p><b>Do not</b> use controllers for:</p>
@@ -438,15 +438,15 @@ function NameListCtrl($scope) {
               Refer to <code>myApp</code> in your <code>ng-app</code> directive:
             </p>
             <pre><code>&lt;html ng-app="myApp">...&lt;/html></code></pre>
-          </section>      
-          <section>          
+          </section>
+          <section>
             <h3>Usage Example: Modular Controllers</h3>
             <h4>(The right way of using controllers)</h4>
             <h3><a href="http://jsfiddle.net/jsalonen/SdXG8/">jsfiddle.net/jsalonen/SdXG8/</a></h3>
             <pre><code>&lt;div ng-app="myApp">
   &lt;div ng-controller="NameListCtrl">
     &lt;h1>Participants</h1>
-    &lt;ol>     
+    &lt;ol>
       &lt;li ng-repeat="name in names">{{name}}</li>
     &lt;/ol>
   &lt;/div>
@@ -456,7 +456,7 @@ function NameListCtrl($scope) {
 myApp.controller('NameListCtrl', function($scope) {
   $scope.names = ['Jaakko', 'Tapio', 'Juha'];
 });</code></pre>
-          </section> 
+          </section>
           <section>
             <h2><a href="http://docs.angularjs.org/guide/module#recommended-setup">Recommended Setup</a></h2>
             <p>While any number of components (controllers, services, directives, etc.) can be bound to a single module,
@@ -475,7 +475,7 @@ myApp.controller('NameListCtrl', function($scope) {
             <h2>
               <a href="http://docs.angularjs.org/guide/module#module-loading-dependencies">Module Loading &amp; Dependencies</a>
             </h2>
-            <p><a href="http://docs.angularjs.org/guide/module#module-loading-dependencies">Two kinds of blocks:</a></p>              
+            <p><a href="http://docs.angularjs.org/guide/module#module-loading-dependencies">Two kinds of blocks:</a></p>
             <ul>
               <li><b>Configuration blocks</b> - gets executed during the provider registrations and configuration phase.</li>
               <li><b>Run blocks</b> - get executed after the injector is created and are used to kickstart the application.</li>
@@ -622,12 +622,12 @@ angular.module('myModule', []).
             <h2><a href="http://docs.angularjs.org/guide/concepts#directives" target="_blank">Directive</a></h2>
             <ul>
               <li>A behaviour or DOM transformation, which is triggered by the presence of a custom attribute, element name, class name or comment</li>
-              <li>Allows you to extend the HTML vocabulary in a declarative fashion.</li>              
+              <li>Allows you to extend the HTML vocabulary in a declarative fashion.</li>
               <li>Multiple directives have already been introduced<br>(can you recall them?)</li>
               <li>Simple example: <code>ngHide</code> = hide/show element based on expression</li>
               <li>A more advanced example: make content editable with <code>contentEditable="true"</code> attribute.</li>
             </ul>
-          </section>          
+          </section>
           <section>
             <h2><a href="http://docs.angularjs.org/guide/directive#matching-directives">Directive Matching</a></h2>
             <p>
@@ -638,8 +638,8 @@ angular.module('myModule', []).
             <ul>
               <li>Strip <code>x-</code> and <code>data-</code> from element/attribute name prefix</li>
               <li>Convert <code>.</code>, <code>-</code> and <code>_</code> delimited names to <code>camelCase</code></li>
-            </ul>   
-            <p><br><b>Best practice: </b>use dash-delimited format in your names</p>         
+            </ul>
+            <p><br><b>Best practice: </b>use dash-delimited format in your names</p>
           </section>
           <section>
             <h2>Directive Matching Types</h2>
@@ -673,7 +673,7 @@ angular.module('myModule', []).
         element.removeClass('highlight');
       });
     }
-  }      
+  }
 });</code></pre>
           </section>
           <section>
@@ -682,7 +682,7 @@ angular.module('myModule', []).
             <pre><code><barchart title="My chart" values="12,25,15,9,4,3,12,22"></barchart></code></pre>
 
             <p>Notes:</p>
-            <ul>          
+            <ul>
               <li><b>restrict: 'E'</b> - Only allow element directives</li>
               <li><b>template: '...'</b> - Custom template for directive</li>
               <li><b>scope: {...}</b> - Bind attribute values to
@@ -717,7 +717,7 @@ angular.module('myModule', []).
     $scope.enterQueue = function() {
       $timeout(function() {
         $window.location.href = 'http://www.gofore.com';
-      }, 5000);      
+      }, 5000);
     };
   }]);</code></pre>
           </section>
@@ -736,10 +736,10 @@ angular.module('myModule', []).
             <pre><code>myApp.factory('TaxCalcService', function() {
     return {
       'calculateTax': function (income) {
-        if(income<10000) return income*0.1;       
-        if(income<20000) return income*0.2;        
+        if(income<10000) return income*0.1;
+        if(income<20000) return income*0.2;
         return income*0.3;
-      }      
+      }
     };
   })</pre></code>
           </section>
@@ -751,8 +751,19 @@ angular.module('myModule', []).
 <pre><code>myApp.service('serviceA', function a() { ... })</code></pre>
 <p>Returns instance of the function (<code>new function a())</code>
 <pre><code>myApp.factory('serviceB', function b() { ... })</code></pre>
-<p>Returns the value that is returned when invoking b</p>           
+<p>Returns the value that is returned when invoking b</p>
 
+          </section>
+
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/providers">Providers</a></h2>
+            <ul>
+              <li><b>Provider</b> = the way how registration of various objects
+               for injector is handled in AngularJS</li>
+              <li>Value, Factory, Service and Constant methods are just
+               syntactic sugar on top of provider recipe</li>
+              <li>More details: <a href="http://docs.angularjs.org/guide/providers">at Angular guide on Providers</a></li>
+            </ul>
           </section>
         </section>
 
@@ -763,13 +774,10 @@ angular.module('myModule', []).
         -->
         <section>
           <h1>Part 3</h1>
-          <h2>Additional Features and Aspects</h2>
+          <h2>Service-side Communications</h2>
         </section>
 
         <section>
-          <section>
-            <h2>Server-side Communications</h2>
-          </section>
           <section>
             <h2><a href="http://docs.angularjs.org/api/ng/service/$http">$http</a></h2>
             <ul>
@@ -786,19 +794,6 @@ angular.module('myModule', []).
               <li>Higher-level service for accessing RESTful server-side resources</li>
             </ul>
           </section>
-        </section>      
-
-        <section>
-          <section>
-            <h2><a href="http://docs.angularjs.org/guide/providers">Providers</a></h2>
-            <ul>
-              <li><b>Provider</b> = the way how registration of various objects
-               for injector is handled in AngularJS</li>
-              <li>Value, Factory, Service and Constant methods are just
-               syntactic sugar on top of provider recipe</li>
-              <li>More details: <a href="http://docs.angularjs.org/guide/providers">at Angular guide on Providers</a></li>
-            </ul>
-          </section>
         </section>
 
         <section>
@@ -812,25 +807,23 @@ angular.module('myModule', []).
           </section>
         </section>
 
+        <!--
+
+          Extras
+
+        -->
+        <section>
+          <h1>Extras</h1>
+        </section>
         <section>
           <section>
             <h2><a href="http://docs.angularjs.org/guide/i18n">Localization</a></h2>
             <ul>
               <li>Support for datetime, number and currency localization via filters</li>
               <li>Pluralization support via <a href="http://docs.angularjs.org/api/ng/directive/ngPluralize">ngPluralize</a> directive</li>
-              <li>Localizable Angular components depend on <a href="http://docs.angularjs.org/api/ng/service/$locale">$locale</a> service</li>              
+              <li>Localizable Angular components depend on <a href="http://docs.angularjs.org/api/ng/service/$locale">$locale</a> service</li>
             </ul>
           </section>
-        </section>
-
-        <!--
-
-          Part 4
-
-        -->
-        <section>
-          <h1>Part 4</h1>
-          <h2>Some Practical Considerations</h2>
         </section>
         <section>
           <section><h2>Extending Angular</h2></section>
@@ -841,7 +834,7 @@ angular.module('myModule', []).
           <section>
             <h2><a href="http://ngmodules.org/">ngModules</a></h2>
             <p>Online repository of AngularJS modules</p>
-          </section>          
+          </section>
         </section>
         <section>
           <section>
