@@ -780,7 +780,7 @@ angular.module('myModule', []).
         -->
         <section>
           <h1>Part 3</h1>
-          <h2>Service-side Communications</h2>
+          <h2>Server-side Communications</h2>
         </section>
 
         <section>
@@ -788,18 +788,76 @@ angular.module('myModule', []).
             <h2><a href="http://docs.angularjs.org/api/ng/service/$http">$http</a></h2>
             <ul>
               <li>Rudimentary service for HTTP calls</li>
-              <li>Supported methods: GET, HEAD, POST, PUT, DELETE</li>
-              <li>Ability to use JSONP</li>
-              <li>Very well suited for testing since it can be easily mocked</li>
-              <li>In practice very similar to jQuery's <code>ajax</code> method</li>
+                <li>Simply a wrapper around the browser's XMLHttpRequest object</li>
+              <li>Supported http-methods: GET, HEAD, POST, PUT, DELETE</li>
+              <li>Make requests using XHR objects or JSONP</li>
+              <li>Very similar to jQuery's <code>ajax</code> method</li>
+                <li>Based on deferred/promise APIs from <a href="https://docs.angularjs.org/api/ng/service/$q">$q</a></li>
+
+
             </ul>
           </section>
+          <section>
+            <h2>Basic example</h2>
+              <pre>
+                  <code>$http({method: 'GET', url: '/someUrl'}).
+  success(function(data, status, headers, config) {
+      // this callback will be called asynchronously
+      // when the response is available
+  }).
+  error(function(data, status, headers, config) {
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+  });</code>
+              </pre>
+          </section>
+            <section>
+                <h2><a href="https://docs.angularjs.org/api/ng/service/$http#usage">Configuration object</a></h2>
+                <ul>
+                    <li>Object given to $http when calling it as a method</li>
+                    <li>Describe how to craft the XMLHttpRequest</li>
+                    </ul>
+                    <pre><code>
+$http({
+    method: 'POST',                                 // http-method type
+    url: 'http://myservice/library/books',          // absolute or relative url to resource
+    params: {author: 'Jaakko Salonen'},             // queryparams
+    data: {name: 'How to AngularJS', text: '...'},  // payload
+    headers: {myheader: 'myheader'},                // headers for the call
+    cache: true                                     // cache result for this request
+});
+                    </code></pre>
+                        <pre>http://myservice.com/library/books?author=Jaakko+Salonen</pre>
+            </section>
+            <section>
+                <h2>Response object</h2>
+                <ul>
+                    <li>The response object Angular passes to the promise</li>
+                    <li>Contains 4 properties</li>
+                    <ul>
+                        <li>data - response payload</li>
+                        <li>status - status number</li>
+                        <li>headers [function] - function to get the header value for given argument</li>
+                    </ul>
+                </ul>
+            </section>
+            <section>
+                <h2>$http shortcuts</h2>
+            </section>
+
+
+            <section>
+                <h2>Configuration object</h2>
+            </section>
+
           <section>
             <h2><a href="http://docs.angularjs.org/api/ngResource/service/$resource">$resource</a></h2>
             <ul>
               <li>Higher-level service for accessing RESTful server-side resources</li>
+                <li>Uses $http at the background</li>
             </ul>
           </section>
+
         </section>
 
         <section>
