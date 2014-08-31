@@ -3,9 +3,9 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-  .controller('ChatroomCtrl', ['$scope', '$resource', '$timeout', function($scope, $resource, $timeout) {
-  	  var apiRootUrl = "http://localhost:3000"; //http://funchat-api.herokuapp.com
-	  var Message = $resource(apiRootUrl + '/messages/:messageId', {messageId:'@id'});
+  .constant('funChatApiUrl', 'http://funchat-api.herokuapp.com')
+  .controller('ChatroomCtrl', ['$scope', '$resource', '$timeout', 'funChatApiUrl', function($scope, $resource, $timeout, funChatApiUrl) {
+	  var Message = $resource(funChatApiUrl + '/messages/:messageId', {messageId:'@id'});
 
 	  var tick = function () {
 		  var messages = Message.query(function() {
