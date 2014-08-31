@@ -7,7 +7,7 @@ router
 	.get(function(req, res) {
 		Message
 			.find()
-			.sort('-created')
+			.sort('+created')
 			.exec(function(err, messages) {
 				if (err) {
 					res.send(err);
@@ -26,8 +26,7 @@ router
  				res.send(err);
 			}
 
-			res.setHeader("Location", "/messages/" + message._id);
-			res.status(201).send("Created");
+			res.json(message);
 		});
 	});
 
