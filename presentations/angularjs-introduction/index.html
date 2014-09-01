@@ -816,7 +816,7 @@ angular.module('myModule', []).
                 <ul>
                     <li>Object given to $http when calling it as a method</li>
                     <li>Describe how to craft the XMLHttpRequest</li>
-                    </ul>
+                </ul>
                     <pre><code>
 $http({
     method: 'POST',                                 // http-method type
@@ -828,6 +828,9 @@ $http({
 });
                     </code></pre>
                         <pre>http://myservice.com/library/books?author=Jaakko+Salonen</pre>
+                <ul>
+                    <li>Also some other more advanced configuration options e.g. transformRequest and transformResponse</li>
+                </ul>
             </section>
             <section>
                 <h2>Response object</h2>
@@ -836,18 +839,23 @@ $http({
                     <li>Contains 4 properties</li>
                     <ul>
                         <li>data - response payload</li>
-                        <li>status - status number</li>
+                        <li>status - status number for the response</li>
                         <li>headers [function] - function to get the header value for given argument</li>
+                        <li>config - configuration objects that was used to generate the original request</li>
                     </ul>
                 </ul>
             </section>
             <section>
-                <h2>$http shortcuts</h2>
-            </section>
+                <h2>You can also...</h2>
+                <ul>
+                    <li>Use $http-services <b>convenience methods</b> to make your code a bit easier to read</li>
+                    <pre><code>
+$http.get('someresource.com/api/givemethings')
+$http.post('somereource.com/api/shutupandtakemydata')
+                    </code></pre>
 
-
-            <section>
-                <h2>Configuration object</h2>
+                    <li>Interceptors - provide global functionality on <b>all</b> of our requests</li>
+                </ul>
             </section>
 
           <section>
