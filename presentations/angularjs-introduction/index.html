@@ -818,7 +818,8 @@ angular.module('myModule', []).
                     <li>Describe how to craft the XMLHttpRequest</li>
                 </ul>
                     <pre><code>
-$http({
+var myPromise;
+myPromise = $http({
     method: 'POST',                                 // http-method type
     url: 'http://myservice/library/books',          // absolute or relative url to resource
     params: {author: 'Jaakko Salonen'},             // queryparams
@@ -826,6 +827,7 @@ $http({
     headers: {myheader: 'myheader'},                // headers for the call
     cache: true                                     // cache result for this request
 });
+//handle promise
                     </code></pre>
                         <pre>http://myservice.com/library/books?author=Jaakko+Salonen</pre>
                 <ul>
@@ -850,7 +852,7 @@ $http({
                 <ul>
                     <li>Use $http-services <b>convenience methods</b> to make your code a bit easier to read</li>
                     <pre><code>
-$http.get('someresource.com/api/givemethings')
+$http.get('someresource.com/api/givemethings') // configuration object is optional second parameter
 $http.post('somereource.com/api/shutupandtakemydata')
                     </code></pre>
 
