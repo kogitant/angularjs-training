@@ -859,17 +859,81 @@ $http.post('somereource.com/api/shutupandtakemydata')
                     <li>Interceptors - provide global functionality on <b>all</b> of our requests</li>
                 </ul>
             </section>
+         </section>
 
+
+
+        <section>
           <section>
             <h2><a href="http://docs.angularjs.org/api/ngResource/service/$resource">$resource</a></h2>
             <ul>
               <li>Higher-level service for accessing RESTful server-side resources</li>
+                <li>Rather than requiring to write tedious code, we can use $resource and make http-calls with just calling methods like save or update</li>
+                <li>$resource is <b>implemented in a separate module</b> - not built into angular by default</li>
                 <li>Uses $http at the background</li>
+                <li>General usage:</li>
+                <pre>$resource(parametrizedUrl, [paramDefaults], [actions], options);</pre>
             </ul>
           </section>
 
-        </section>
+            <section>
+                <h2>Installation and example</h2>
+                <pre><code>&lt;html ng-app>
+    &lt;body>
+    <!-- ... -->
+    &lt;script src="angular.js">&lt;/script>
+    &lt;script src="angular-resource.js">&lt;/script>
+    &lt;/body>
+&lt;/html></code></pre>
+                <div class="fragment">
+                <pre><code>angular.module('myApp', [ngResource]);
+// Now you can inject $resource anywhere you want in myApp</code></pre>
+                </div>
+                <div class="fragment">
+                    <pre><code>angular.module('myApp').factory('UserResource', function($resource) {
+    return $resource('/user/:userId', {userId:'@id'});
+});
+// now you can inject UserResource anywhere you want in myApp</code></pre>
+                </div>
+                <div class="fragment">
+                    <pre><code>angular.module('myApp').controller('myController', function($scope, UserResource) {
 
+UserResource.get({id:123}, function(result) {
+    $scope.user = result; // NOTE: $scope.user is undefined until the response arrives
+    // now maybe make new rest-calls using this result
+    }, function(error){
+        // handle error
+    });
+
+});</code></pre>
+                </div>
+                
+                
+            </section>
+            <section>
+                <h2>$resource returns an object</h2>
+                <pre><code>
+var User = $resource('/user/:userId', {userId:'@id'});
+console.log(User)
+// { 'get':    {method:'GET'},
+//  'save':   {method:'POST'},
+//  'query':  {method:'GET', isArray:true},
+//  'remove': {method:'DELETE'},
+//  'delete': {method:'DELETE'} };
+                    </code></pre>
+                    <ul>
+                        <li>You can define your own actions</li>
+                    </ul>
+            </section>
+
+            <section>
+                <h2>Return value is an object</h2>
+                <ul>
+                    <li></li>
+                </ul>
+
+            </section>
+        </section>
         <section>
           <section>
             <h2><a href="http://docs.angularjs.org/guide/forms">Forms</a></h2>
