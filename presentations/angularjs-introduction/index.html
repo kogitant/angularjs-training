@@ -932,14 +932,12 @@ UserResource.get({id:123}, function(result) {
             </section>
             <section>
                 <h2>Url parametrization</h2>
-                <div class="fragment">
-                    <p>Remember $resource general usage</p>
+                    <p>$resource general usage again</p>
                     <pre>$resource(parametrizedUrl, [paramDefaults], [actions], options);</pre>
-                </div>
                 <div class="fragment">
                     <pre><code>//Paramdefault maps keys from the given object to URLs colon notations
 angular.module('myApplication').factory('myresource', ['$resource', function($resource){
-    $resource('rest-api/autos/model/:model/color/:color',
+    return $resource('rest-api/autos/model/:model/color/:color',
     {model: '@calleesCarModelVariableName', color: '@calleesCarColor'});
 }]);
 
@@ -952,14 +950,11 @@ angular.module('myApplication').controller('myController', ['$scope', 'myresourc
 }]);</code></pre>
 
                 </div>
-                <div class="fragment">
-                    <p>Calling the previous resource</p>
-                    <pre>exampleResource.get({})</pre>
-                </div>
+
             </section>
 
             <section>
-                <h2>Example of more customized usage</h2>
+                <h2>Another example of customized use</h2>
 
                 <div class="fragment">
                 <pre><code>
@@ -997,6 +992,65 @@ angular.module('myApplication').factory('HakemusResource', function($resource) {
         <section>
             <section>
                 <h2>Deferred Api and promises</h2>
+            </section>
+
+            <section>
+                <h2>The problem</h2>
+                <h3>Case #1</h3>
+                <ul>
+                    <div class="fragment">
+                    <li>You need to make a rest call...</li>
+                    </div>
+                    <div class="fragment">
+                    <li>...and use the response data of first call to make another call...</li>
+                    </div>
+                    <div class="fragment">
+                    <li>...and third call using previous data...</li>
+                    </div>
+                    <div class="fragment">
+                        <li>...and so on...</li>
+                    </div>
+                </ul>
+
+            </section>
+            <section>
+                <p>Code example from existing project</p>
+                <pre><code>
+// ...
+ValintaperusteetHakukohde.get({hakukohdeoid: hakukohdeOid}, function(result) {
+model.tarjoajaOid = result.tarjoajaOid;
+});
+
+// Request sent right after ValintaperusteetHakukohde-restcall has been sent (no waiting for response)
+ValinnanvaiheListByHakukohde.get({hakukohdeoid: hakukohdeOid}, function(result) {
+    model.valinnanvaiheet = result;
+    // Request sent after ValinnanvaiheListByHakukohde-resource is finished
+    ValinnanVaiheetIlmanLaskentaa.get({hakukohdeoid: hakukohdeOid}, function(result) {
+        model.ilmanlaskentaa = result;
+        if(result.length > 0) {
+        // Request sent after ValinnanvaiheListByHakukohde AND ValinnanVaiheetIlmanLaskentaa are finished
+        HakukohdeHenkilotFull.get({aoOid: hakukohdeOid, rows: 100000}, function (result) {
+            model.hakeneet = result;
+// ...
+                </code></pre>
+                <div class="fragment">
+                    <p>Actually, it's possible to live with this</p>
+                </div>
+                <div class="fragment">
+                    <p>But just as long as you don't need to know when for example ValinnanVaiheetIlmanLaskentaa-call returns!</p>
+                </div>
+            </section>
+
+            <section>
+                <h3>Case #2</h3>
+                <ul>
+                    <div class="fragment">
+                        <li>Another part (in controller, factory, service - anything) of your application needs to know when resource is fetched</li>
+                    </div>
+                    <div class="fragment">
+                        <li>How? You just put your data in to a variable in $scope object but there's no default event nor notification for others</li>
+                    </div>
+                </ul>
             </section>
         </section>
 
