@@ -1065,10 +1065,11 @@ ValinnanvaiheListByHakukohde.get({hakukohdeoid: hakukohdeOid}, function(result) 
                 </ul>
             </section>
             <section>
-                <h2>Deferred API</h2>
+                <h2>Deferred objects</h2>
                 <p>The purpose of the deferred object is to expose the associated Promise instance as well as
                     APIs that can be used for signaling the successful or unsuccessful completion, as well as the status of the task.</p>
                 <div class="fragment">
+                    <h3>Deferred API</h3>
                 <pre><code>// Inject $q
 var deferred = $q.defer();
 deferred.promise; // Promise object bind to this deferred object
@@ -1079,14 +1080,35 @@ deferred.notify(); // Send notification
                 </div>
             </section>
             <section>
-                <h2>Promise API</h2>
+                <h2>Promises</h2>
                 <div class="fragment">
                 <p>A new promise instance is created when a deferred instance is created and can be retrieved by calling deferred.promise</p>
                 </div>
                 <div class="fragment">
                 <p>The purpose of the promise object is to allow for interested parties to get access to the result of the deferred task when it completes.</p>
                 </div>
-<div class="fragment">
+                <div class="fragment">
+                    <p>Promises carry a few guarantees</p>
+                    <ol>
+                        <div class="fragment">
+                        <li>Only one resolve or reject will ever be called</li>
+                        <ul>
+                            <li>resolve is called with a single fullfillment value</li>
+                            <li>reject can be called with a single rejection value</li>
+                        </ul>
+                        </div>
+                        <div class="fragment">
+                        <li>If the promise has been resolved or rejected, any handlers depending upon it will still be called</li>
+                        </div>
+                        <div class="fragment">
+                        <li>Handlers will always be called asynchronously - they won't block the rest of the app</li>
+                        </div>
+                    </ol>
+                </div>
+
+            </section>
+            <section>
+                <h2>Promise API</h2>
                 <pre><code>// Inject $q
 var deferred = $q.defer();
 var promise = deferred.promise;
@@ -1102,13 +1124,11 @@ promise.catch(errorCallback);
 
 // allows you to observe either the fulfillment or rejection of a promise,
 // but to do so without modifying the final value.
-promise.finally(callback);
-                </code></pre>
-</div>
+promise.finally(callback);</code></pre>
             </section>
 
             <section>
-                <h2>Example</h2>
+                <h2>Basic example</h2>
                 <pre><code>//assume $q and okToGreet are available (injected)
 function asyncGreet(name) {
     var deferred = $q.defer();
@@ -1133,7 +1153,64 @@ promise.then(function(greeting) {
 });
                 </code></pre>
             </section>
+            <section>
+                <h2>Chaining</h2>
+                <p>Promises can be chained like callbacks from $resource </p>
+                <div class="fragment">
+                    <p>But the code is cleaner and easier to understand</p>
+                </div>
+                <div class="fragment">
+                    <p>Make more than one deferred objects and take their promises</p>
+                </div>
+                <div class="fragment">
+                <pre><code>promiseB = promiseA.then(function(result) {
+    return result + 1;
+});
 
+// promiseB will be resolved immediately after promiseA is resolved and its value
+// will be the result of promiseA incremented by 1
+                </code></pre>
+                </div>
+
+            </section>
+            <section>
+                <h2>More</h2>
+                <p>Run a function when any number of promises in array have been resolved</p>
+                <pre><code>$q.all(promises).then(successFn, rejectFn))</code></pre>
+                <div class="fragment">
+                <p>Make a promise that is resolved as rejected - used to forward rejection in a chain of promises</p>
+                <pre><code>$q.reject(message)</code></pre>
+                </div>
+                <div class="fragment">
+                <p>$q.when(value) Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. </p>
+                </div>
+
+            </section>
+            <section>
+                <h2>One more example</h2>
+                <pre><code>
+function doStuff() {
+    var promises = [];
+    dataArray.forEach(function (item) {
+        var deferred = $q.defer();
+        promises.push(deferred.promise);
+        MakeARestCall.put({data: item.oid}, function (success) {
+            deferred.resolve(success);
+        }, function (error) {
+            deferred.reject(error);
+        });
+    });
+    return promises;
+};
+
+var promises = doStuff();
+$q.all(promises).then(function () {
+    // all promises resolved
+}, function () {
+    // at least one promise was rejected
+});
+                </code></pre>
+            </section>
         </section>
 
 
