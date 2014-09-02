@@ -4,13 +4,26 @@
 angular.module('myApp', [
   'ngRoute',
   'ngResource',
+  'LocalStorageModule',
   'myApp.filters',
   'myApp.services',
   'myApp.directives',
-  'myApp.controllers'
+  'myApp.controllers',
+  'luegg.directives'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/chatroom', {templateUrl: 'partials/chatroom.html', controller: 'ChatroomCtrl'});
-  $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
-  $routeProvider.otherwise({redirectTo: '/chatroom'});
-}]);
+	$routeProvider.when('/chatroom', {templateUrl: 'partials/chatroom.html', controller: 'ChatroomCtrl'});
+  $routeProvider.when('/login', {templateUrl: 'partials/login.html', controller: 'LoginCtrl'});
+  $routeProvider.when('/logout', {template: '', controller: 'LogoutCtrl'});
+	$routeProvider.otherwise({redirectTo: '/chatroom'});
+}]).
+run(function($rootScope, $location, SessionService) {
+    $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+      	var author = SessionService.get('author');
+      	if( !author ) {
+        	if ( next.templateUrl != "partials/login.html" ) {
+          		$location.path( "/login" );
+        	}
+      	}         
+    });
+});

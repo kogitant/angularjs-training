@@ -1,10 +1,14 @@
-<div class="messages">
-	<div class="message" ng-repeat="message in messages | slice:(messages.length-10)">
+<div>
+	Logged in as {{ input.author }} <a href="#/logout">Logout</a>
+</div>
+<div class="messages" scroll-glue>
+	<img ng-show="!messages" src="img/ajax-loader.gif">
+	<div class="message" ng-repeat="message in messages">
 		<b>{{ message.author }}</b>: {{ message.content }}
 	</div>
 </div>
 <div>
-	<input type="text" ng-model="input.author" size="10">
-	<input type="text" ng-model="input.content" ng-enter="send()" size="80">
+	&lt;{{ input.author }}&gt; 
+	<input type="text" placeholder="Enter your message here" ng-model="input.content" ng-enter="send()" size="80">
 	<button ng-click="send()" ng-disabled="!input.author || !input.content">Send</button>
 </div>
