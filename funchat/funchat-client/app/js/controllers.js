@@ -13,6 +13,7 @@ angular.module('myApp.controllers', [])
 	  	var tick = function () {
 		  	var messages = Message.query(function() {
 		  	  	$scope.messages = messages;
+		  	  	$timeout(tick, 1000);
 		  	});
       	};
       	tick();

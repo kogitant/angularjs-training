@@ -4,7 +4,7 @@
 <div class="messages" scroll-glue>
 	<img ng-show="!messages" src="img/ajax-loader.gif">
 	<div class="message" ng-repeat="message in messages">
-		<b>{{ message.author }}</b>: {{ message.content }}
+		<span class="datetime">{{ message.created | date : "hh:mm" }}</span> <b>{{ message.author }}</b>: {{ message.content }}
 	</div>
 </div>
 <div>
