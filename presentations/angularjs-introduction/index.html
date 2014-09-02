@@ -879,14 +879,18 @@ $http.post('somereource.com/api/shutupandtakemydata')
             <section>
                 <h2>Installation and example</h2>
                 <pre><code>&lt;html ng-app>
+    &lt;head>
+        &lt;script src="angular.js">&lt;/script>
+        &lt;script src="angular-resource.js">&lt;/script>
+        <!-- Now you can inject ngResource-module to your module -->
+    &lt;/head>
     &lt;body>
     <!-- ... -->
-    &lt;script src="angular.js">&lt;/script>
-    &lt;script src="angular-resource.js">&lt;/script>
+
     &lt;/body>
 &lt;/html></code></pre>
                 <div class="fragment">
-                <pre><code>angular.module('myApp', [ngResource]);
+                <pre><code>angular.module('myApp', ['ngResource']);
 // Now you can inject $resource anywhere you want in myApp</code></pre>
                 </div>
                 <div class="fragment">
@@ -928,22 +932,48 @@ console.log(User)
                     </ul>
             </section>
 
+            <section>
+                <h2>Example of more customized usage</h2>
+
+                <div class="fragment">
+                <pre><code>
+angular.module('myApplication').factory('HakemusResource', function($resource) {
+    return $resource("server.com/rest-api/applications/:oid",
+                    {oid: "@oid", appState:["ACTIVE","INCOMPLETE"]}, {
+        haeHakemus: {method: "GET"},
+        haeHakemukset: {method: "GET", isArray: true, cache: true}
+    });
+});
+                </code></pre>
+                </div>
+                <div class="fragment">
+                    <pre><code>angular.module('myApplication').controller('OppilasController', ['$scope',
+                        'HakemusResource', function($scope, HakemusResource) {
+    $scope.oppilaanHakemukset = [];
+    $scope.oppilasModel = {oid: "1.2.3.4.5"}
+
+    HakemusResource.haeHakemukset({oid: $scope.oppilasModel.oid}, function(result) {
+        $scope.oppilaanHakemukset = result;
+    }, function(error) {
+        // handle error
+    })
+}]);</code></pre>
+                </div>
+                <div class="fragment">
+                    <ul>
+                        <li>'server.com/rest-api/applications/1.2.3.4.5?appState=ACTIVE&appState=INCOMPLETE'</li>
+                        <li>Response is cached into inmemory default cache</li>
+                    </ul>
+                </div>
+            </section>
+
         </section>
         <section>
             <section>
                 <h2>Deferred Api and promises</h2>
             </section>
         </section>
-        <section>
-          <section>
-            <h2><a href="http://docs.angularjs.org/guide/forms">Forms</a></h2>
-            <ul>
-              <li>A set of features for developing forms is provided</li>
-              <li>Included out of the box: form controller and validation facitilities</li>
-              <li>Combine with e.g. <code>$resource</code> to implement form submission</li>
-            </ul>
-          </section>
-        </section>
+
 
         <!--
 
@@ -952,6 +982,16 @@ console.log(User)
         -->
         <section>
           <h1>Extras</h1>
+        </section>
+        <section>
+            <section>
+                <h2><a href="http://docs.angularjs.org/guide/forms">Forms</a></h2>
+                <ul>
+                    <li>A set of features for developing forms is provided</li>
+                    <li>Included out of the box: form controller and validation facitilities</li>
+                    <li>Combine with e.g. <code>$resource</code> to implement form submission</li>
+                </ul>
+            </section>
         </section>
         <section>
           <section>
