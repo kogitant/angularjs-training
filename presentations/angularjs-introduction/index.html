@@ -917,19 +917,45 @@ UserResource.get({id:123}, function(result) {
             <section>
                 <h2>$resource returns an object</h2>
                 <pre><code>
-var User = $resource('/user/:userId', {userId:'@id'});
-console.log(User)
-// { 'get':    {method:'GET'},
-//  'save':   {method:'POST'},
-//  'query':  {method:'GET', isArray:true},
-//  'remove': {method:'DELETE'},
-//  'delete': {method:'DELETE'} };
+{ 'get':    {method:'GET'},
+  'save':   {method:'POST'},
+  'query':  {method:'GET', isArray:true},
+  'remove': {method:'DELETE'},
+  'delete': {method:'DELETE'}
+};
                     </code></pre>
                     <ul>
                         <li>You can define your own actions</li>
                         <li>Common pitfall making REST-calls: if your backend responds with an array, you must have set the isArray-flag to true</li>
                         <li>Configuration object for $resources actions is similar to $http-services configuration object</li>
                     </ul>
+            </section>
+            <section>
+                <h2>Url parametrization</h2>
+                <div class="fragment">
+                    <p>Remember $resource general usage</p>
+                    <pre>$resource(parametrizedUrl, [paramDefaults], [actions], options);</pre>
+                </div>
+                <div class="fragment">
+                    <pre><code>//Paramdefault maps keys from the given object to URLs colon notations
+angular.module('myApplication').factory('myresource', ['$resource', function($resource){
+    $resource('rest-api/autos/model/:model/color/:color',
+    {model: '@calleesCarModelVariableName', color: '@calleesCarColor'});
+}]);
+
+angular.module('myApplication').controller('myController', ['$scope', 'myresource',
+    function($scope, myresource) {
+    $scope.cars = [];
+    $scope.carSearch = {color: 'blue', model: 'golf'}
+    myresource.query({calleesCarModelVariableName: $scope.carSearch.model,
+                        calleesCarColor: $scope.carSearch.color}, successFn, errorFn);
+}]);</code></pre>
+
+                </div>
+                <div class="fragment">
+                    <p>Calling the previous resource</p>
+                    <pre>exampleResource.get({})</pre>
+                </div>
             </section>
 
             <section>
