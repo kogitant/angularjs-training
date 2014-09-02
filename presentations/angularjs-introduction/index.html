@@ -1037,7 +1037,7 @@ ValinnanvaiheListByHakukohde.get({hakukohdeoid: hakukohdeOid}, function(result) 
                     <p>Actually, it's possible to live with this</p>
                 </div>
                 <div class="fragment">
-                    <p>But just as long as you don't need to know when for example ValinnanVaiheetIlmanLaskentaa-call returns!</p>
+                    <p>But what if you need to know when ValinnanVaiheetIlmanLaskentaa-call returns?</p>
                 </div>
             </section>
 
@@ -1048,11 +1048,94 @@ ValinnanvaiheListByHakukohde.get({hakukohdeoid: hakukohdeOid}, function(result) 
                         <li>Another part (in controller, factory, service - anything) of your application needs to know when resource is fetched</li>
                     </div>
                     <div class="fragment">
-                        <li>How? You just put your data in to a variable in $scope object but there's no default event nor notification for others</li>
+                        <li>How? You put your data in to a variable in $scope object but others don't know when it happens</li>
+                    </div>
+                    <div class="fragment">
+                        <li>The answer is deferred objects/promises</li>
                     </div>
                 </ul>
             </section>
+
+            <section>
+                <h2>Meet <a href="https://docs.angularjs.org/api/ng/service/$q">$q</a></h2>
+                <ul>
+                    <li>A helpfull service handling simultaneous rest calls and their responses</li>
+                    <li>A promise/deferred implementation inspired by <a href="https://github.com/kriskowal/q">Kris Kowal's Q.</a></li>
+                    <li>Part of the core of AngularJS</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Deferred API</h2>
+                <p>The purpose of the deferred object is to expose the associated Promise instance as well as
+                    APIs that can be used for signaling the successful or unsuccessful completion, as well as the status of the task.</p>
+                <div class="fragment">
+                <pre><code>// Inject $q
+var deferred = $q.defer();
+deferred.promise; // Promise object bind to this deferred object
+deferred.resolve(); // Resolves the promise and success callback gets executed
+deferred.reject(); // Resolves the promise and reject callback gets executed
+deferred.notify(); // Send notification
+                </code></pre>
+                </div>
+            </section>
+            <section>
+                <h2>Promise API</h2>
+                <div class="fragment">
+                <p>A new promise instance is created when a deferred instance is created and can be retrieved by calling deferred.promise</p>
+                </div>
+                <div class="fragment">
+                <p>The purpose of the promise object is to allow for interested parties to get access to the result of the deferred task when it completes.</p>
+                </div>
+<div class="fragment">
+                <pre><code>// Inject $q
+var deferred = $q.defer();
+var promise = deferred.promise;
+//Use deferred api to resolve the promise
+
+// regardless of when the promise was or will be resolved or rejected,
+// then calls one of the success or error callbacks asynchronously
+// as soon as the result is available.
+promise.then(successCallback, errorCallback, notifyCallback);
+
+// shorthand for promise.then(null, errorCallback)
+promise.catch(errorCallback);
+
+// allows you to observe either the fulfillment or rejection of a promise,
+// but to do so without modifying the final value.
+promise.finally(callback);
+                </code></pre>
+</div>
+            </section>
+
+            <section>
+                <h2>Example</h2>
+                <pre><code>//assume $q and okToGreet are available (injected)
+function asyncGreet(name) {
+    var deferred = $q.defer();
+    setTimeout(function() {
+        deferred.notify('About to greet ' + name + '.');
+        if (okToGreet(name)) {
+            deferred.resolve('Hello, ' + name + '!');
+        } else {
+            deferred.reject('Greeting ' + name + ' is not allowed.');
+        }
+    }, 1000);
+    return deferred.promise;
+}
+
+var promise = asyncGreet('Robin Hood');
+promise.then(function(greeting) {
+    alert('Success: ' + greeting);
+}, function(reason) {
+    alert('Failed: ' + reason);
+}, function(update) {
+    alert('Got notification: ' + update);
+});
+                </code></pre>
+            </section>
+
         </section>
+
 
 
         <!--
