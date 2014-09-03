@@ -1207,10 +1207,82 @@ $q.all(promises).then(function () {
             <section>
                 <h2><a href="http://docs.angularjs.org/guide/forms">Forms</a></h2>
                 <ul>
-                    <li>A set of features for developing forms is provided</li>
-                    <li>Included out of the box: form controller and validation facitilities</li>
-                    <li>Combine with e.g. <code>$resource</code> to implement form submission</li>
+                    <li>Form element is also a directive in AngularJS </li>
+                    <li class="fragment">There's also ng-form -directive that you can use to nest formst</li>
+                    <li class="fragment">Outer form is valid when all of the child forms are valid as well</li>
+                    <li class="fragment">All forms instantiantiate a <a href="https://docs.angularjs.org/api/ng/type/form.FormController">FormController</a></li>
                 </ul>
+            </section>
+            <section>
+                <h2>FormController</h2>
+                <ul>
+                    <li>Keeps track of all its controls and nested forms as well as the state of them, such as being valid/invalid or dirty/pristine</li>
+                    <li class="fragment">FormController gives access to some helpfull properties</li>
+                    <ul>
+                        <li class="fragment">$pristine - True if user has not interacted with the form yet</li>
+                        <li class="fragment">$dirty - True if user has already interacted with the form</li>
+                        <li class="fragment">$valid - True if all of the containing forms and controls are valid</li>
+                        <li class="fragment">$invalid - True if at least one containing control or form is invalid</li>
+                        <li class="fragment">$submitted - True if user has submitted the form even if its invalid</li>
+                        <li class="fragment">$error - Is an object hash, containing references to all invalid controls or forms</li>
+                    </ul>
+                </ul>
+            </section>
+            <section>
+                <h2>Validation</h2>
+                <ul>
+                    <li>email</li>
+                    <li>max</li>
+                    <li>maxlength</li>
+                    <li>min</li>
+                    <li>minlength</li>
+                    <li>number</li>
+                    <li>pattern</li>
+                    <li>required</li>
+                    <li>url</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Example</h2>
+                <pre><code><form class="form-horizontal" name="form" ng-submit="submit()">
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="nimi">OID</label>
+        <p class="col-md-4 form-control-static">{{model.oid}}</p>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="nimi">Nimi</label>
+        <div class="col-md-4">
+            <input class="form-control" type="text" id="nimi"
+               required ng-model="model.nimi"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="maara">Määrä</label>
+        <div class="col-md-4">
+            <input class="form-control" type="number" min="0" required id="maara"
+                   ng-model="model.maara"/>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <button class="btn btn-sm btn-default" ng-click="cancel()">Takaisin</button>
+
+        <button ng-disabled="!form.$valid" class="btn btn-sm btn-primary" type="submit">
+            <div ng-show="!model.oid"><i class="fa fa-floppy-o"></i> Lisää</div>
+            <div ng-show="model.oid"><i class="fa fa-floppy-o"></i> Tallenna</div>
+        </button>
+    </div>
+    </form></code></pre>
+            </section>
+        </section>
+        <section>
+            <section><h2>Extending Angular</h2></section>
+            <section>
+                <h2><a href="http://angular-ui.github.io/">Angular-UI</a></h2>
+                <p>A collection of extranous, somewhat often used components</p>
+            </section>
+            <section>
+                <h2><a href="http://ngmodules.org/">ngModules</a></h2>
+                <p>Online repository of AngularJS modules</p>
             </section>
         </section>
         <section>
@@ -1241,17 +1313,7 @@ $q.all(promises).then(function () {
             </ul>
           </section>
         </section>
-        <section>
-          <section><h2>Extending Angular</h2></section>
-          <section>
-            <h2><a href="http://angular-ui.github.io/">Angular-UI</a></h2>
-            <p>A collection of extranous, somewhat often used components</p>
-          </section>
-          <section>
-            <h2><a href="http://ngmodules.org/">ngModules</a></h2>
-            <p>Online repository of AngularJS modules</p>
-          </section>
-        </section>
+
         <section>
           <section>
             <h2>Ensuring Browser Compatibility</h2>
