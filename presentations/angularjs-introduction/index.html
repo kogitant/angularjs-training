@@ -997,21 +997,11 @@ angular.module('myApplication').factory('HakemusResource', function($resource) {
             <section>
                 <h2>The problem</h2>
                 <h3>Case #1</h3>
-                <ul>
-                    <div class="fragment">
-                    <li>You need to make a rest call...</li>
-                    </div>
-                    <div class="fragment">
-                    <li>...and use the response data of first call to make another call...</li>
-                    </div>
-                    <div class="fragment">
-                    <li>...and third call using previous data...</li>
-                    </div>
-                    <div class="fragment">
-                        <li>...and so on...</li>
-                    </div>
-                </ul>
-
+                    <p class="fragment">You need to make a rest call...</p>
+                    <p class="fragment">...and use the response data of first call to make another call...</p>
+                    <p class="fragment">...and third call using previous data...</p>
+                    <p class="fragment">...and so on...</p>
+                    <p class="fragment">Results a callback hell</p>
             </section>
             <section>
                 <p>Code example from existing project</p>
@@ -1028,16 +1018,25 @@ ValinnanvaiheListByHakukohde.get({hakukohdeoid: hakukohdeOid}, function(result) 
     ValinnanVaiheetIlmanLaskentaa.get({hakukohdeoid: hakukohdeOid}, function(result) {
         model.ilmanlaskentaa = result;
         if(result.length > 0) {
-        // Request sent after ValinnanvaiheListByHakukohde AND ValinnanVaiheetIlmanLaskentaa are finished
+        // Request sent after ValinnanVaiheetIlmanLaskentaa are finished
         HakukohdeHenkilotFull.get({aoOid: hakukohdeOid, rows: 100000}, function (result) {
             model.hakeneet = result;
-// ...
+        // ...
+        }, function (error) {
+            defer.reject("hakukohteen tietojen hakeminen epäonnistui");
+        });
+    }, function(error) {
+        defer.reject("hakukohteen tietojen hakeminen epäonnistui");
+    });
+}, function(error) {
+    defer.reject("hakukohteen tietojen hakeminen epäonnistui");
+});
+
+return defer.promise;
+};
                 </code></pre>
                 <div class="fragment">
-                    <p>Actually, it's possible to live with this</p>
-                </div>
-                <div class="fragment">
-                    <p>But what if you need to know when ValinnanVaiheetIlmanLaskentaa-call returns?</p>
+                    <p>What if you need to know when ValinnanVaiheetIlmanLaskentaa-call returns?</p>
                 </div>
             </section>
 
@@ -1048,11 +1047,15 @@ ValinnanvaiheListByHakukohde.get({hakukohdeoid: hakukohdeOid}, function(result) 
                         <li>Another part (in controller, factory, service - anything) of your application needs to know when resource is fetched</li>
                     </div>
                     <div class="fragment">
-                        <li>How? You put your data in to a variable in $scope object but others don't know when it happens</li>
+                        <li>You don't know when it happens!</li>
                     </div>
                     <div class="fragment">
-                        <li>The answer is deferred objects/promises</li>
+                        <li>Using promises can solve this</li>
                     </div>
+                    <div class="fragment">
+                        <li>Ok. With AngularJS there are technically other ways to solve this, but promises are the most elegant solution</li>
+                    </div>
+
                 </ul>
             </section>
 
@@ -1066,8 +1069,8 @@ ValinnanvaiheListByHakukohde.get({hakukohdeoid: hakukohdeOid}, function(result) 
             </section>
             <section>
                 <h2>Deferred objects</h2>
-                <p>The purpose of the deferred object is to expose the associated Promise instance as well as
-                    APIs that can be used for signaling the successful or unsuccessful completion, as well as the status of the task.</p>
+                <p class="fragment">Expose the associated Promise instance </p>
+                <p class="fragment">APIs for signaling the successful or unsuccessful completion</p>
                 <div class="fragment">
                     <h3>Deferred API</h3>
                 <pre><code>// Inject $q
@@ -1081,21 +1084,13 @@ deferred.notify(); // Send notification
             </section>
             <section>
                 <h2>Promises</h2>
-                <div class="fragment">
-                <p>A new promise instance is created when a deferred instance is created and can be retrieved by calling deferred.promise</p>
-                </div>
-                <div class="fragment">
-                <p>The purpose of the promise object is to allow for interested parties to get access to the result of the deferred task when it completes.</p>
-                </div>
+                <p class="fragment">Retrieve by calling deferred.promise</p>
+                <p class="fragment">Allow interested parties to get access to the result of the deferred task when it completes</p>
                 <div class="fragment">
                     <p>Promises carry a few guarantees</p>
                     <ol>
                         <div class="fragment">
                         <li>Only one resolve or reject will ever be called</li>
-                        <ul>
-                            <li>resolve is called with a single fullfillment value</li>
-                            <li>reject can be called with a single rejection value</li>
-                        </ul>
                         </div>
                         <div class="fragment">
                         <li>If the promise has been resolved or rejected, any handlers depending upon it will still be called</li>
