@@ -56,8 +56,8 @@
           <ul>
             <li>Part 1: Background and a High-level Overview</li>
             <li>Part 2: Architecture, Concepts and Core Features</li>
-            <li>Part 3: Additional Features and Aspects</li>
-            <li>Part 4: Some Practical Considerations</li>
+            <li>Part 3: Server-side Communications</li>
+            <li>Part 4: Extras</li>
           </ul>
 
           <p><br><em>Hint: Use up/down arrows to navigate inside topics</em></p>
@@ -790,7 +790,7 @@ angular.module('myModule', []).
               <li>Rudimentary service for HTTP calls</li>
                 <li>Simply a wrapper around the browser's XMLHttpRequest object</li>
               <li>Supported http-methods: GET, HEAD, POST, PUT, DELETE</li>
-              <li>Make requests using XHR objects or JSONP</li>
+              <li>Make requests using <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XHR objects </a>or <a href="http://en.wikipedia.org/wiki/JSONP">JSONP</a></li>
               <li>Very similar to jQuery's <code>ajax</code> method</li>
                 <li>Based on deferred/promise APIs from <a href="https://docs.angularjs.org/api/ng/service/$q">$q</a></li>
 
@@ -800,7 +800,7 @@ angular.module('myModule', []).
           <section>
             <h2>Basic example</h2>
               <pre>
-                  <code>$http({method: 'GET', url: '/someUrl'}).
+                  <code>$http({method: 'GET', url: 'http://myservice/library/books'}).
   success(function(data, status, headers, config) {
       // this callback will be called asynchronously
       // when the response is available
@@ -821,7 +821,7 @@ angular.module('myModule', []).
 var myPromise;
 myPromise = $http({
     method: 'POST',                                 // http-method type
-    url: 'http://myservice/library/books',          // absolute or relative url to resource
+    url: 'http://myservice/library/books',          // URL for a resource
     params: {author: 'Jaakko Salonen'},             // queryparams
     data: {name: 'How to AngularJS', text: '...'},  // payload
     headers: {myheader: 'myheader'},                // headers for the call
@@ -852,8 +852,8 @@ myPromise = $http({
                 <ul>
                     <li>Use $http-services <b>convenience methods</b> to make your code a bit easier to read</li>
                     <pre><code>
-$http.get('someresource.com/api/givemethings') // configuration object is optional second parameter
-$http.post('somereource.com/api/shutupandtakemydata')
+$http.get('http://myservice/library/books') // configuration object is optional second parameter
+$http.post('http://myservice/library/books')
                     </code></pre>
 
                     <li>Interceptors - provide global functionality on <b>all</b> of our requests</li>
@@ -1353,6 +1353,7 @@ $q.all(promises).then(function () {
                 Excellent video from NG-Conf (check out the others too!)
               </p>
               <p><a href="http://trochette.github.io/Angular-Design-Patterns-Best-Practices/#/intro">Advanced Design Patterns and Best Practices</a></p>
+                <p><a href="https://www.ng-book.com/">ng-book</a></p>
             </div>
           </section>
         </section>
