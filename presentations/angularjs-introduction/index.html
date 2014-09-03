@@ -78,6 +78,32 @@
             <h2>Background</h2>
           </section>
           <section>
+            <h3>Static web pages &rarr; DHTML &rarr; AJAX &rarr; SPA</h3>
+          </section>
+          <section>
+            <h2>SPA</h2>
+            <ul>
+              <li>SPA = Single-Page (Web) Application</li>
+              <li>Further advances the AJAX way of communicating with the server</li>
+              <li>Instead of page transitions, persist state by changing browser URL
+                  via JavaScript APIs</li>
+              <li>Retrieve a page only once and keep modifying its state via DOM
+                  without whole page reloads</li>
+            </ul>          
+          </section>
+          <section>
+            <h2>Benefits</h2>
+            <ul>
+              <li>Potential for improved user experience (more control over
+                  application states; ability to animate state transitions)</li>
+              <li>Reduced bandwidth usage, improved performance</li>
+              <li>Potential to create more native-like applications</li>
+              <li>Facilitate clean, nicely decoupled client/server architecture</li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section>
             <h2>AngularJS<sup>1</sup></h2>
             <ul>
               <li>Open-source JavaScript framework, maintained by Google</li>
@@ -744,17 +770,6 @@ angular.module('myModule', []).
 <p>Returns the value that is returned when invoking b</p>
 
           </section>
-
-          <section>
-            <h2><a href="http://docs.angularjs.org/guide/providers">Providers</a></h2>
-            <ul>
-              <li><b>Provider</b> = the way how registration of various objects
-               for injector is handled in AngularJS</li>
-              <li>Value, Factory, Service and Constant methods are just
-               syntactic sugar on top of provider recipe</li>
-              <li>More details: <a href="http://docs.angularjs.org/guide/providers">at Angular guide on Providers</a></li>
-            </ul>
-          </section>
         </section>
 
         <!--
@@ -1204,96 +1219,38 @@ $q.all(promises).then(function () {
           <h1>Extras</h1>
         </section>
         <section>
-            <section>
-                <h2><a href="http://docs.angularjs.org/guide/forms">Forms</a></h2>
-                <ul>
-                    <li>Form element is also a directive in AngularJS </li>
-                    <li class="fragment">There's also ng-form -directive that you can use to nest formst</li>
-                    <li class="fragment">Outer form is valid when all of the child forms are valid as well</li>
-                    <li class="fragment">All forms instantiantiate a <a href="https://docs.angularjs.org/api/ng/type/form.FormController">FormController</a></li>
-                </ul>
-            </section>
-            <section>
-                <h2>FormController</h2>
-                <ul>
-                    <li>Keeps track of all its controls and nested forms as well as the state of them, such as being valid/invalid or dirty/pristine</li>
-                    <li class="fragment">FormController gives access to some helpfull properties</li>
-                    <ul>
-                        <li class="fragment">$pristine - True if user has not interacted with the form yet</li>
-                        <li class="fragment">$dirty - True if user has already interacted with the form</li>
-                        <li class="fragment">$valid - True if all of the containing forms and controls are valid</li>
-                        <li class="fragment">$invalid - True if at least one containing control or form is invalid</li>
-                        <li class="fragment">$submitted - True if user has submitted the form even if its invalid</li>
-                        <li class="fragment">$error - Is an object hash, containing references to all invalid controls or forms</li>
-                    </ul>
-                </ul>
-            </section>
-            <section>
-                <h2>Validation</h2>
-                <ul>
-                    <li>email</li>
-                    <li>max</li>
-                    <li>maxlength</li>
-                    <li>min</li>
-                    <li>minlength</li>
-                    <li>number</li>
-                    <li>pattern</li>
-                    <li>required</li>
-                    <li>url</li>
-                </ul>
-            </section>
-            <section>
-                <h2>Example</h2>
-                <pre><code><form class="form-horizontal" name="form" ng-submit="submit()">
-    <div class="form-group">
-        <label class="col-md-2 control-label" for="nimi">OID</label>
-        <p class="col-md-4 form-control-static">{{model.oid}}</p>
-    </div>
-    <div class="form-group">
-        <label class="col-md-2 control-label" for="nimi">Nimi</label>
-        <div class="col-md-4">
-            <input class="form-control" type="text" id="nimi"
-               required ng-model="model.nimi"/>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-2 control-label" for="maara">Määrä</label>
-        <div class="col-md-4">
-            <input class="form-control" type="number" min="0" required id="maara"
-                   ng-model="model.maara"/>
-        </div>
-    </div>
-    <div class="col-sm-2">
-        <button class="btn btn-sm btn-default" ng-click="cancel()">Takaisin</button>
-
-        <button ng-disabled="!form.$valid" class="btn btn-sm btn-primary" type="submit">
-            <div ng-show="!model.oid"><i class="fa fa-floppy-o"></i> Lisää</div>
-            <div ng-show="model.oid"><i class="fa fa-floppy-o"></i> Tallenna</div>
-        </button>
-    </div>
-    </form></code></pre>
-            </section>
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/forms">Forms</a></h2>
+            <ul>
+              <li>A set of features for developing forms is provided</li>
+              <li>Included out of the box: form controller and validation facitilities</li>
+              <li>Combine with e.g. <code>$resource</code> to implement form submission</li>
+            </ul>
+          </section>
         </section>
         <section>
-            <section><h2>Extending Angular</h2></section>
-            <section>
-                <h2><a href="http://angular-ui.github.io/">Angular-UI</a></h2>
-                <p>A collection of extranous, somewhat often used components</p>
-            </section>
-            <section>
-                <h2><a href="http://ngmodules.org/">ngModules</a></h2>
-                <p>Online repository of AngularJS modules</p>
-            </section>
-        </section>
-        <section>
+          <section>
+              <h2>Angular Under the Hood</h2>
+          </section>
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/providers">Providers</a></h2>
+            <ul>
+              <li><b>Provider</b> = the way how registration of various objects
+               for injector is handled in AngularJS</li>
+              <li>Value, Factory, Service and Constant methods are just
+               syntactic sugar on top of provider recipe</li>
+              <li>More details: <a href="http://docs.angularjs.org/guide/providers">at Angular guide on Providers</a></li>
+            </ul>
+          </section>
+          <section>
             <h2>$watch</h2>
             <h3><a href="http://jsfiddle.net/jsalonen/gDM4c/">jsfiddle.net/jsalonen/gDM4c</a></h3>
             <p>Register listeners with $scope.$watch to inspect for changes:</p>
             <pre><code>$scope.$watch('firstname', function(newVal, oldVal) {
                 console.log(oldVal, ' -> ', newVal);
                 });</code></pre>
-        </section>
-        <section>
+          </section>
+          <section>
             <h2><a href="http://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest">$digest</a></h2>
             <div style="text-align: left;">
                 <p>Calls watches within the current scope</p>
@@ -1301,37 +1258,11 @@ $q.all(promises).then(function () {
                     model no longer changes</p>
                 <p>Typically <b>you don't need to call $digest yourself</b></p>
             </div>
-        </section>
-        <section>
-
-          <section>
-            <h2><a href="http://docs.angularjs.org/guide/i18n">Localization</a></h2>
-            <ul>
-              <li>Support for datetime, number and currency localization via filters</li>
-              <li>Pluralization support via <a href="http://docs.angularjs.org/api/ng/directive/ngPluralize">ngPluralize</a> directive</li>
-              <li>Localizable Angular components depend on <a href="http://docs.angularjs.org/api/ng/service/$locale">$locale</a> service</li>
-            </ul>
-          </section>
-        </section>
-
-        <section>
-          <section>
-            <h2>Ensuring Browser Compatibility</h2>
-          </section>
-          <section>
-            <h2><a href="http://docs.angularjs.org/guide/ie">Internet Explorer Compatibility</a></h2>
-            <ul>
-              <li>Add <code>id="ng-app"</code> to the element containing ng-app</li>
-              <li>If you use custom element tags (<code>&lt;ng:view&gt;</code>), extra boilerplate need to be added <b>(IE &lt; 8)</b></li>
-              <li>Polyfill <code>JSON.stringify</code> <b>(IE7 and below)</b></li>
-              <li>Use <code>ng-style</code> tags for styles containing expressions <b>(IE &lt; 11)</b></li>
-            </ul>
-            <p><br>For details see <a href="http://docs.angularjs.org/guide/ie">http://docs.angularjs.org/guide/ie</a></p>
           </section>
         </section>
         <section>
           <section>
-            <h2>Ensuring JavaScript Code Quality</h2>
+            <h2>Ensuring Code Quality</h2>
           </section>
           <section>
             <h2><a href="http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/">ECMAScript 5 Strict Mode</a></h2>
@@ -1373,10 +1304,10 @@ $q.all(promises).then(function () {
         </section>
         <section>
           <section>
-            <h2>Minifying Angular Code</h2>
+            <h2>Tips on Building for Production</h2>
           </section>
           <section>
-            <h2><a href="http://docs.angularjs.org/tutorial/step_05#a-note-on-minification">Be Careful with Dependency Injection</a></h2>
+            <h2>Minifying Angular Code</h2>
             <p>Be careful when using dependency injection in this fashion:</p>
             <pre><code>angular.module('myApp').controller('MyControl', function ($scope, $http) {
   ...
@@ -1387,15 +1318,17 @@ $q.all(promises).then(function () {
   ...
 })</code></pre>
             <p>Minifiers don't mangle string values, ensuring injections work even with renamed parameter variables</p>
+            <p>Alternatively, work around the problem by using a preminifier (<a href="https://github.com/btford/ngmin">ngmin</a>)</p>
           </section>
           <section>
-            <h2>AngularJS Pre-minifier</h2>
+            <h2><a href="http://docs.angularjs.org/guide/ie">Internet Explorer Compatibility</a></h2>
             <ul>
-              <li>You may still prefer or need to use the shorter form</li>
-              <li>Work around the problem by using a preminifier (<a href="https://github.com/btford/ngmin">ngmin</a>)</li>
-              <li>Integrate to your build e.g. with <a href="https://www.npmjs.org/package/grunt-ngmin">grunt-ngmin</a> or
-                  <a href="https://github.com/sindresorhus/gulp-ngmin">gulp-ngmin</a></li>
+              <li>Add <code>id="ng-app"</code> to the element containing ng-app</li>
+              <li>If you use custom element tags (<code>&lt;ng:view&gt;</code>), extra boilerplate need to be added <b>(IE &lt; 8)</b></li>
+              <li>Polyfill <code>JSON.stringify</code> <b>(IE7 and below)</b></li>
+              <li>Use <code>ng-style</code> tags for styles containing expressions <b>(IE &lt; 11)</b></li>
             </ul>
+            <p><br>For details see <a href="http://docs.angularjs.org/guide/ie">http://docs.angularjs.org/guide/ie</a></p>
           </section>
         </section>
         <section>
