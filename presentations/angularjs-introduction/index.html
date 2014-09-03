@@ -331,23 +331,7 @@
               <li class="fragment">No distinct model object - data is stored inside <b>scope</b> along with functions</li>
             </ul>
           </section>
-          <section>
-            <h2>$watch</h2>
-            <h3><a href="http://jsfiddle.net/jsalonen/gDM4c/">jsfiddle.net/jsalonen/gDM4c</a></h3>
-            <p>Register listeners with $scope.$watch to inspect for changes:</p>
-            <pre><code>$scope.$watch('firstname', function(newVal, oldVal) {
-  console.log(oldVal, ' -> ', newVal);
-});</code></pre>
-          </section>
-          <section>
-            <h2><a href="http://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest">$digest</a></h2>
-            <div style="text-align: left;">
-              <p>Calls watches within the current scope</p>
-              <p>Since watchers may change the scope, digest keeps calling the watchers until
-                 model no longer changes</p>
-              <p>Typically <b>you don't need to call $digest yourself</b></p>
-            </div>
-          </section>
+
         </section>
         <section>
           <section>
@@ -1230,6 +1214,24 @@ $q.all(promises).then(function () {
             </section>
         </section>
         <section>
+            <h2>$watch</h2>
+            <h3><a href="http://jsfiddle.net/jsalonen/gDM4c/">jsfiddle.net/jsalonen/gDM4c</a></h3>
+            <p>Register listeners with $scope.$watch to inspect for changes:</p>
+            <pre><code>$scope.$watch('firstname', function(newVal, oldVal) {
+                console.log(oldVal, ' -> ', newVal);
+                });</code></pre>
+        </section>
+        <section>
+            <h2><a href="http://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest">$digest</a></h2>
+            <div style="text-align: left;">
+                <p>Calls watches within the current scope</p>
+                <p>Since watchers may change the scope, digest keeps calling the watchers until
+                    model no longer changes</p>
+                <p>Typically <b>you don't need to call $digest yourself</b></p>
+            </div>
+        </section>
+        <section>
+
           <section>
             <h2><a href="http://docs.angularjs.org/guide/i18n">Localization</a></h2>
             <ul>
