@@ -800,7 +800,8 @@ angular.module('myModule', []).
           <section>
             <h2>Basic example</h2>
               <pre>
-                  <code>$http({method: 'GET', url: 'http://myservice/library/books'}).
+                  <code>// inject $http
+$http({method: 'GET', url: 'http://myservice/library/books'}).
   success(function(data, status, headers, config) {
       // this callback will be called asynchronously
       // when the response is available
@@ -838,12 +839,12 @@ myPromise = $http({
                 <h2>Response object</h2>
                 <ul>
                     <li>The response object Angular passes to the promise</li>
-                    <li>Contains 4 properties</li>
+                    <li class="fragment">Contains 4 properties</li>
                     <ul>
-                        <li>data - response payload</li>
-                        <li>status - status number for the response</li>
-                        <li>headers [function] - function to get the header value for given argument</li>
-                        <li>config - configuration objects that was used to generate the original request</li>
+                        <li class="fragment">data - response payload</li>
+                        <li class="fragment">status - status number for the response</li>
+                        <li class="fragment">headers [function] - function to get the header value for given argument</li>
+                        <li class="fragment">config - configuration objects that was used to generate the original request</li>
                     </ul>
                 </ul>
             </section>
