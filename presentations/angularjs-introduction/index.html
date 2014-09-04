@@ -639,6 +639,71 @@ angular.module('myModule', []).
         </section>
         <section>
           <section>
+            <h2>Services</h2>
+          </section>
+          <section>
+            <h2><a href="http://docs.angularjs.org/guide/services">Angular Services</a></h2>
+            <ul>
+              <li><b>Angular services</b> = substituable objects that are wired together using dependency injection</p></li>
+              <li>Use services to organize and share code across your application</li>
+              <li>General-purpose services are provided by Angular</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Using services</h2>
+            <h3><a href="http://jsfiddle.net/jsalonen/jtge8/">jsfiddle.net/jsalonen/jtge8/</a></h3>
+            <p>Example services: $timeout and $window</p>
+<p>Template:</p>
+<pre><code>&lt;div ng-app="myApp">&lt;div ng-controller="QueueCtrl">
+  &lt;input type="submit" value="Click to start queuing" ng-click="enterQueue()"></input>
+&lt;/div>&lt;/div></code></pre>
+<p>Code:</p>
+<pre><code>angular.module('myApp', []).
+  controller('QueueCtrl', ['$scope', '$timeout', '$window',
+    function($scope, $timeout, $window) {
+    $scope.enterQueue = function() {
+      $timeout(function() {
+        $window.location.href = 'http://www.gofore.com';
+      }, 5000);
+    };
+  }]);</code></pre>
+          </section>
+          <section>
+            <h2>Creating Services</h2>
+            <p>Applications may (and often should) create their own services:</p>
+            <ol>
+              <li>Register service with service factory function</li>
+              <li>Specify dependencies</li>
+              <li>Use as required</li>
+            </ol>
+          </section>
+          <section>
+            <h2>Example Service: TaxCalculatorService</h2>
+            <h3><a href="http://jsfiddle.net/jsalonen/saG3p/">jsfiddle.net/jsalonen/saG3p</a></h3>
+            <pre><code>myApp.factory('TaxCalcService', function() {
+    return {
+      'calculateTax': function (income) {
+        if(income<10000) return income*0.1;
+        if(income<20000) return income*0.2;
+        return income*0.3;
+      }
+    };
+  })</pre></code>
+          </section>
+          <section>
+            <h2>Services vs. Factories</h2>
+            <p>Both service and factory methods
+            allow you to create injectable singletons.</p>
+            <p>However:</p>
+<pre><code>myApp.service('serviceA', function a() { ... })</code></pre>
+<p>Returns instance of the function (<code>new function a())</code>
+<pre><code>myApp.factory('serviceB', function b() { ... })</code></pre>
+<p>Returns the value that is returned when invoking b</p>
+
+          </section>
+        </section>        
+        <section>
+          <section>
             <h2>Directives</h2>
           </section>
           <section>
@@ -711,71 +776,6 @@ angular.module('myModule', []).
               <li><b>scope: {...}</b> - Bind attribute values to
               <li><b>link: ...</b> - Parse and clean values</li>
             </ul>
-          </section>
-        </section>
-        <section>
-          <section>
-            <h2>Services</h2>
-          </section>
-          <section>
-            <h2><a href="http://docs.angularjs.org/guide/services">Angular Services</a></h2>
-            <ul>
-              <li><b>Angular services</b> = substituable objects that are wired together using dependency injection</p></li>
-              <li>Use services to organize and share code across your application</li>
-              <li>General-purpose services are provided by Angular</li>
-            </ul>
-          </section>
-          <section>
-            <h2>Using services</h2>
-            <h3><a href="http://jsfiddle.net/jsalonen/jtge8/">jsfiddle.net/jsalonen/jtge8/</a></h3>
-            <p>Example services: $timeout and $window</p>
-<p>Template:</p>
-<pre><code>&lt;div ng-app="myApp">&lt;div ng-controller="QueueCtrl">
-  &lt;input type="submit" value="Click to start queuing" ng-click="enterQueue()"></input>
-&lt;/div>&lt;/div></code></pre>
-<p>Code:</p>
-<pre><code>angular.module('myApp', []).
-  controller('QueueCtrl', ['$scope', '$timeout', '$window',
-    function($scope, $timeout, $window) {
-    $scope.enterQueue = function() {
-      $timeout(function() {
-        $window.location.href = 'http://www.gofore.com';
-      }, 5000);
-    };
-  }]);</code></pre>
-          </section>
-          <section>
-            <h2>Creating Services</h2>
-            <p>Applications may (and often should) create their own services:</p>
-            <ol>
-              <li>Register service with service factory function</li>
-              <li>Specify dependencies</li>
-              <li>Use as required</li>
-            </ol>
-          </section>
-          <section>
-            <h2>Example Service: TaxCalculatorService</h2>
-            <h3><a href="http://jsfiddle.net/jsalonen/saG3p/">jsfiddle.net/jsalonen/saG3p</a></h3>
-            <pre><code>myApp.factory('TaxCalcService', function() {
-    return {
-      'calculateTax': function (income) {
-        if(income<10000) return income*0.1;
-        if(income<20000) return income*0.2;
-        return income*0.3;
-      }
-    };
-  })</pre></code>
-          </section>
-          <section>
-            <h2>Services vs. Factories</h2>
-            <p>Both service and factory methods
-            allow you to create injectable singletons.</p>
-            <p>However:</p>
-<pre><code>myApp.service('serviceA', function a() { ... })</code></pre>
-<p>Returns instance of the function (<code>new function a())</code>
-<pre><code>myApp.factory('serviceB', function b() { ... })</code></pre>
-<p>Returns the value that is returned when invoking b</p>
-
           </section>
         </section>
 
