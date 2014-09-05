@@ -1,0 +1,5 @@
+maininta kontrollereista ja rootscopesta alussa
+
+kuva moduulien, kontrollerien, skooppien, serviceiden, filttereiden jne. keskinäisestä suhteesta
+
+Tiedostohierarkia
