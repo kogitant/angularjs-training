@@ -45,5 +45,5 @@ Tarkista, että projektin kehitysympäristö käynnistyy komennolla:
     npm start
 
 - Jos kaikki toimii hyvin, kehityspalvelin näkyy selaimessa osoitteella <http://localhost:8000>
-- Jos kehitysynpäristö ei käynnisty, tarkista, että yllämainitut sovellukset
+- Jos kehitysympäristö ei käynnisty, tarkista, että yllämainitut sovellukset
 toimivat komentoriviltä.
