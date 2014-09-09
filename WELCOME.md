@@ -1,7 +1,8 @@
 # Tervetuloa Goforen AngularJS-koulutukseen!
 
-Jotta koulutus sujuisi ripeästi, pyydämme, että valmistelisit käyttöösi
-ennakolta seuraavanlaisen kehitysympäristön.
+Löydät nyt ja jatkossa täältä Githubista kaikki koulutukseen liittyvät materiaalit.
+
+Jotta koulutus sujuisi ripeästi, pyydämme, että valmistelisit käyttöösi ennakolta seuraavanlaisen kehitysympäristön.
 
 ## Node.js, npm, git ja bower asennettuina
 
