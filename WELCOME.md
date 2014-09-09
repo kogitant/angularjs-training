@@ -1,4 +1,7 @@
-# Ennakkovalmistelut harjoitustyöosuutta varten
+# Tervetuloa Goforen AngularJS-koulutukseen!
+
+Jotta koulutus sujuisi ripeästi, pyydämme, että valmistelisit käyttöösi
+ennakolta seuraavanlaisen kehitysympäristön.
 
 ## Node.js, npm, git ja bower asennettuina
 
@@ -39,3 +42,7 @@ Tee itsellesi työhakemistoon kopio angular-seed -projektista:
 Tarkista, että projektin kehitysympäristö käynnistyy komennolla:
 
     npm start
+
+- Jos kaikki toimii hyvin, kehityspalvelin näkyy selaimessa osoitteella <http://localhost:8000>
+- Jos kehitysynpäristö ei käynnisty, tarkista, että yllämainitut sovellukset
+toimivat komentoriviltä.
