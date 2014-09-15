@@ -240,6 +240,115 @@
         </section>
 
         <section>
+            <section>
+                <h2>Core concepts and their relations</h2>
+                <img src="images/core_concept_relations.jpg" />
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Modules</h2>
+            </section>
+            <section>
+                <h2><a href="http://docs.angularjs.org/guide/module">Modules - What and Why?</a></h2>
+                <ul>
+                    <li>Modules are a declarative approach to the ubiquitous (and imperative) "main" method</li>
+                    <li>Angular applications are defined as <b>Modules</b></li>
+                    <li>Also: package third-party code as reusable modules</li>
+                    <li>Modules improve testability</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Angular Application as a Module</h2>
+                <h3><a href="http://jsfiddle.net/jsalonen/vAEnU/">jsfiddle.net/jsalonen/vAEnU</a></h3>
+                <p>
+                    Declaring a module:
+                </p>
+                <pre><code>var myAppModule = angular.module('myApp', []);</code></pre>
+
+                <p>
+                    Refer to <code>myApp</code> in your <code>ng-app</code> directive:
+                </p>
+                <pre><code>&lt;html ng-app="myApp">...&lt;/html></code></pre>
+            </section>
+            <section>
+                <h3>Usage Example: Modular Controllers</h3>
+                <h4>(The right way of using controllers)</h4>
+                <h3><a href="http://jsfiddle.net/jsalonen/SdXG8/">jsfiddle.net/jsalonen/SdXG8/</a></h3>
+            <pre><code>&lt;div ng-app="myApp">
+                &lt;div ng-controller="NameListCtrl">
+                &lt;h1>Participants</h1>
+                &lt;ol>
+                &lt;li ng-repeat="name in names">{{name}}</li>
+                &lt;/ol>
+                &lt;/div>
+                &lt;/div></code></pre>
+            <pre><code>var myApp = angular.module('myApp',[]);
+
+                myApp.controller('NameListCtrl', function($scope) {
+                $scope.names = ['Jaakko', 'Tapio', 'Juha'];
+                });</code></pre>
+            </section>
+            <section>
+                <h2><a href="http://docs.angularjs.org/guide/module#recommended-setup">Recommended Setup</a></h2>
+                <p>While any number of components (controllers, services, directives, etc.) can be bound to a single module,
+                    it is recommended to break your app into multiple modules:</p>
+                <ul>
+                    <li><b>A service module</b>, for service declaration</li>
+                    <li><b>A directive module</b>, for directive declaration</li>
+                    <li><b>A filter module</b>, for filter declaration</li>
+                    <li><b>And an application level module</b> which depends on the above modules, and which has initialization code.</li>
+                </ul>
+            </section>
+            <section>
+                <img src="images/myApp-module.png" style="width: 75%">
+            </section>
+            <section>
+                <h2>
+                    <a href="http://docs.angularjs.org/guide/module#module-loading-dependencies">Module Loading &amp; Dependencies</a>
+                </h2>
+                <p><a href="http://docs.angularjs.org/guide/module#module-loading-dependencies">Two kinds of blocks:</a></p>
+                <ul>
+                    <li><b>Configuration blocks</b> - gets executed during the provider registrations and configuration phase.</li>
+                    <li><b>Run blocks</b> - get executed after the injector is created and are used to kickstart the application.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Configuration Blocks</h2>
+                <p>In the previous example we called:</p>
+                <pre><code>myApp.controller('NameListCtrl', function($scope) { ... });</code></pre>
+                <div class="fragment">It is, in fact, <b>a convenience method</b> for calling <br>
+                    <code>controllerProvider</code> in <code>config</code>:</b></div>
+                <div class="fragment"><pre><code>angular.module('myApp', []).
+                    config(function($controllerProvider) {
+                    $controllerProvider.register('NameListCtrl', function($scope) { ... });
+                    }
+                    );
+                </code></pre>
+                    <h3><a href="http://jsfiddle.net/jsalonen/aW49w/">jsfiddle.net/jsalonen/aW49w</a></h3></div>
+            </section>
+            <section>
+                <h2>Configuration Block vs. Convenience Methods</h2>
+                <p>More examples:</p>
+            <pre><code>angular.module('myModule', []).
+                value('a', 123).
+                factory('a', function() { return 123; }).
+                directive('directiveName', ...).
+                filter('filterName', ...);</code></pre>
+                <p>Is same as:</p>
+<pre><code>
+    angular.module('myModule', []).
+    config(function($provide, $compileProvider, $filterProvider) {
+    $provide.value('a', 123);
+    $provide.factory('a', function() { return 123; });
+    $compileProvider.directive('directiveName', ...);
+    $filterProvider.register('filterName', ...);
+    });</code></pre>
+            </section>
+        </section>
+
+        <section>
           <section>
             <h2>Bootstrap and Initialization</h2>
           </section>
@@ -429,107 +538,7 @@ function NameListCtrl($scope) {
           </section>
         </section>
 
-        <section>
-          <section>
-            <h2>Modules</h2>
-          </section>
-          <section>
-            <h2><a href="http://docs.angularjs.org/guide/module">Modules - What and Why?</a></h2>
-            <ul>
-              <li>Modules are a declarative approach to the ubiquitous (and imperative) "main" method</li>
-              <li>Angular applications are defined as <b>Modules</b></li>
-              <li>Also: package third-party code as reusable modules</li>
-              <li>Modules improve testability</li>
-            </ul>
-          </section>
-          <section>
-            <h2>Angular Application as a Module</h2>
-            <h3><a href="http://jsfiddle.net/jsalonen/vAEnU/">jsfiddle.net/jsalonen/vAEnU</a></h3>
-            <p>
-              Declaring a module:
-            </p>
-            <pre><code>var myAppModule = angular.module('myApp', []);</code></pre>
 
-            <p>
-              Refer to <code>myApp</code> in your <code>ng-app</code> directive:
-            </p>
-            <pre><code>&lt;html ng-app="myApp">...&lt;/html></code></pre>
-          </section>
-          <section>
-            <h3>Usage Example: Modular Controllers</h3>
-            <h4>(The right way of using controllers)</h4>
-            <h3><a href="http://jsfiddle.net/jsalonen/SdXG8/">jsfiddle.net/jsalonen/SdXG8/</a></h3>
-            <pre><code>&lt;div ng-app="myApp">
-  &lt;div ng-controller="NameListCtrl">
-    &lt;h1>Participants</h1>
-    &lt;ol>
-      &lt;li ng-repeat="name in names">{{name}}</li>
-    &lt;/ol>
-  &lt;/div>
-&lt;/div></code></pre>
-            <pre><code>var myApp = angular.module('myApp',[]);
-
-myApp.controller('NameListCtrl', function($scope) {
-  $scope.names = ['Jaakko', 'Tapio', 'Juha'];
-});</code></pre>
-          </section>
-          <section>
-            <h2><a href="http://docs.angularjs.org/guide/module#recommended-setup">Recommended Setup</a></h2>
-            <p>While any number of components (controllers, services, directives, etc.) can be bound to a single module,
-               it is recommended to break your app into multiple modules:</p>
-            <ul>
-              <li><b>A service module</b>, for service declaration</li>
-              <li><b>A directive module</b>, for directive declaration</li>
-              <li><b>A filter module</b>, for filter declaration</li>
-              <li><b>And an application level module</b> which depends on the above modules, and which has initialization code.</li>
-            </ul>
-          </section>
-          <section>
-            <img src="images/myApp-module.png" style="width: 75%">
-          </section>
-          <section>
-            <h2>
-              <a href="http://docs.angularjs.org/guide/module#module-loading-dependencies">Module Loading &amp; Dependencies</a>
-            </h2>
-            <p><a href="http://docs.angularjs.org/guide/module#module-loading-dependencies">Two kinds of blocks:</a></p>
-            <ul>
-              <li><b>Configuration blocks</b> - gets executed during the provider registrations and configuration phase.</li>
-              <li><b>Run blocks</b> - get executed after the injector is created and are used to kickstart the application.</li>
-            </ul>
-          </section>
-          <section>
-            <h2>Configuration Blocks</h2>
-            <p>In the previous example we called:</p>
-            <pre><code>myApp.controller('NameListCtrl', function($scope) { ... });</code></pre>
-            <div class="fragment">It is, in fact, <b>a convenience method</b> for calling <br>
-               <code>controllerProvider</code> in <code>config</code>:</b></div>
-<div class="fragment"><pre><code>angular.module('myApp', []).
-  config(function($controllerProvider) {
-    $controllerProvider.register('NameListCtrl', function($scope) { ... });
-  }
-);
-</code></pre>
-<h3><a href="http://jsfiddle.net/jsalonen/aW49w/">jsfiddle.net/jsalonen/aW49w</a></h3></div>
-          </section>
-          <section>
-            <h2>Configuration Block vs. Convenience Methods</h2>
-            <p>More examples:</p>
-            <pre><code>angular.module('myModule', []).
-  value('a', 123).
-  factory('a', function() { return 123; }).
-  directive('directiveName', ...).
-  filter('filterName', ...);</code></pre>
-<p>Is same as:</p>
-<pre><code>
-angular.module('myModule', []).
-  config(function($provide, $compileProvider, $filterProvider) {
-    $provide.value('a', 123);
-    $provide.factory('a', function() { return 123; });
-    $compileProvider.directive('directiveName', ...);
-    $filterProvider.register('filterName', ...);
-  });</code></pre>
-          </section>
-        </section>
         <section>
           <section>
             <h2>Expressions</h2>
