@@ -812,15 +812,16 @@ function NameListCtrl($scope) {
             <h2>Example</h2>
               <pre>
                   <code>// inject $http
-$http({method: 'GET', url: 'http://myservice/library/books'}).
-  success(function(data, status, headers, config) {
-      // this callback will be called asynchronously
-      // when the response is available
-  }).
-  error(function(data, status, headers, config) {
-      // called asynchronously if an error occurs
-      // or server returns response with an error status.
-  });</code>
+var promise = $http({method: 'GET', url: 'http://funchat.com/messages'});
+
+promise.success(function(data, status, headers, config) {
+  // this callback will be called asynchronously
+  // when the response is available
+}).
+error(function(data, status, headers, config) {
+  // called asynchronously if an error occurs
+  // or server returns response with an error status.
+});</code>
               </pre>
           </section>
             <section>
@@ -838,10 +839,9 @@ myPromise = $http({
     data: {name: 'How to AngularJS', text: '...'},  // payload
     headers: {myheader: 'myheader'},                // headers for the call
     cache: true                                     // cache result for this request
-});
+}); //makes a call to 'http://myservice.com/library/books?author=Jaakko+Salonen'
 //handle promise
                     </code></pre>
-                        <pre>http://myservice.com/library/books?author=Jaakko+Salonen</pre>
                 <ul>
                     <li>Also some other more advanced configuration options e.g. transformRequest and transformResponse</li>
                 </ul>
@@ -864,8 +864,8 @@ myPromise = $http({
                 <ul>
                     <li>Use $http-services <b>convenience methods</b> to make your code a bit easier to read</li>
                     <pre><code>
-$http.get('http://myservice/library/books')
-$http.post('http://myservice/library/books')
+$http.get('http://funchat.com/messages')
+$http.post('http://funchat.com/messages', data)
 // configuration object is optional second parameter
                     </code></pre>
 
@@ -1018,9 +1018,8 @@ angular.module('myApplication').factory('HakemusResource', function($resource) {
             <section>
                 <p>Code example from existing project</p>
                 <pre><code>
-// ...
 ValintaperusteetHakukohde.get({hakukohdeoid: hakukohdeOid}, function(result) {
-model.tarjoajaOid = result.tarjoajaOid;
+    model.tarjoajaOid = result.tarjoajaOid;
 });
 
 // Request sent right after ValintaperusteetHakukohde-restcall has been sent (no waiting for response)
@@ -1030,22 +1029,14 @@ ValinnanvaiheListByHakukohde.get({hakukohdeoid: hakukohdeOid}, function(result) 
     ValinnanVaiheetIlmanLaskentaa.get({hakukohdeoid: hakukohdeOid}, function(result) {
         model.ilmanlaskentaa = result;
         if(result.length > 0) {
-        // Request sent after ValinnanVaiheetIlmanLaskentaa are finished
-        HakukohdeHenkilotFull.get({aoOid: hakukohdeOid, rows: 100000}, function (result) {
-            model.hakeneet = result;
-        // ...
-        }, function (error) {
-            defer.reject("hakukohteen tietojen hakeminen epäonnistui");
-        });
-    }, function(error) {
-        defer.reject("hakukohteen tietojen hakeminen epäonnistui");
+            // Request sent after ValinnanVaiheetIlmanLaskentaa are finished
+            HakukohdeHenkilotFull.get({aoOid: hakukohdeOid, rows: 100000}, function (result) {
+                model.hakeneet = result;
+                // ...
+            });
+        }
     });
-}, function(error) {
-    defer.reject("hakukohteen tietojen hakeminen epäonnistui");
 });
-
-return defer.promise;
-};
                 </code></pre>
                 <div class="fragment">
                     <p>What if you need to know when ValinnanVaiheetIlmanLaskentaa-call returns?</p>
@@ -1195,27 +1186,26 @@ promise.then(function(greeting) {
             </section>
             <section>
                 <h2>One more example</h2>
-                <pre><code>
-function doStuff() {
-    var promises = [];
-    dataArray.forEach(function (item) {
+                <pre><code>var authServiceDeferred = $q.defer();
+AuthService.getOrganizations('APP_VALINTAPERUSTEET').then(function (oidList) {
+    var organizationPromises = [];
+    _.forEach(oidList, function (oid) {
         var deferred = $q.defer();
-        promises.push(deferred.promise);
-        MakeARestCall.put({data: item.oid}, function (success) {
-            deferred.resolve(success);
-        }, function (error) {
-            deferred.reject(error);
-        });
+        organizationPromises.push(deferred.promise);
+        OrganizationByOid.get({oid: oid}, function (organization) {
+            myOrganizations.push(organization);
+            deferred.resolve();
+        }, function (error) { deferred.reject(error); });
     });
-    return promises;
-};
 
-var promises = doStuff();
-$q.all(promises).then(function () {
-    // all promises resolved
-}, function () {
-    // at least one promise was rejected
-});
+    $q.all(organizationPromises).then(function () {
+        authServiceDeferred.resolve();
+    }, function () { authServiceDeferred.reject(); });
+
+}, function(error) {authServiceDeferred.reject()});
+
+var promise = authServiceDeferred.promise;
+//handle promise
                 </code></pre>
             </section>
         </section>
