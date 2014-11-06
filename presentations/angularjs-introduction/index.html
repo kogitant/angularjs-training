@@ -800,6 +800,209 @@ function NameListCtrl($scope) {
         </section>
 
         <section>
+        <section>
+          <h2>Deferred Api and promises</h2>
+        </section>
+
+        <section>
+          <h2>The problem</h2>
+          <h3>Case #1</h3>
+          <p class="fragment">You need to make a rest call...</p>
+          <p class="fragment">...and use the response data of first call to make another call...</p>
+          <p class="fragment">...and third call using previous data...</p>
+          <p class="fragment">...and so on...</p>
+          <p class="fragment">Results a callback hell</p>
+        </section>
+        <section>
+          <p>Code example from existing project</p>
+                <pre><code>ValintaperusteetHakukohde.get({hakukohdeoid: hakukohdeOid}, function(result) {
+  model.tarjoajaOid = result.tarjoajaOid;
+});
+
+// Request sent right after ValintaperusteetHakukohde-restcall has been sent (no waiting for response)
+ValinnanvaiheListByHakukohde.get({hakukohdeoid: hakukohdeOid}, function(result) {
+  model.valinnanvaiheet = result;
+
+  // Request sent after ValinnanvaiheListByHakukohde-resource is finished
+  ValinnanVaiheetIlmanLaskentaa.get({hakukohdeoid: hakukohdeOid}, function(result) {
+    model.ilmanlaskentaa = result;
+    if(result.length > 0) {
+      // Request sent after ValinnanVaiheetIlmanLaskentaa are finished
+      HakukohdeHenkilotFull.get({aoOid: hakukohdeOid, rows: 100000}, function (result) {
+        model.hakeneet = result;
+        // ...
+      });
+    }
+  });
+});
+                </code></pre>
+
+        </section>
+
+        <section>
+          <h3>Case #2</h3>
+          <ul>
+            <div class="fragment">
+              <li>Another part (in controller, factory, service - anything) of your application needs to know when resource is fetched</li>
+            </div>
+            <div class="fragment">
+              <li>You don't know when it happens!</li>
+            </div>
+            <div class="fragment">
+              <li>Using promises can solve this</li>
+            </div>
+          </ul>
+        </section>
+
+        <section>
+          <h2><a href="https://docs.angularjs.org/api/ng/service/$q">$q</a></h2>
+          <ul>
+            <li>A helpfull service handling simultaneous rest calls and their responses</li>
+            <li>A promise/deferred implementation inspired by <a href="https://github.com/kriskowal/q">Kris Kowal's Q.</a></li>
+            <li>Part of the core of AngularJS</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Deferred objects</h2>
+          <p class="fragment">Expose the associated Promise instance </p>
+          <p class="fragment">APIs for signaling the successful or unsuccessful completion</p>
+          <div class="fragment">
+            <h3>Deferred API</h3>
+                <pre><code>// Inject $q
+var deferred = $q.defer();
+deferred.promise; // Promise object bind to this deferred object
+deferred.resolve(); // Resolves the promise and success callback gets executed
+deferred.reject(); // Resolves the promise and reject callback gets executed
+deferred.notify(); // Send notification
+                </code></pre>
+          </div>
+        </section>
+        <section>
+          <h2>Promises</h2>
+          <p class="fragment">Retrieve by calling deferred.promise</p>
+          <p class="fragment">Allow interested parties to get access to the result of the deferred task when it completes</p>
+          <div class="fragment">
+            <p>Promises carry a few guarantees</p>
+            <ol>
+              <div class="fragment">
+                <li>Only one resolve or reject will ever be called</li>
+              </div>
+              <div class="fragment">
+                <li>If the promise has been resolved or rejected, any handlers depending upon it will be called</li>
+              </div>
+              <div class="fragment">
+                <li>Handlers will always be called asynchronously - they won't block the rest of the app</li>
+              </div>
+            </ol>
+          </div>
+
+        </section>
+        <section>
+          <h2>Promise API</h2>
+                <pre><code>// Inject $q
+var deferred = $q.defer();
+var promise = deferred.promise;
+//Use deferred api to resolve the promise
+
+// regardless of when the promise was or will be resolved or rejected,
+// then-method calls success or error callbacks asynchronously
+// as soon as the result is available.
+promise.then(successCallback, errorCallback, notifyCallback);
+
+// shorthand for promise.then(null, errorCallback)
+promise.catch(errorCallback);
+
+// allows you to observe either the fulfillment or rejection of a promise,
+// but to do so without modifying the final value.
+promise.finally(callback);</code></pre>
+        </section>
+
+        <section>
+          <h2>Basic example</h2>
+                <pre><code>//assume $q is injected
+var deferred = $q.defer();
+var promise = deferred.promise;
+
+alert('start processing...');
+
+setTimeout(function(){
+  deferred.notify('still processing...');
+},1000);
+
+setTimeout(function(){
+  deferred.resolve('success');
+}, 3000);
+
+
+promise.then(function(successMsg){
+  console.log('Process succeeded, message: ' + successMsg);
+}, function(errorMsg) {
+  console.log('Process failed, error:' + errorMs);
+}, function(notificationMsg) {
+  console.log('Got notification: ' + notificationMsg);
+});
+                </code></pre>
+        </section>
+
+        <section>
+          <h2>Chaining</h2>
+          <p>Promises can be chained like callbacks from $resource </p>
+          <div class="fragment">
+            <p>But the code is cleaner and easier to understand</p>
+          </div>
+          <div class="fragment">
+            <p>Make more than one deferred objects and take their promises</p>
+          </div>
+          <div class="fragment">
+                <pre><code>promiseB = promiseA.then(function(result) {
+return result + 1;
+});
+
+// promiseB will be resolved immediately after promiseA is resolved and its value
+// will be the result of promiseA incremented by 1
+                </code></pre>
+          </div>
+
+        </section>
+        <section>
+          <h2>More</h2>
+          <p>Run a function when any number of promises in array have been resolved</p>
+          <pre><code>$q.all(promises).then(successFn, rejectFn))</code></pre>
+          <div class="fragment">
+            <p>Rejecting a promise manually</p>
+            <pre><code>myPromise.reject(message)</code></pre>
+          </div>
+
+        </section>
+        <section>
+          <h2>One more example</h2>
+                <pre><code>var authServiceDeferred = $q.defer();
+AuthService.getOrganizations('APP_VALINTAPERUSTEET').then(function (oidList) {
+  var organizationPromises = [];
+  _.forEach(oidList, function (oid) {
+    var deferred = $q.defer();
+    organizationPromises.push(deferred.promise);
+    OrganizationByOid.get({oid: oid}, function (organization) {
+      myOrganizations.push(organization);
+      deferred.resolve();
+    }, function (error) { deferred.reject(error); });
+  }
+});
+
+$q.all(organizationPromises).then(function () {
+  authServiceDeferred.resolve();
+}, function () { authServiceDeferred.reject(); });
+
+}, function(error) {authServiceDeferred.reject()});
+
+var promise = authServiceDeferred.promise;
+//handle promise
+                </code></pre>
+        </section>
+        </section>
+
+
+        <section>
           <section>
             <h2><a href="http://docs.angularjs.org/api/ng/service/$http">$http</a></h2>
             <ul>
@@ -1006,214 +1209,7 @@ angular.module('myApplication').factory('HakemusResource', function($resource) {
             </section>
 
         </section>
-        <section>
-            <section>
-                <h2>Deferred Api and promises</h2>
-            </section>
 
-            <section>
-                <h2>The problem</h2>
-                <h3>Case #1</h3>
-                    <p class="fragment">You need to make a rest call...</p>
-                    <p class="fragment">...and use the response data of first call to make another call...</p>
-                    <p class="fragment">...and third call using previous data...</p>
-                    <p class="fragment">...and so on...</p>
-                    <p class="fragment">Results a callback hell</p>
-            </section>
-            <section>
-                <p>Code example from existing project</p>
-                <pre><code>
-ValintaperusteetHakukohde.get({hakukohdeoid: hakukohdeOid}, function(result) {
-    model.tarjoajaOid = result.tarjoajaOid;
-});
-
-// Request sent right after ValintaperusteetHakukohde-restcall has been sent (no waiting for response)
-ValinnanvaiheListByHakukohde.get({hakukohdeoid: hakukohdeOid}, function(result) {
-    model.valinnanvaiheet = result;
-    // Request sent after ValinnanvaiheListByHakukohde-resource is finished
-    ValinnanVaiheetIlmanLaskentaa.get({hakukohdeoid: hakukohdeOid}, function(result) {
-        model.ilmanlaskentaa = result;
-        if(result.length > 0) {
-            // Request sent after ValinnanVaiheetIlmanLaskentaa are finished
-            HakukohdeHenkilotFull.get({aoOid: hakukohdeOid, rows: 100000}, function (result) {
-                model.hakeneet = result;
-                // ...
-            });
-        }
-    });
-});
-                </code></pre>
-                <div class="fragment">
-                    <p>What if you need to know when ValinnanVaiheetIlmanLaskentaa-call returns?</p>
-                </div>
-            </section>
-
-            <section>
-                <h3>Case #2</h3>
-                <ul>
-                    <div class="fragment">
-                        <li>Another part (in controller, factory, service - anything) of your application needs to know when resource is fetched</li>
-                    </div>
-                    <div class="fragment">
-                        <li>You don't know when it happens!</li>
-                    </div>
-                    <div class="fragment">
-                        <li>Using promises can solve this</li>
-                    </div>
-                    <div class="fragment">
-                        <li>Ok. With AngularJS there are technically other ways to solve this, but promises are the most elegant solution</li>
-                    </div>
-
-                </ul>
-            </section>
-
-            <section>
-                <h2>Meet <a href="https://docs.angularjs.org/api/ng/service/$q">$q</a></h2>
-                <ul>
-                    <li>A helpfull service handling simultaneous rest calls and their responses</li>
-                    <li>A promise/deferred implementation inspired by <a href="https://github.com/kriskowal/q">Kris Kowal's Q.</a></li>
-                    <li>Part of the core of AngularJS</li>
-                </ul>
-            </section>
-            <section>
-                <h2>Deferred objects</h2>
-                <p class="fragment">Expose the associated Promise instance </p>
-                <p class="fragment">APIs for signaling the successful or unsuccessful completion</p>
-                <div class="fragment">
-                    <h3>Deferred API</h3>
-                <pre><code>// Inject $q
-var deferred = $q.defer();
-deferred.promise; // Promise object bind to this deferred object
-deferred.resolve(); // Resolves the promise and success callback gets executed
-deferred.reject(); // Resolves the promise and reject callback gets executed
-deferred.notify(); // Send notification
-                </code></pre>
-                </div>
-            </section>
-            <section>
-                <h2>Promises</h2>
-                <p class="fragment">Retrieve by calling deferred.promise</p>
-                <p class="fragment">Allow interested parties to get access to the result of the deferred task when it completes</p>
-                <div class="fragment">
-                    <p>Promises carry a few guarantees</p>
-                    <ol>
-                        <div class="fragment">
-                        <li>Only one resolve or reject will ever be called</li>
-                        </div>
-                        <div class="fragment">
-                        <li>If the promise has been resolved or rejected, any handlers depending upon it will be called</li>
-                        </div>
-                        <div class="fragment">
-                        <li>Handlers will always be called asynchronously - they won't block the rest of the app</li>
-                        </div>
-                    </ol>
-                </div>
-
-            </section>
-            <section>
-                <h2>Promise API</h2>
-                <pre><code>// Inject $q
-var deferred = $q.defer();
-var promise = deferred.promise;
-//Use deferred api to resolve the promise
-
-// regardless of when the promise was or will be resolved or rejected,
-// then-method calls success or error callbacks asynchronously
-// as soon as the result is available.
-promise.then(successCallback, errorCallback, notifyCallback);
-
-// shorthand for promise.then(null, errorCallback)
-promise.catch(errorCallback);
-
-// allows you to observe either the fulfillment or rejection of a promise,
-// but to do so without modifying the final value.
-promise.finally(callback);</code></pre>
-            </section>
-
-            <section>
-                <h2>Basic example</h2>
-                <pre><code>//assume $q and okToGreet are available (injected)
-function asyncGreet(name) {
-    var deferred = $q.defer();
-    setTimeout(function() {
-        deferred.notify('About to greet ' + name + '.');
-        if (okToGreet(name)) {
-            deferred.resolve('Hello, ' + name + '!');
-        } else {
-            deferred.reject('Greeting ' + name + ' is not allowed.');
-        }
-    }, 1000);
-    return deferred.promise;
-}
-
-var promise = asyncGreet('Robin Hood');
-promise.then(function(greeting) {
-    alert('Success: ' + greeting);
-}, function(reason) {
-    alert('Failed: ' + reason);
-}, function(update) {
-    alert('Got notification: ' + update);
-});
-                </code></pre>
-            </section>
-            <section>
-                <h2>Chaining</h2>
-                <p>Promises can be chained like callbacks from $resource </p>
-                <div class="fragment">
-                    <p>But the code is cleaner and easier to understand</p>
-                </div>
-                <div class="fragment">
-                    <p>Make more than one deferred objects and take their promises</p>
-                </div>
-                <div class="fragment">
-                <pre><code>promiseB = promiseA.then(function(result) {
-    return result + 1;
-});
-
-// promiseB will be resolved immediately after promiseA is resolved and its value
-// will be the result of promiseA incremented by 1
-                </code></pre>
-                </div>
-
-            </section>
-            <section>
-                <h2>More</h2>
-                <p>Run a function when any number of promises in array have been resolved</p>
-                <pre><code>$q.all(promises).then(successFn, rejectFn))</code></pre>
-                <div class="fragment">
-                <p>Make a promise that is resolved as rejected - used to forward rejection in a chain of promises</p>
-                <pre><code>$q.reject(message)</code></pre>
-                </div>
-                <div class="fragment">
-                <p>$q.when(value) Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. </p>
-                </div>
-
-            </section>
-            <section>
-                <h2>One more example</h2>
-                <pre><code>var authServiceDeferred = $q.defer();
-AuthService.getOrganizations('APP_VALINTAPERUSTEET').then(function (oidList) {
-    var organizationPromises = [];
-    _.forEach(oidList, function (oid) {
-        var deferred = $q.defer();
-        organizationPromises.push(deferred.promise);
-        OrganizationByOid.get({oid: oid}, function (organization) {
-            myOrganizations.push(organization);
-            deferred.resolve();
-        }, function (error) { deferred.reject(error); });
-    });
-
-    $q.all(organizationPromises).then(function () {
-        authServiceDeferred.resolve();
-    }, function () { authServiceDeferred.reject(); });
-
-}, function(error) {authServiceDeferred.reject()});
-
-var promise = authServiceDeferred.promise;
-//handle promise
-                </code></pre>
-            </section>
-        </section>
 
 
 
