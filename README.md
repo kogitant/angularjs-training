@@ -1,7 +1,7 @@
-![AngularJS Introduction](/images/banner.png)
+![Introduction to AngularJS](/images/banner.png)
 # AngularJS Introduction
 
-Welcome to *AngularJS Introduction* Workshop for Developers!
+Welcome to *Introduction to AngularJS*, a one day workshop for developers like you and me!
 
 This is a one-day workshop that teaches the basics of AngularJS. The workshop starts with introduction to AngularJS core concepts and advances to server-side communication. The workshop contains several small exercises so yes, we all code here!
 
