@@ -1,3 +1,4 @@
+![AngularJS Introduction](/images/banner.png)
 # AngularJS Introduction
 
 Welcome to *AngularJS Introduction* Workshop for Developers!
