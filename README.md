@@ -1,4 +1,8 @@
-# AngularJS Training Materials
+# AngularJS Introduction
+
+Welcome to *AngularJS Introduction* Workshop for Developers!
+
+This is a one-day workshop that teaches the basics of AngularJS. The workshop starts with introduction to AngularJS core concepts and advances to server-side communication. The workshop contains several small exercises so yes, we all code here!
 
 In this repository:
 
