@@ -29,10 +29,14 @@ Esimerkki toimivasta konfiguraatiosta:
     > bower --version
     1.3.2
 
-## Oma suosikkieditori tai atom.io asennettuna
+## Editorin asennus
 
-Varmista, että omassa suosikkieditorissasi on JavaScript-tuki.
-Vaihtoehdoksi tai rinnalle suosittelemme ilmaista atom.io:ta (<https://atom.io/>).
+Koulutuksen tarpeisiin riittävä editori on ilmainen atom.io (<https://atom.io/>).
+
+Vaihtoehtoisesti varmista, että käyttämässäsi editorissa/IDE:ssä on JavaScript ja nodejs-tuki aktivoituna. Ohjeita:
+
+- **IntelliJ Idea**. JavaScript-tuki mukana vakiona. Voit halutessasi asentaa käyttöön myös node.js-tuen laajennuksena (<https://www.jetbrains.com/idea/features/nodejs.html>).
+- **Eclipse**. Asenna ja ota käyttöön JavaScript Development Tools -laajennus (<https://eclipse.org/webtools/jsdt/>).
 
 ## Tee kopio angular-seed -projektista
 
