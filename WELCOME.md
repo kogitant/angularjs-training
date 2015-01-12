@@ -31,12 +31,20 @@ Esimerkki toimivasta konfiguraatiosta:
 
 ## Editorin asennus
 
-Koulutuksen tarpeisiin riittävä editori on ilmainen atom.io (<https://atom.io/>).
+Vaihtoehtoisesti varmista, että käyttämässäsi editorissa/IDE:ssä on JavaScript ja nodejs-tuki aktivoituna. Huomaathan, että koulutuksen tarpeisiin riittää komentorivityökalujen rinnalle varsin hyvin esim. ilmainen atom.io (<https://atom.io/>).
 
-Vaihtoehtoisesti varmista, että käyttämässäsi editorissa/IDE:ssä on JavaScript ja nodejs-tuki aktivoituna. Ohjeita:
+### IntelliJ Idea
 
-- **IntelliJ Idea**. JavaScript-tuki mukana vakiona. Voit halutessasi asentaa käyttöön myös node.js-tuen laajennuksena (<https://www.jetbrains.com/idea/features/nodejs.html>).
-- **Eclipse**. Asenna ja ota käyttöön JavaScript Development Tools -laajennus (<https://eclipse.org/webtools/jsdt/>).
+- Ideassa on JavaScript-tuki mukana vakiona. Voit halutessasi asentaa käyttöön myös node.js-tuen laajennuksena (<https://www.jetbrains.com/idea/features/nodejs.html>).
+
+###  Eclipse
+
+- Asenna ja ota käyttöön JavaScript Development Tools -laajennus (<https://eclipse.org/webtools/jsdt/>).
+
+### NetBeans
+
+- NetBeans 8 sisältää valmiiksi asennettuna tarvittavan JavaScript, node.js yms. tuen
+- Vanhempiin NetBeans-versioihin voi tarvittaessa asentaa käsin NodeJS-laajennuksen (<http://plugins.netbeans.org/plugin/36653/nodejs>)
 
 ## Tee kopio angular-seed -projektista
 
