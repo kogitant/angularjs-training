@@ -39,7 +39,7 @@ Vaihtoehtoisesti varmista, että käyttämässäsi editorissa/IDE:ssä on JavaSc
 
 ###  Eclipse
 
-- Asenna ja ota käyttöön JavaScript Development Tools -laajennus (<https://eclipse.org/webtools/jsdt/>).
+- Asenna ja ota käyttöön Nodeclipse (<http://www.nodeclipse.org/updates/>).
 
 ### NetBeans
 
