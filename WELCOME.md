@@ -57,5 +57,7 @@ Tarkista, että projektin kehitysympäristö käynnistyy komennolla:
     npm start
 
 - Jos kaikki toimii hyvin, kehityspalvelin näkyy selaimessa osoitteella <http://localhost:8000>
+- Itse softa löytyy osoitteesta: http://localhost:8000/app/
 - Jos kehitysympäristö ei käynnisty, tarkista, että yllämainitut sovellukset
 toimivat komentoriviltä.
+
