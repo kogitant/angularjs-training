@@ -5,9 +5,11 @@ var express = require('express'),
 router
 	.route('/')
 	.get(function(req, res) {
+		var limit = Number(req.query.limit) || 9999;
 		Message
 			.find()
 			.sort('+created')
+			.limit(limit)
 			.exec(function(err, messages) {
 				if (err) {
 					res.send(err);
