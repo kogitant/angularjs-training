@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <body>
+    <img src="funchat-logo.png">
     <h1>Funchat API</h1>
     <p>Funchat API is a REST based API for Funchat, a very simple single-channel messaging system that is used in Gofore AngularJS training.</p>
 
@@ -17,14 +18,26 @@
 
     <h4>Create a Message</h4>
     <pre>POST /messages</pre>
+    <p>Send message as JSON with following structure:</p>
+    <pre>{
+    author: 'John',
+    content: 'My content'
+}</pre>
 
     <h4>Get Message</h4>
     <pre>GET /messages/{id}</pre>
 
     <h4>Update Message</h4>
     <pre>PUT /messages/{id}</pre>
+    <p>Use same JSON structure as in create message</p>
 
     <h4>Delete Message</h4>
     <pre>DELETE /messages/{id}</pre>
+
+    <hr>
+
+    <p>If you are looking for an ajax loader try this:</p>
+    <pre><a href="ajax-loader.gif">ajax-loader.gif</a></pre>
+    <img src="ajax-loader.gif">
   </body>
 </html>
