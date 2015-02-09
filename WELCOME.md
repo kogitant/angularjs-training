@@ -8,7 +8,7 @@ Jotta koulutus sujuisi ripeästi, pyydämme, että valmistelisit käyttöösi en
 
 Linkit asennusohjeisiin/paketteihin:
 
-- Node.js ja npm: <http://nodejs.org/>
+- Node.js (tai io.js) ja npm: <http://nodejs.org/>
 - Git: <http://git-scm.com/>
 - Bower: <http://bower.io/>
 
