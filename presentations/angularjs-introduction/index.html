@@ -766,6 +766,92 @@ myApp.controller('NameListCtrl', function($scope) {
         </section>
 
         <section>
+          <section>
+            <h2>Promises</h2>
+          </section>
+          
+          <section>
+            <ul>
+              <li>A promise is a mechanism to catch a future event and attach a callback function to that event</li>
+              <li>Great way to handle problems with asyncronous code</li>
+            </ul>
+          </section>
+
+          <section>
+            <ul>
+              <li>A Promise has 3 possible states: pending (initial), resolved and rejected</li>
+              <li>A Promise's state can only change in two ways:
+                <ul>
+                  <li>pending -> resolved</li>
+                  <li>pending -> rejected</li>
+                </ul>
+              </li>
+              <li>a Promise can only be resolved or rejected once</li>
+            </ul>
+          </section>
+          
+          <section>
+            <h3>Main usage of promises is to turn this Pyramid of Doom</h3>
+            <pre><code>async1(function() {  
+    async2(function() {
+        async3(function() {
+            async4(function() {
+                ....
+                    ....
+                        ....
+                           asyncN(null, null);
+                        ....
+                    ....
+                ....
+            }, null);
+        }, null);
+    }, null);
+}, null);</code></pre>
+          </section>
+          
+          <section>
+            <h3>Into something like this</h3>
+            <pre><code>async1()
+  .then(async2)
+  .then(async3)
+  .then(async4)
+  ....
+  ....
+  ....
+  .then(asyncN) 
+            </code></pre>
+          </section>
+          
+          <section>
+            <h3>In Angular we got <a href="https://docs.angularjs.org/api/ng/service/$q">$q</a></h3>
+            
+            <ul>
+              <li>$q serves an api for creating deferred objects</li>
+              <li>A deferred object represents the result of an asynchronic operation</li>
+              <li>Deferred object contains a promise-object and an api to change it's state</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>Workflow to get started with angular promises</h3>
+            
+            <ul>
+              <li>Inject $q - Angular service creating deferred objects that contain promises</li>
+              <li>Create a deferred object $q.defer();</li>
+              <li>Attach success and reject -callbacks to promise</li>
+              <li>Handle deferred objects resolving/rejection</li>
+              <li><a href="http://jsfiddle.net/TJaakkola/1fz7vemn/4/">http://jsfiddle.net/TJaakkola/1fz7vemn/4/</a></li>
+            </ul>
+            
+          </section>
+
+          <section>
+            <p>Promises can also be chained <a href="http://jsfiddle.net/TJaakkola/Lo423jt9/1/">http://jsfiddle.net/TJaakkola/Lo423jt9/1/</a></p>
+            <p class="fragment">Or you can do something after all promises in an array have been resolved  while simultaneously watching the individual promises <a href="http://jsfiddle.net/TJaakkola/0v87t0wo/2/">http://jsfiddle.net/TJaakkola/0v87t0wo/2/</a></p>
+            <p class="fragment">Handling rejected promise is quite similar to handling resolved promises <a href="http://jsfiddle.net/TJaakkola/0v87t0wo/3/">http://jsfiddle.net/TJaakkola/0v87t0wo/3/</a></p>
+          </section>
+
+
         <section>
           <h2>Deferred Api and promises</h2>
         </section>
@@ -778,31 +864,6 @@ myApp.controller('NameListCtrl', function($scope) {
           <p class="fragment">...and third call using previous data...</p>
           <p class="fragment">...and so on...</p>
           <p class="fragment">Results a callback hell</p>
-        </section>
-        <section>
-          <p>Code example from existing project</p>
-                <pre><code>ValintaperusteetHakukohde.get({hakukohdeoid: hakukohdeOid}, function(result) {
-  model.tarjoajaOid = result.tarjoajaOid;
-});
-
-// Request sent right after ValintaperusteetHakukohde-restcall has been sent (no waiting for response)
-ValinnanvaiheListByHakukohde.get({hakukohdeoid: hakukohdeOid}, function(result) {
-  model.valinnanvaiheet = result;
-
-  // Request sent after ValinnanvaiheListByHakukohde-resource is finished
-  ValinnanVaiheetIlmanLaskentaa.get({hakukohdeoid: hakukohdeOid}, function(result) {
-    model.ilmanlaskentaa = result;
-    if(result.length > 0) {
-      // Request sent after ValinnanVaiheetIlmanLaskentaa are finished
-      HakukohdeHenkilotFull.get({aoOid: hakukohdeOid, rows: 100000}, function (result) {
-        model.hakeneet = result;
-        // ...
-      });
-    }
-  });
-});
-                </code></pre>
-
         </section>
 
         <section>
