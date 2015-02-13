@@ -23,10 +23,6 @@
     <script>
       document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
     </script>
-
-    <!--[if lt IE 9]>
-    <script src="lib/js/html5shiv.js"></script>
-    <![endif]-->
   </head>
   <body>
     <div class="reveal">
@@ -91,7 +87,7 @@
               <li>Potential for improved user experience (more control over
                   application states; ability to animate state transitions)</li>
               <li>Reduced bandwidth usage, improved performance</li>
-              <li>Potential to create more native-like applications</li>
+              <li>Create more native-like applications</li>
               <li>Facilitate clean, nicely decoupled client/server architecture</li>
             </ul>
           </section>
@@ -108,7 +104,7 @@
             </ul>
           </section>
           <section>
-            <h2>Similar Libraries and Frameworks</h2>
+            <h2>Earlier and same generation libraries and frameworks</h2>
             <ul>
               <li>
                 <b><a href="http://backbonejs.org/">Backbone.js</a></b><br>Minimalistic, low-level, make-your-own-stack library</li>
@@ -121,18 +117,25 @@
           </section>
           <section>
             <h2>2013 was the Trending Year of Angular</h2>
-            <p>Google trending <b>skyrocketing since early 2013</b><br>
-               (230% increase in 01-07/2013)</p>
             <p><img src="images/angularjs-trending.png"></p>
           </section>
           <section>
-            <h2>...Yet new kids have been seen in the block already</h2>
+            <h2>Trending Peak was Reached only Years later in Nov. 2014!</h2>
+            <p><img src="images/angularjs-trending-2.png"></p>
+          </section>
+          <section>
+            <h2>Next generation is already coming</h2>
             <ul>
-              <li><b><a href="http://facebook.github.io/react/">React</a></b><br>Virtual DOM based View implementation for JavaScript SPAs</li>
+              <li><b><a href="http://facebook.github.io/react/">React</a> +
+                     <a href="https://facebook.github.io/flux/">flux</a></b><br>Virtual DOM based View implementation for JavaScript SPAs</li>
+              <li>
+                <b><a href="http://www.ractivejs.org/">Ractive.js</a></b><br>
+                Template-driven UI library with Angular-like two-way data binding
+              </li>
               <li>
                 <b><a href="http://webcomponents.org/">Web Components</a></b><br>
-                Collection of Draft W3C specifications (Shadow DOM, Custom Elements, HTML Imports) to standardise SPAs.
-                Multiple implementating libraries also available (Bosonic, Polymer, Polymer.Dart, X-Tag)
+                A Collection of specifications (Shadow DOM, Custom Elements, HTML Imports) and polyfills/libraries
+                (webcomponents.js, Bosonic, Polymer, X-Tag) to enable standards-driven way of building componentized web applications. 
               </li>
             </ul>
           </section>
@@ -189,7 +192,7 @@
             <h2>Rapid prototyping / scaffolded app generation</h2>
             <div style="text-align: left">
               <ul>
-                <li>High productivity frontend prototyping</li>
+                <li>High productivity prototyping</li>
                 <li>Frontend stack: Yeoman + Bootstrap + Angular</li>
                 <li>Full stack: <a href="mean.io/">mean.io</a></li>
               </ul>
@@ -245,7 +248,6 @@
 &lt;/html>
             </code></pre>
             <div><b>Minimal Angular app = </b> put <code>ng-app</code> somewhere + load <code>angular.js</code></div>
-            (If IE7 support is required add <code>id="ng-app"</code> too)
           </section>
 
           <section>
@@ -361,7 +363,6 @@
           </section>
           <section>
             <h3><a href="http://jsfiddle.net/jsalonen/nB4WU/">jsfiddle.net/jsalonen/nB4WU/</a></h3>
-<p><b>Simplified example - don't actually do it like this</b></p>
 <pre><code>function NameListCtrl($scope) {
   $scope.title = "Participants";
   $scope.names = ['Jaakko', 'Tapio', 'Juha'];
@@ -406,84 +407,6 @@ function NameListCtrl($scope) {
 </pre>
 </section>
         </section>
-
-        <section>
-            <section>
-                <h2>Dependency Injection and Modules</h2>
-            </section>
-            <section>
-                <h2><a href="http://docs.angularjs.org/guide/module">Modules - What and Why?</a></h2>
-                <ul>
-                    <li>Modules are a declarative approach to the ubiquitous (and imperative) "main" method</li>
-                    <li>Angular applications are defined as <b>Modules</b></li>
-                    <li>Also: package third-party code as reusable modules</li>
-                    <li>Modules improve testability</li>
-                </ul>
-            </section>
-            <section>
-                <h2>Angular Application as a Module</h2>
-                <h3><a href="http://jsfiddle.net/jsalonen/vAEnU/">jsfiddle.net/jsalonen/vAEnU</a></h3>
-                <p>
-                    Declaring a module:
-                </p>
-                <pre><code>var myAppModule = angular.module('myApp', []);</code></pre>
-
-                <p>
-                    Refer to <code>myApp</code> in your <code>ng-app</code> directive:
-                </p>
-                <pre><code>&lt;html ng-app="myApp">...&lt;/html></code></pre>
-            </section>
-            <section>
-                <h3>Usage Example: Modular Controllers</h3>
-                <h4>(The right way of using controllers)</h4>
-                <h3><a href="http://jsfiddle.net/jsalonen/SdXG8/">jsfiddle.net/jsalonen/SdXG8/</a></h3>
-            <pre><code>&lt;div ng-app="myApp">
-  &lt;div ng-controller="NameListCtrl">  
-    &lt;h1>Participants</h1>
-    &lt;ol>
-      &lt;li ng-repeat="name in names">{{name}}</li>
-    &lt;/ol>
-  &lt;/div>
-&lt;/div></code></pre>
-<pre><code>var myApp = angular.module('myApp',[]);
-
-myApp.controller('NameListCtrl', function($scope) {
-  $scope.names = ['Jaakko', 'Tapio', 'Juha'];
-});</code></pre>
-            </section>
-            <section>
-              <h2>Dependency Injection (DI)</h2>
-              <ul>
-                <li>Individual components in Angular are
-                    glued together with dependency injection</li>
-                <li>DI is pervasively used in Angular to decouple
-                    components</li>
-                <li><b>Whenever possible use DI mechanisms</b>
-                    for specifying component dependencies</li>
-              </ul>
-            </section>          
-            <section>
-              <h2>Dependency Injection in Action</h2>
-<pre><code>var myApp =
-  angular.module('myApp',[]);
-    .service('NameService', [$log, function($log) {
-      this.pickRandomName = function(names) {
-        $log.log('Random name requested');
-        return names[Math.floor(Math.random()*names.length)];
-      }
-    }])
-    .controller('NameListCtrl', ['$scope', 'NameService', function($scope, NameService) {     
-      var names = [];
-      names.push( NameService.pickRandomName(['Jack', 'John']) );
-      names.push( NameService.pickRandomName(['Michael', 'Glenn']) );
-      $scope.names = names;
-    }]);</code></pre>
-            </section>
-            <section>
-              <h2>Dependency graph</h2>
-              <a href="http://yuml.me/3e231371"><img src="images/dependency-graph-example.png"></a>
-            </section>
-        </section>        
 
         <section>
           <section>
@@ -575,7 +498,85 @@ myApp.controller('NameListCtrl', function($scope) {
 
         <section>
             <section>
-                <h2>Services</h2>
+                <h2>Modules</h2>
+            </section>
+            <section>
+                <h2><a href="http://docs.angularjs.org/guide/module">Modules - What and Why?</a></h2>
+                <ul>
+                    <li>Modules are a declarative approach to the ubiquitous (and imperative) "main" method</li>
+                    <li>Angular applications are defined as <b>Modules</b></li>
+                    <li>Also: package third-party code as reusable modules</li>
+                    <li>Modules improve testability</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Angular Application as a Module</h2>
+                <h3><a href="http://jsfiddle.net/jsalonen/vAEnU/">jsfiddle.net/jsalonen/vAEnU</a></h3>
+                <p>
+                    Declaring a module:
+                </p>
+                <pre><code>var myAppModule = angular.module('myApp', []);</code></pre>
+
+                <p>
+                    Refer to <code>myApp</code> in your <code>ng-app</code> directive:
+                </p>
+                <pre><code>&lt;html ng-app="myApp">...&lt;/html></code></pre>
+            </section>
+            <section>
+                <h3>Usage Example: Modular Controllers</h3>
+                <h4>(The right way of using controllers)</h4>
+                <h3><a href="http://jsfiddle.net/jsalonen/SdXG8/">jsfiddle.net/jsalonen/SdXG8/</a></h3>
+            <pre><code>&lt;div ng-app="myApp">
+  &lt;div ng-controller="NameListCtrl">  
+    &lt;h1>Participants</h1>
+    &lt;ol>
+      &lt;li ng-repeat="name in names">{{name}}</li>
+    &lt;/ol>
+  &lt;/div>
+&lt;/div></code></pre>
+<pre><code>var myApp = angular.module('myApp',[]);
+
+myApp.controller('NameListCtrl', function($scope) {
+  $scope.names = ['Jaakko', 'Tapio', 'Juha'];
+});</code></pre>
+            </section>
+        </section>        
+
+        <section>
+            <section>
+                <h2>Dependency Injection and Services</h2>
+            </section>
+            <section>
+              <h2>Dependency Injection (DI)</h2>
+              <ul>
+                <li>Individual components in Angular are
+                    glued together with dependency injection</li>
+                <li>DI is pervasively used in Angular to decouple
+                    components</li>
+                <li><b>Whenever possible use DI mechanisms</b>
+                    for specifying component dependencies</li>
+              </ul>
+            </section>
+            <section>
+              <h2>Dependency Injection in Action</h2>
+              <h3><a href="http://jsfiddle.net/jsalonen/1y13xc2j/">jsfiddle.net/jsalonen/1y13xc2j/</a></h3>
+<pre><code>angular
+  .module('myApp',[])
+  .controller('ParticipantsCtrl', function($scope, $log) {
+    var pickRandomName = function(names) {
+      var name = names[Math.floor(Math.random()*names.length)];
+      $log.log('Picked random name: ' + name);
+      return name;
+    };
+
+    $scope.participants = ['Jaakko', 'Tapio', 'Aapee'];      
+    $scope.addRandomName = function() {
+      $scope.participants.push(
+        pickRandomName(['Jussi', 'Arto', 'Matti'])
+      );
+    };
+  });
+</code></pre>
             </section>
             <section>
                 <h2><a href="http://docs.angularjs.org/guide/services">Angular Services</a></h2>
@@ -586,56 +587,43 @@ myApp.controller('NameListCtrl', function($scope) {
                 </ul>
             </section>
             <section>
-                <h2>Using services</h2>
-                <h3><a href="http://jsfiddle.net/jsalonen/jtge8/">jsfiddle.net/jsalonen/jtge8/</a></h3>
-                <p>Example services: $timeout and $window</p>
-                <p>Template:</p>
-<pre><code>&lt;div ng-app="myApp">&lt;div ng-controller="QueueCtrl">
-    &lt;input type="submit" value="Click to start queuing" ng-click="enterQueue()"></input>
-    &lt;/div>&lt;/div></code></pre>
-                <p>Code:</p>
-<pre><code>angular.module('myApp', []).
-    controller('QueueCtrl', ['$scope', '$timeout', '$window',
-    function($scope, $timeout, $window) {
-    $scope.enterQueue = function() {
-    $timeout(function() {
-    $window.location.href = 'http://www.gofore.com';
-    }, 5000);
+                <h2>Dependency Injection in Action - With Service</h2>
+                <h3><a href="http://jsfiddle.net/jsalonen/8wmgvxxz/">jsfiddle.net/jsalonen/8wmgvxxz/</a></h3>
+<pre><code>angular
+  .module('myApp',[])
+  .service('NameService', function($log) {
+    this.pickRandomName = function(names) {
+      var name = names[Math.floor(Math.random()*names.length)];
+      $log.log('Picked random name: ' + name);
+      return name;
     };
-    }]);</code></pre>
+  })
+  .controller('ParticipantsCtrl', function($scope, NameService) {
+    $scope.participants = ['Jaakko', 'Tapio', 'Aapee'];      
+    $scope.addRandomName = function() {
+      $scope.participants.push(
+        NameService.pickRandomName(['Jussi', 'Arto', 'Matti'])
+      );
+    };
+  });
+</code></pre>
             </section>
             <section>
-                <h2>Creating Services</h2>
-                <p>Applications may (and often should) create their own services:</p>
-                <ol>
-                    <li>Register service with service factory function</li>
-                    <li>Specify dependencies</li>
-                    <li>Use as required</li>
-                </ol>
+              <h2>Dependency graph</h2>
+              <a href="http://yuml.me/3e231371"><img src="images/dependency-graph-example.png"></a>
             </section>
             <section>
-                <h2>Example Service: TaxCalculatorService</h2>
-                <h3><a href="http://jsfiddle.net/jsalonen/saG3p/">jsfiddle.net/jsalonen/saG3p</a></h3>
-            <pre><code>myApp.factory('TaxCalcService', function() {
-                return {
-                'calculateTax': function (income) {
-                if(income<10000) return income*0.1;
-                if(income<20000) return income*0.2;
-                return income*0.3;
-                }
-                };
-                })</pre></code>
-            </section>
-            <section>
-                <h2>Services vs. Factories</h2>
-                <p>Both service and factory methods
-                    allow you to create injectable singletons.</p>
-                <p>However:</p>
-                <pre><code>myApp.service('serviceA', function a() { ... })</code></pre>
-                <p>Returns instance of the function (<code>new function a())</code>
-                <pre><code>myApp.factory('serviceB', function b() { ... })</code></pre>
-                <p>Returns the value that is returned when invoking b</p>
-
+              <h2>Alternative: construct services using <code>Factory</code></h2>
+              <pre><code>.factory('NameService', function() {
+  return {
+    pickRandomName: function(names) {
+      ...
+    }
+  };
+});</code></pre>
+  <p><code>factory</code> generates services just like <code>service</code> -
+    useful especially when your service object is generated</p>
+</pre>
             </section>
         </section>
 
@@ -762,7 +750,7 @@ myApp.controller('NameListCtrl', function($scope) {
         -->
         <section>
           <h1>Part 3</h1>
-          <h2>Server-side Communications</h2>
+          <h2>Asynchronous Methods and Server-side Communications</h2>
         </section>
 
         <section>
@@ -1426,7 +1414,7 @@ angular.module('myApplication').factory('HakemusResource', function($resource) {
           <section>
             <h2><a href="http://docs.angularjs.org/guide/ie">Internet Explorer Compatibility</a></h2>
             <ul>
-              <li>Add <code>id="ng-app"</code> to the element containing ng-app</li>
+              <li>Add <code>id="ng-app"</code> to the element containing ng-app (required for IE7)</li>
               <li>If you use custom element tags (<code>&lt;ng:view&gt;</code>), extra boilerplate need to be added <b>(IE &lt; 8)</b></li>
               <li>Polyfill <code>JSON.stringify</code> <b>(IE7 and below)</b></li>
               <li>Use <code>ng-style</code> tags for styles containing expressions <b>(IE &lt; 11)</b></li>
