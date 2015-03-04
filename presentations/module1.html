@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>Introduction to AngularJS</title>
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/gofore.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+        document.write('<link rel="stylesheet" href="css/print/' + ( window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">');
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+
+        <!-- Module 1 -->
+        <section>
+            <h1>Module 1</h1>
+
+            <h2>Background, High-level Overview and core features</h2>
+        </section>
+
+        <section>
+            <h2>Contents</h2>
+            <ul>
+                <li><b><a href="module1.html">Module 1: Background, High-level Overview and core features</a></b></li>
+                <li><a href="module2.html">Module 2: Async and server-communications</a></li>
+                <li><a href="module3.html">Module 3: Forms, Routes and Resource</a></li>
+                <li><a href="module4.html">Module 4: Testing</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <section>
+                <h2>Background</h2>
+            </section>
+            <section>
+                <h3>Static web pages &rarr; DHTML &rarr; AJAX &rarr; SPA</h3>
+            </section>
+            <section>
+                <h2>SPA</h2>
+                <ul>
+                    <li>SPA = Single-Page (Web) Application</li>
+                    <li>Further advances the AJAX way of communicating with the server</li>
+                    <li>Instead of page transitions, persist state by changing browser URL
+                        via JavaScript APIs
+                    </li>
+                    <li>Retrieve a page only once and keep modifying its state via DOM
+                        without whole page reloads
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Benefits</h2>
+                <ul>
+                    <li>Potential for improved user experience (more control over
+                        application states; ability to animate state transitions)
+                    </li>
+                    <li>Reduced bandwidth usage, improved performance</li>
+                    <li>Create more native-like applications</li>
+                    <li>Facilitate clean, nicely decoupled client/server architecture</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>AngularJS<sup>1</sup></h2>
+                <ul>
+                    <li>Open-source JavaScript framework, maintained by Google</li>
+                    <li>JavaScript MVC Framework for building Single-Page Applications (SPAs)</li>
+                    <li>Notable emphasis on <b>testability and embeddability</b></li>
+                    <li>A framework: you either use it in full or not at all</li>
+                    <li>MIT licensed</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Earlier and same generation libraries and frameworks</h2>
+                <ul>
+                    <li>
+                        <b><a href="http://backbonejs.org/">Backbone.js</a></b><br>Minimalistic, low-level,
+                        make-your-own-stack library
+                    </li>
+                    <li>
+                        <b><a href="http://emberjs.com/">Ember.js</a></b><br>Minimal boilerplate, opinionated,
+                        "developer-friendly", very Angularish
+                    </li>
+                    <li>
+                        <b><a href="http://knockoutjs.com/">Knockout</a></b><br>MVVM framework. Declarative bindings,
+                        automatic UI refresh
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>2013 was the Trending Year of Angular</h2>
+
+                <p><img src="images/angularjs-trending.png"></p>
+            </section>
+            <section>
+                <h2>Trending Peak was Reached only Years later in Nov. 2014!</h2>
+
+                <p><img src="images/angularjs-trending-2.png"></p>
+            </section>
+            <section>
+                <h2>Next generation is already coming</h2>
+                <ul>
+                    <li><b><a href="http://facebook.github.io/react/">React</a> +
+                        <a href="https://facebook.github.io/flux/">flux</a></b><br>Virtual DOM based View implementation
+                        for JavaScript SPAs
+                    </li>
+                    <li>
+                        <b><a href="http://www.ractivejs.org/">Ractive.js</a></b><br>
+                        Template-driven UI library with Angular-like two-way data binding
+                    </li>
+                    <li>
+                        <b><a href="http://webcomponents.org/">Web Components</a></b><br>
+                        A Collection of specifications (Shadow DOM, Custom Elements, HTML Imports) and
+                        polyfills/libraries
+                        (webcomponents.js, Bosonic, Polymer, X-Tag) to enable standards-driven way of building
+                        componentized web applications.
+                    </li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Design Overview</h2>
+            </section>
+            <section>
+                <h2>The Zen of Angular<sup>2</sup></h2>
+                <blockquote>"Angular is built around the belief that declarative code is better than imperative <b>when
+                    it comes to building UIs and wiring software components together</b>, while imperative code is <b>excellent
+                    for expressing business logic</b>."
+                </blockquote>
+            </section>
+            <section>
+                <h2>Design goals<sup>2</sup></h2>
+                <ul>
+                    <li>Decouple DOM manipulation from app logic (&rarr; testability)</li>
+                    <li>Regard application testing as equal in importance to application writing (testing difficult
+                        affects code structuring)
+                    </li>
+                    <li>Decouple server side and client side (&rarr; reusability, testability)</li>
+                    <li>Guide developers (UI design &rarr; business logic &rarr; testing)</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Use Cases</h2>
+            </section>
+            <section>
+                <h2>Angular Sweet Spot</h2>
+                <blockquote>
+                    "Angular was built for the CRUD application in mind.
+                    Luckily CRUD applications represent the majority of web applications." <sup>2</sup>
+                </blockquote>
+                <br>
+
+                <p>Application examples:
+                <ul>
+                    <li><a href="http://angularjs.org/">The canonical AngularJS CRUD apps</a></li>
+                    <li><a href="http://www.sekas.de/ptr/ptr-0.2.3/src/html/ptr.html">http://builtwith.angularjs.org/project/Project-Time-Recorder</a>
+                    </li>
+                </ul>
+                </p>
+                <br>
+
+                <p>Use of AngularJS for GUI editors and games is specifically discouraged <sup>2</sup></p>
+            </section>
+            <section>
+                <h2>HTML5/Hybrid Mobile Applications</h2>
+                <ul>
+                    <li>SPAs are loaded only once &rarr; more native-like experience in mobile devices</li>
+                    <li><a href="http://mobileangularui.com/">Mobile Angular UI</a> - a mobile-optimized version of
+                        Angular
+                        on top of Bootstrap 3 (improved performance, mobile-friendly controls with swipe support,
+                        offcanvas menus, etc.)
+                    </li>
+                    <li><a href="http://ionicframework.com/">Ionic framework</a> - AngularJS-based framework for
+                        creating
+                        hybrid mobile applications
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Rapid prototyping / scaffolded app generation</h2>
+
+                <div style="text-align: left">
+                    <ul>
+                        <li>High productivity prototyping</li>
+                        <li>Frontend stack: Yeoman + Bootstrap + Angular</li>
+                        <li>Full stack: <a href="mean.io/">mean.io</a></li>
+                    </ul>
+            </section>
+            <section>
+                <h2>When You Probably Should Not Use Angular</h2>
+                <ul>
+                    <li>You already happily use another SPA framework :)</li>
+                    <li>You need specific JavaScript components that are laborous to integrate with Angular</li>
+                    <li>You need a lightweight application and/or need to make an embeddable application [6]</li>
+                    <li>Generally when you are creating something that doesn't need Angular's core features
+                        (controllers, two-way data binding, etc.)
+                    </li>
+                    <li>When you need to write ultra-clean code by hand and don't need to rush</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h2>References and Further Reading</h2>
+
+            <div style="text-align: left">
+                <p>[1] <a href="http://en.wikipedia.org/wiki/AngularJS">AngularJS (Wikipedia)</a></p>
+
+                <p>[2] <a href="http://docs.angularjs.org/guide/overview">AngularJS Overview</a></p>
+
+                <p>[3] <a href="http://docs.angularjs.org/guide/concepts">AngularJS Conceptual Overview</a></p>
+
+                <p>[4] <a href="http://www.slideshare.net/olegp/oleg-podsechinfrontendconf">AngularJS - the folly of
+                    choice</a>, Frontend DEV Conf '13</p>
+
+                <p>[5] <a href="http://www.slideshare.net/olegp/tips-from-angular-js-users-anonymous-25199815">Tips from
+                    AngularJS Users Anonymous</a>, HelsinkiJS August 2013 at F-Secure.</p>
+
+                <p>[6] <a href="https://moot.it/blog/technology/frameworkless-javascript.html">Why Angular, Ember, or
+                    Backbone don't work for us</a>, Tero Piirainen</p>
+            </div>
+        </section>
+
+        <section>
+            <section>
+                <h2>Bootstrap and Initialization</h2>
+            </section>
+
+            <section>
+                <h2><a href="http://docs.angularjs.org/guide/bootstrap" target="_blank">Bootstrapping</a></h2>
+            <pre><code>&lt;!doctype html>
+                &lt;html ng-app>
+                &lt;body>
+                <!-- ... -->
+                &lt;script src="angular.js">&lt;/script>
+                &lt;/body>
+                &lt;/html>
+            </code></pre>
+                <div><b>Minimal Angular app = </b> put <code>ng-app</code> somewhere + load <code>angular.js</code>
+                </div>
+            </section>
+
+            <section>
+                <h2><a href="http://docs.angularjs.org/guide/bootstrap#automatic-initialization">Automatic
+                    Initialization</a></h2>
+
+                <p><img src="images/angularjs-concepts-startup.png" style="width: 70%"></p>
+            </section>
+
+            <section>
+                <h2>Automatic Initialization</h2>
+
+                <h3><a href="http://docs.angularjs.org/api/ng/directive/ngApp">ngApp</a> in Detail</h3>
+                <ol>
+                    <li class="fragment">Automatically initialize Angular after document has loaded</li>
+                    <li class="fragment">Look for <code>ng-app</code> attribute in the DOM hierarchy</li>
+                    <li class="fragment">If a <b>module</b> was referenced, load it (here: <code>myModule</code>)</li>
+                    <li class="fragment">Create application <b>injector</b></li>
+                    <li class="fragment">Compile DOM that resides inside the element containg <code>ng-app</code>
+                        attribute
+                    </li>
+                </ol>
+            </section>
+
+            <section>
+                <h2>Example</h2>
+
+                <h3><a href="http://jsfiddle.net/jsalonen/Z9XC9/">jsfiddle.net/jsalonen/Z9XC9/</a></h3>
+<pre><code>&lt;script type="text/javascript">
+    var myApp = angular.module('myApp', []);
+    &lt;/script>
+    &lt;div ng-app="myApp">
+    1, 2, ..., 10 = {{1+2+3+4+5+6+7+8+910}}
+    &lt;/div>
+    &lt;div class="some-container">
+    1 + 2 = {{1+2}}
+    &lt;/div>
+</code></pre>
+            </section>
+
+            <section>
+                <h2>Manual Initialization</h2>
+
+                <h3>Omit <code>ng-app</code> to manually orchestrate initialization</h3>
+<pre><code>&lt;!doctype html>
+    &lt;html xmlns:ng="http://angularjs.org">
+    &lt;body>
+    Hello {{'World'}}!
+    &lt;script src="http://code.angularjs.org/angular.js">&lt;/script>
+    &lt;script&gt;
+    angular.element(document).ready(function() {
+    angular.module('myApp', []);
+    angular.bootstrap(document, ['myApp']);
+    });
+    &lt;/script>
+    &lt;/body>
+    &lt;/html></code></pre>
+                <ul>
+                    <li class="fragment">element = <a href="http://docs.angularjs.org/api/ng/function/angular.element">angular.element</a>
+                        ("Wraps a raw DOM element or HTML string as a jQuery element")
+                    </li>
+                    <li class="fragment">angular.bootstrap invokes compile to turn the element into an executable,
+                        bi-directionally bound application.
+                    </li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>$ Prefix Indicates Angular Namespace</h2>
+                <blockquote>"To prevent accidental name collision, Angular prefixes names of objects which could
+                    potentially collide with $. Please do not use the $ prefix in your code as it may accidentally
+                    collide with Angular code."
+                </blockquote>
+                <ul>
+                    <li>A handy convention to keep you on track what comes from Angular</li>
+                    <li>Don't break the convention. Don't prefix your own objects with $.</li>
+                    <li>Note that <code>$</code> object usually refers to <code>jQuery</code>, not Angular</li>
+                </ul>
+                <br>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Scopes and Data Binding</h2>
+            </section>
+            <section>
+                <h2>Angular provides <a href="http://docs.angularjs.org/guide/databinding">Two-Way Data Binding</a></h2>
+                <img src="images/Two_Way_Data_Binding.png" style="width: 50%">
+                <ul>
+                    <li class="fragment">Changes to DOM trigger model (scope) updates</li>
+                    <li class="fragment">And the other way around: scope updates are reflected in DOM</li>
+                </ul>
+            </section>
+            <section>
+                <h2><a href="http://docs.angularjs.org/guide/concepts#a-first-example-data-binding">Data Binding
+                    Example</a></h2>
+
+                <h3><a href="http://jsfiddle.net/jsalonen/ZWu2s/">jsfiddle.net/jsalonen/ZWu2s/</a></h3>
+<pre><code>&lt;div ng-app ng-init="firstname='John'; lastname='Doe';">
+    &lt;div>
+    &lt;input type="text" ng-model="firstname">
+    &lt;input type="text" ng-model="lastname">
+    &lt;div>
+    &lt;h1>Hello {{firstname + " " + lastname}}</h1>
+    &lt;/div></code></pre>
+            </section>
+            <section>
+                <h2>Data Binding Glues Models to Views</h2>
+
+                <div>
+                    <img src="images/concepts-databinding1.png" style="width: 75%">
+                </div>
+                <ul>
+                    <li class="fragment">Initialize model variables with <a
+                            href="http://docs.angularjs.org/api/ng/directive/ngInit">ng-init directive</a></li>
+                    <li class="fragment">Bind variables to view with <a
+                            href="http://docs.angularjs.org/api/ng/directive/ngModel">ng-model</code> directive</a></li>
+                    <li class="fragment">No distinct model object - data is stored inside <b>scope</b> along with
+                        functions
+                    </li>
+                </ul>
+            </section>
+
+        </section>
+        <section>
+            <section>
+                <h2>Controllers</h2>
+                <ul>
+                    <li><b>Controller:</b> a JavaScript construction function that is used to <em>augment</em> the <em>scope</em>
+                    </li>
+                    <li>The augmented scope inherits all properties from upper-level scope (top-level is
+                        <b>$rootScope</b>)
+                    </li>
+                    <li><b>ng-controller:</b> directive that calls the construction function for the named controller
+                    </li>
+                    <li>Controller-augmented scope is only visible inside the HTML block that declares
+                        <em>ng-controller</em></li>
+                </ul>
+            </section>
+            <section>
+                <h3><a href="http://jsfiddle.net/jsalonen/nB4WU/">jsfiddle.net/jsalonen/nB4WU/</a></h3>
+<pre><code>function NameListCtrl($scope) {
+    $scope.title = "Participants";
+    $scope.names = ['Jaakko', 'Tapio', 'Juha'];
+    }</code></pre>
+
+            <pre><code>&lt;div ng-app>
+                &lt;div ng-controller="NameListCtrl">
+                &lt;h1>Participants&lt;/h1>
+                &lt;ol>
+                <li ng-repeat="name in names">{{name}}</li>
+                &lt;/ol>
+                &lt;/div>
+                &lt;/div>
+            </code>
+</pre>
+
+                <p>(<b>ng-repeat:</b> directive to instantiate template once per item from a collection)</p>
+            </section>
+
+            <section>
+                <h2>Controller inside Controller</h2>
+
+                <h3><a href="http://jsfiddle.net/jsalonen/tj78j/">jsfiddle.net/jsalonen/tj78j/</a></h3>
+<pre><code>function ParticipantCtrl($scope) {
+    $scope.title = "Participants";
+    }
+
+    function NameListCtrl($scope) {
+    $scope.title = "List";
+    $scope.names = ['Jaakko', 'Tapio', 'Juha'];
+    }
+</code></pre>
+
+            <pre><code>&lt;div ng-app>
+                &lt;div ng-controller="ParticipantCtrl">
+                &lt;h1>Participants&lt;/h1>
+                &lt;ol ng-controller="NameListCtrl">
+                <li ng-repeat="name in names">{{name}} (in list {{title}})</li>
+                &lt;/ol>
+                &lt;/div>
+                &lt;/div>
+            </code>
+</pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Expressions</h2>
+            </section>
+            <section>
+                <h2><a href="http://docs.angularjs.org/guide/expression">Expression</a></h2>
+                <ul>
+                    <li>JavaScript-like code snippets, mainly used for data binding</li>
+                    <li>Usually placed in bindings like: <code>{{ expression }}</code></li>
+                    <li>Are re-evaluated when bindings change</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Different from JavaScript Expressions</h2>
+                <ul>
+                    <li>Evaluated against scope object (not window)</li>
+                    <li>Silently handle <code>undefined</code> and <code>null</code> values</li>
+                    <li>You cannot use control flow statements</li>
+                    <li>Parsed with <a href="http://docs.angularjs.org/api/ng/service/$parse">$parse</a>, not with
+                        <code>eval</code> (=safer)
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Expression Examples</h2>
+
+                <p>Some simple math with values from scope:</p>
+                <pre><code>{{ savings + income - moneySpent }}</code></pre>
+                <pre><code>{{ 3.14 * radius * radius }}</code></pre>
+                <p>String concatenation with null / undefined values:</p>
+                <pre><code>{{ "hello" + null + undefined + "world!" }}</code></pre>
+                <div class="fragment">&rarr; "hellonull world!"</div>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2><a href="http://docs.angularjs.org/guide/filter" target="_blank">Filters</a></h2>
+                <ul>
+                    <li>Filters perform data transformation (similar in spirit to UNIX pipe (<code>|</code>) filters
+                    </li>
+                    <li>Filters can and are often chained</li>
+                    <li>Examples:
+                        <ul>
+                            <li>filter a list by search string</li>
+                            <li>format data according to a data type or locale</li>
+                            <li>convert data into a specific format (e.g. <code>json</code> filter)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Using Filters in View Templates</h2>
+
+                <p>Typical usage: apply filters to expressions in view templates:</p>
+                <pre>{{ expression | filter }}</pre>
+                <p>Filter chaining:</p>
+                <pre>{{ expression | filter1 | filter 2 }}</pre>
+                <p>With arguments</p>
+                <pre>{{ expression | filter1:arg1:arg2 }}</pre>
+            </section>
+            <section>
+                <h2>Examples of Built-in Filter Usage</h2>
+
+                <h3><a href="http://jsfiddle.net/jsalonen/QH9yw/">jsfiddle.net/jsalonen/QH9yw/</a></h3>
+
+                <p>Uppercasing:</p>
+                <pre><code>{{name|uppercase}}</code></pre>
+                <p>Currency formatter:</p>
+                <pre><code>{{salary|currency:"€"}}</code></pre>
+                <p class="fragment">More built-in filters: <i>lowercase</i>, <i>date</i>, <i>filter</i>,
+                    <i>json</i>, <i>limitTo</i>, <i>number</i>, <i>orderBy</i></p>
+            </section>
+            <section>
+                <h2>Practical Example:<br>Simple filter-based search</h2>
+
+                <h3><a href="http://jsfiddle.net/jsalonen/9c8Tz/">jsfiddle.net/jsalonen/9c8Tz</a></h3>
+
+                <p>Template (with search filter):</p>
+            <pre><code>&lt;div ng-controller="ParticipantsCtrl">
+                &lt;p>Search participants: <input type="text" ng-model="search" value=""/></p>
+                &lt;ol>
+                &lt;li ng-repeat="participant in participants | filter:search">
+                {{participant.name}}
+                &lt;/li>
+                &lt;/ol>
+                &lt;/div>
+            </code></pre>
+                <p>Controller (with orderBy filter):</p>
+            <pre><code>function ParticipantsCtrl($scope, $filter) {
+                var participants = [{name: 'Jaakko'}, {name: 'Aaro'}, ...];
+                $scope.participants = $filter('orderBy')(participants, 'name');
+                }</code></pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Modules</h2>
+            </section>
+            <section>
+                <h2><a href="http://docs.angularjs.org/guide/module">Modules - What and Why?</a></h2>
+                <ul>
+                    <li>Modules are a declarative approach to the ubiquitous (and imperative) "main" method</li>
+                    <li>Angular applications are defined as <b>Modules</b></li>
+                    <li>Also: package third-party code as reusable modules</li>
+                    <li>Modules improve testability</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Angular Application as a Module</h2>
+
+                <h3><a href="http://jsfiddle.net/jsalonen/vAEnU/">jsfiddle.net/jsalonen/vAEnU</a></h3>
+
+                <p>
+                    Declaring a module:
+                </p>
+                <pre><code>var myAppModule = angular.module('myApp', []);</code></pre>
+
+                <p>
+                    Refer to <code>myApp</code> in your <code>ng-app</code> directive:
+                </p>
+                <pre><code>&lt;html ng-app="myApp">...&lt;/html></code></pre>
+            </section>
+            <section>
+                <h3>Usage Example: Modular Controllers</h3>
+                <h4>(The right way of using controllers)</h4>
+
+                <h3><a href="http://jsfiddle.net/jsalonen/SdXG8/">jsfiddle.net/jsalonen/SdXG8/</a></h3>
+            <pre><code>&lt;div ng-app="myApp">
+                &lt;div ng-controller="NameListCtrl">
+                &lt;h1>Participants</h1>
+                &lt;ol>
+                &lt;li ng-repeat="name in names">{{name}}</li>
+                &lt;/ol>
+                &lt;/div>
+                &lt;/div></code></pre>
+<pre><code>var myApp = angular.module('myApp',[]);
+
+    myApp.controller('NameListCtrl', function($scope) {
+    $scope.names = ['Jaakko', 'Tapio', 'Juha'];
+    });</code></pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Dependency Injection and Services</h2>
+            </section>
+            <section>
+                <h2>Dependency Injection (DI)</h2>
+                <ul>
+                    <li>Individual components in Angular are
+                        glued together with dependency injection
+                    </li>
+                    <li>DI is pervasively used in Angular to decouple
+                        components
+                    </li>
+                    <li><b>Whenever possible use DI mechanisms</b>
+                        for specifying component dependencies
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Dependency Injection in Action</h2>
+
+                <h3><a href="http://jsfiddle.net/jsalonen/1y13xc2j/">jsfiddle.net/jsalonen/1y13xc2j/</a></h3>
+<pre><code>angular
+    .module('myApp',[])
+    .controller('ParticipantsCtrl', function($scope, $log) {
+    var pickRandomName = function(names) {
+    var name = names[Math.floor(Math.random()*names.length)];
+    $log.log('Picked random name: ' + name);
+    return name;
+    };
+
+    $scope.participants = ['Jaakko', 'Tapio', 'Aapee'];
+    $scope.addRandomName = function() {
+    $scope.participants.push(
+    pickRandomName(['Jussi', 'Arto', 'Matti'])
+    );
+    };
+    });
+</code></pre>
+            </section>
+            <section>
+                <h2><a href="http://docs.angularjs.org/guide/services">Angular Services</a></h2>
+                <ul>
+                    <li><b>Angular services</b> = substituable objects that are wired together using dependency
+                        injection</p></li>
+                    <li>Use services to organize and share code across your application</li>
+                    <li>General-purpose services are provided by Angular</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Dependency Injection in Action - With Service</h2>
+
+                <h3><a href="http://jsfiddle.net/jsalonen/8wmgvxxz/">jsfiddle.net/jsalonen/8wmgvxxz/</a></h3>
+<pre><code>angular
+    .module('myApp',[])
+    .service('NameService', function($log) {
+    this.pickRandomName = function(names) {
+    var name = names[Math.floor(Math.random()*names.length)];
+    $log.log('Picked random name: ' + name);
+    return name;
+    };
+    })
+    .controller('ParticipantsCtrl', function($scope, NameService) {
+    $scope.participants = ['Jaakko', 'Tapio', 'Aapee'];
+    $scope.addRandomName = function() {
+    $scope.participants.push(
+    NameService.pickRandomName(['Jussi', 'Arto', 'Matti'])
+    );
+    };
+    });
+</code></pre>
+            </section>
+            <section>
+                <h2>Dependency graph</h2>
+                <a href="http://yuml.me/3e231371"><img src="images/dependency-graph-example.png"></a>
+            </section>
+            <section>
+                <h2>Alternative: construct services using <code>Factory</code></h2>
+              <pre><code>.factory('NameService', function() {
+                  return {
+                  pickRandomName: function(names) {
+                  ...
+                  }
+                  };
+                  });</code></pre>
+                <p><code>factory</code> generates services just like <code>service</code> -
+                    useful especially when your service object is generated</p>
+                </pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Directives</h2>
+            </section>
+            <section>
+                <h2><a href="http://docs.angularjs.org/guide/concepts#directives" target="_blank">Directive</a></h2>
+                <ul>
+                    <li>A behaviour or DOM transformation, which is triggered by the presence of a custom attribute,
+                        element name, class name or comment
+                    </li>
+                    <li>Allows you to extend the HTML vocabulary in a declarative fashion.</li>
+                    <li>Multiple directives have already been introduced<br>(can you recall them?)</li>
+                    <li>Simple example: <code>ngHide</code> = hide/show element based on expression</li>
+                    <li>A more advanced example: make content editable with <code>contentEditable="true"</code>
+                        attribute.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2><a href="http://docs.angularjs.org/guide/directive#matching-directives">Directive Matching</a></h2>
+
+                <p>
+                    Example:
+                </p>
+                <pre><code>&lt;input ng-click="action()"></code></pre>
+                <p><b>ng-click</b> is matched with <b>ngClick</b> directive due to normalization:</p>
+                <ul>
+                    <li>Strip <code>x-</code> and <code>data-</code> from element/attribute name prefix</li>
+                    <li>Convert <code>.</code>, <code>-</code> and <code>_</code> delimited names to
+                        <code>camelCase</code></li>
+                </ul>
+                <p><br><b>Best practice: </b>use dash-delimited format in your names</p>
+            </section>
+            <section>
+                <h2>Directive Matching Types</h2>
+                <ul>
+                    <li><b>E</b> - Element names (<code>&lt;my-dir&gt;&lt;/my-dir&gt;</code>)</li>
+                    <li><b>A</b> - Attributes (<code>&lt;h1 my-dir="exp"&gt;&lt;h1&gt;</code>)</li>
+                    <li><b>C</b> - Classes (<code>&lt;div class="my-dir"&gt;&lt;/div&gt;</code>)</li>
+                </ul>
+                <p><br><b>Note: prefer tag name directives</b></p>
+            </section>
+            <section>
+                <h2>Registering directive bindings (link)</h2>
+                <pre><code>function link(scope, element, attrs) { ... }</code></pre>
+
+                <ul>
+                    <li>scope is an Angular scope object.</li>
+                    <li>element is the jqLite-wrapped element that this directive matches.</li>
+                    <li>attrs is a hash object with key-value pairs of normalized attribute names and their
+                        corresponding attribute values.
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Example: mouseHighlighter Directive</h2>
+
+                <h3><a href="http://jsfiddle.net/jsalonen/b6dB2/">jsfiddle.net/jsalonen/b6dB2</a></h3>
+            <pre><code>.directive('mouseHighlighter', function() {
+                return {
+                link: function(scope, element, attrs) {
+                element.bind('mouseenter', function() {
+                element.addClass('highlight');
+                });
+                element.bind('mouseleave', function() {
+                element.removeClass('highlight');
+                });
+                }
+                }
+                });</code></pre>
+            </section>
+            <section>
+                <h2>Example: barchart directive</h2>
+
+                <h3><a href="http://jsfiddle.net/jsalonen/A3dJW/">jsfiddle.net/jsalonen/A3dJW/</a></h3>
+                <pre><code>
+                    <barchart title="My chart" values="12,25,15,9,4,3,12,22"></barchart>
+                </code></pre>
+
+                <p>Notes:</p>
+                <ul>
+                    <li><b>restrict: 'E'</b> - Only allow element directives</li>
+                    <li><b>template: '...'</b> - Custom template for directive</li>
+                    <li><b>scope: {...}</b> - Bind attribute values to
+                    <li><b>link: ...</b> - Parse and clean values</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Summary</h2>
+            </section>
+            <section>
+                <h2>Main Building Blocks in Angular Apps</h2>
+                <ul style="text-align: left">
+                    <li>Controllers</li>
+                    <li>Filters</li>
+                    <li>Directives</li>
+                    <li>Expressions</li>
+                    <li>Services and Factories</li>
+                    <li>Constants and Values</li>
+                    <li>Modules</li>
+                </ul>
+                </p>
+                <p>Dependencies between these building blocks are managed with Angular's dependency injection mechanisms
+                    (Providers)</p>
+            </section>
+            <section>
+                <img src="images/coreconceptrelations.jpg"/>
+            </section>
+            <section>
+                <h2>When Should I Create ...</h2>
+                <ul>
+                    <li><b>Filter:</b> when you find yourself repeating same
+                        data manipulation pattern
+                    </li>
+                    <li><b>Directive:</b> when you detect a common usage pattern
+                        in your templates
+                    </li>
+                    <li><b>Service:</b> when you detect a common usage
+                        patterns inside controllers or want to share functionality between controllers
+                    </li>
+                    <li><b>Constant or Value:</b> when you find yourself repeating same
+                        constant or value in your components
+                    </li>
+                    <li><b>Module:</b> to capsulate independent part of your application</li>
+                </ul>
+            </section>
+        </section>
+
+        </section>
+    </div>
+</div>
+
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+<script>
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            {
+                src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            }
+            },
+            {
+                src: 'plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            },
+            {
+                src: 'plugin/zoom-js/zoom.js', async: true, condition: function () {
+                return !!document.body.classList;
+            }
+            },
+            {
+                src: 'plugin/notes/notes.js', async: true, condition: function () {
+                return !!document.body.classList;
+            }
+            }
+            // { src: 'plugin/leap/leap.js', async: true }
+            // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+            // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+    });
+</script>
+</body>
+</html>

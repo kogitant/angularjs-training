@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>Introduction to AngularJS</title>
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/gofore.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+        document.write('<link rel="stylesheet" href="css/print/' + ( window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">');
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+
+        <!-- Module 2 -->
+        <section>
+            <h1>Module 2</h1>
+            <h2>Async and server-communications</h2>
+        </section>
+
+        <section>
+            <h2>Contents</h2>
+            <ul>
+                <li><a href="module1.html">Module 1: Background, High-level Overview and core features</a></li>
+                <li><b><a href="module2.html">Module 2: Async and server-communications</a></b></li>
+                <li><a href="module3.html">Module 3: Forms, Routes and Resource</a></li>
+                <li><a href="module4.html">Module 4: Testing</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <section>
+                <h2>Promises</h2>
+            </section>
+
+            <section>
+                <ul>
+                    <li>A promise is a mechanism to catch a future event and attach a callback function to that event</li>
+                    <li>Great way to handle problems with asyncronous code</li>
+                </ul>
+            </section>
+
+            <section>
+                <ul>
+                    <li>A Promise has 3 possible states: pending (initial), resolved and rejected</li>
+                    <li>A Promise's state can only change in two ways:
+                        <ul>
+                            <li>pending -> resolved</li>
+                            <li>pending -> rejected</li>
+                        </ul>
+                    </li>
+                    <li>a Promise can only be resolved or rejected once</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Main usage of promises is to turn this Pyramid of Doom</h3>
+            <pre><code>async1(function() {
+                async2(function() {
+                async3(function() {
+                async4(function() {
+                ....
+                ....
+                ....
+                asyncN(null, null);
+                ....
+                ....
+                ....
+                }, null);
+                }, null);
+                }, null);
+                }, null);</code></pre>
+            </section>
+
+            <section>
+                <h3>Into something like this</h3>
+            <pre><code>async1()
+                .then(async2)
+                .then(async3)
+                .then(async4)
+                ....
+                ....
+                ....
+                .then(asyncN)
+            </code></pre>
+            </section>
+
+            <section>
+                <h3>In Angular we got <a href="https://docs.angularjs.org/api/ng/service/$q">$q</a></h3>
+
+                <ul>
+                    <li>$q serves an api for creating deferred objects</li>
+                    <li>A deferred object represents the result of an asynchronic operation</li>
+                    <li>Deferred object contains a promise-object and an api to change it's state</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Workflow to get started with angular promises</h3>
+
+                <ul>
+                    <li>Inject $q - Angular service creating deferred objects that contain promises</li>
+                    <li>Create a deferred object $q.defer();</li>
+                    <li>Attach success and reject -callbacks to promise</li>
+                    <li>Handle deferred objects resolving/rejection</li>
+                    <li><a href="http://jsfiddle.net/TJaakkola/1fz7vemn/4/">http://jsfiddle.net/TJaakkola/1fz7vemn/4/</a></li>
+                </ul>
+
+            </section>
+
+            <section>
+                <p>Promises can also be chained <a href="http://jsfiddle.net/TJaakkola/Lo423jt9/1/">http://jsfiddle.net/TJaakkola/Lo423jt9/1/</a></p>
+                <p class="fragment">Or you can do something after all promises in an array have been resolved  while simultaneously watching the individual promises <a href="http://jsfiddle.net/TJaakkola/0v87t0wo/2/">http://jsfiddle.net/TJaakkola/0v87t0wo/2/</a></p>
+                <p class="fragment">Handling rejected promise is quite similar to handling resolved promises <a href="http://jsfiddle.net/TJaakkola/0v87t0wo/3/">http://jsfiddle.net/TJaakkola/0v87t0wo/3/</a></p>
+            </section>
+
+
+            <section>
+                <h2>Deferred Api and promises</h2>
+            </section>
+
+            <section>
+                <h2>The problem</h2>
+                <h3>Case #1</h3>
+                <p class="fragment">You need to make a rest call...</p>
+                <p class="fragment">...and use the response data of first call to make another call...</p>
+                <p class="fragment">...and third call using previous data...</p>
+                <p class="fragment">...and so on...</p>
+                <p class="fragment">Results a callback hell</p>
+            </section>
+
+            <section>
+                <h3>Case #2</h3>
+                <ul>
+                    <div class="fragment">
+                        <li>Another part (in controller, factory, service - anything) of your application needs to know when resource is fetched</li>
+                    </div>
+                    <div class="fragment">
+                        <li>You don't know when it happens!</li>
+                    </div>
+                    <div class="fragment">
+                        <li>Using promises can solve this</li>
+                    </div>
+                </ul>
+            </section>
+
+            <section>
+                <h2><a href="https://docs.angularjs.org/api/ng/service/$q">$q</a></h2>
+                <ul>
+                    <li>A helpfull service handling simultaneous rest calls and their responses</li>
+                    <li>A promise/deferred implementation inspired by <a href="https://github.com/kriskowal/q">Kris Kowal's Q.</a></li>
+                    <li>Part of the core of AngularJS</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Deferred objects</h2>
+                <p class="fragment">Expose the associated Promise instance </p>
+                <p class="fragment">APIs for signaling the successful or unsuccessful completion</p>
+                <div class="fragment">
+                    <h3>Deferred API</h3>
+                <pre><code>// Inject $q
+                    var deferred = $q.defer();
+                    deferred.promise; // Promise object bind to this deferred object
+                    deferred.resolve(); // Resolves the promise and success callback gets executed
+                    deferred.reject(); // Resolves the promise and reject callback gets executed
+                    deferred.notify(); // Send notification
+                </code></pre>
+                </div>
+            </section>
+            <section>
+                <h2>Promises</h2>
+                <p class="fragment">Retrieve by calling deferred.promise</p>
+                <p class="fragment">Allow interested parties to get access to the result of the deferred task when it completes</p>
+                <div class="fragment">
+                    <p>Promises carry a few guarantees</p>
+                    <ol>
+                        <div class="fragment">
+                            <li>Only one resolve or reject will ever be called</li>
+                        </div>
+                        <div class="fragment">
+                            <li>If the promise has been resolved or rejected, any handlers depending upon it will be called</li>
+                        </div>
+                        <div class="fragment">
+                            <li>Handlers will always be called asynchronously - they won't block the rest of the app</li>
+                        </div>
+                    </ol>
+                </div>
+
+            </section>
+            <section>
+                <h2>Promise API</h2>
+                <pre><code>// Inject $q
+                    var deferred = $q.defer();
+                    var promise = deferred.promise;
+                    //Use deferred api to resolve the promise
+
+                    // regardless of when the promise was or will be resolved or rejected,
+                    // then-method calls success or error callbacks asynchronously
+                    // as soon as the result is available.
+                    promise.then(successCallback, errorCallback, notifyCallback);
+
+                    // shorthand for promise.then(null, errorCallback)
+                    promise.catch(errorCallback);
+
+                    // allows you to observe either the fulfillment or rejection of a promise,
+                    // but to do so without modifying the final value.
+                    promise.finally(callback);</code></pre>
+            </section>
+
+            <section>
+                <h2>Basic example</h2>
+                <pre><code>//assume $q is injected
+                    var deferred = $q.defer();
+                    var promise = deferred.promise;
+
+                    alert('start processing...');
+
+                    setTimeout(function(){
+                    deferred.notify('still processing...');
+                    },1000);
+
+                    setTimeout(function(){
+                    deferred.resolve('success');
+                    }, 3000);
+
+
+                    promise.then(function(successMsg){
+                    console.log('Process succeeded, message: ' + successMsg);
+                    }, function(errorMsg) {
+                    console.log('Process failed, error:' + errorMs);
+                    }, function(notificationMsg) {
+                    console.log('Got notification: ' + notificationMsg);
+                    });
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Chaining</h2>
+                <p>Promises can be chained like callbacks from $resource </p>
+                <div class="fragment">
+                    <p>But the code is cleaner and easier to understand</p>
+                </div>
+                <div class="fragment">
+                    <p>Make more than one deferred objects and take their promises</p>
+                </div>
+                <div class="fragment">
+                <pre><code>promiseB = promiseA.then(function(result) {
+                    return result + 1;
+                    });
+
+                    // promiseB will be resolved immediately after promiseA is resolved and its value
+                    // will be the result of promiseA incremented by 1
+                </code></pre>
+                </div>
+
+            </section>
+            <section>
+                <h2>More</h2>
+                <p>Run a function when any number of promises in array have been resolved</p>
+                <pre><code>$q.all(promises).then(successFn, rejectFn))</code></pre>
+                <div class="fragment">
+                    <p>Rejecting a promise manually</p>
+                    <pre><code>myPromise.reject(message)</code></pre>
+                </div>
+
+            </section>
+            <section>
+                <h2>One more example</h2>
+                <pre><code>var authServiceDeferred = $q.defer();
+                    AuthService.getOrganizations('APP_VALINTAPERUSTEET').then(function (oidList) {
+                    var organizationPromises = [];
+                    _.forEach(oidList, function (oid) {
+                    var deferred = $q.defer();
+                    organizationPromises.push(deferred.promise);
+                    OrganizationByOid.get({oid: oid}, function (organization) {
+                    myOrganizations.push(organization);
+                    deferred.resolve();
+                    }, function (error) { deferred.reject(error); });
+                    }
+                    });
+
+                    $q.all(organizationPromises).then(function () {
+                    authServiceDeferred.resolve();
+                    }, function () { authServiceDeferred.reject(); });
+
+                    }, function(error) {authServiceDeferred.reject()});
+
+                    var promise = authServiceDeferred.promise;
+                    //handle promise
+                </code></pre>
+            </section>
+        </section>
+
+
+        <section>
+            <section>
+                <h2><a href="http://docs.angularjs.org/api/ng/service/$http">$http</a></h2>
+                <ul>
+                    <li>Angular service for making HTTP requests</li>
+                    <li>Higher-level adapter around XMLHttpRequest object</li>
+                    <li>Supported http-methods: GET, HEAD, POST, PUT, DELETE</li>
+                    <li>Make requests using <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XHR objects </a>or <a href="http://en.wikipedia.org/wiki/JSONP">JSONP</a></li>
+                    <li>Very similar to jQuery's <code>ajax</code> method</li>
+                    <li>Based on deferred/promise APIs from <a href="https://docs.angularjs.org/api/ng/service/$q">$q</a></li>
+
+
+                </ul>
+            </section>
+            <section>
+                <h2>Example</h2>
+              <pre>
+                  <code>// inject $http
+                      var promise = $http({method: 'GET', url: 'http://funchat.com/messages'});
+
+                      promise.success(function(data, status, headers, config) {
+                      // this callback will be called asynchronously
+                      // when the response is available
+                      }).
+                      error(function(data, status, headers, config) {
+                      // called asynchronously if an error occurs
+                      // or server returns response with an error status.
+                      });</code>
+              </pre>
+            </section>
+            <section>
+                <h2><a href="https://docs.angularjs.org/api/ng/service/$http#usage">Configuration object</a></h2>
+                <ul>
+                    <li>Object given to $http when calling it as a method</li>
+                    <li>Describe how to craft the XMLHttpRequest</li>
+                </ul>
+                    <pre><code>
+                        var myPromise;
+                        myPromise = $http({
+                        method: 'POST',                                 // http-method type
+                        url: 'http://myservice/library/books',          // URL for a resource
+                        params: {author: 'Jaakko Salonen'},             // queryparams
+                        data: {name: 'How to AngularJS', text: '...'},  // payload
+                        headers: {myheader: 'myheader'},                // headers for the call
+                        cache: true                                     // cache result for this request
+                        }); //makes a call to 'http://myservice.com/library/books?author=Jaakko+Salonen'
+                        //handle promise
+                    </code></pre>
+                <ul>
+                    <li>Also some other more advanced configuration options e.g. transformRequest and transformResponse</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Response object</h2>
+                <ul>
+                    <li>Response to a $http call is a promise</li>
+                    <li class="fragment">Resolve and reject callback functions both get 4 properties (or parameters)</li>
+                    <ul>
+                        <li class="fragment">data - response payload</li>
+                        <li class="fragment">status - status number for the response</li>
+                        <li class="fragment">headers [function] - function to get the header value for given argument</li>
+                        <li class="fragment">config - configuration objects that was used to generate the original request</li>
+                    </ul>
+                </ul>
+            </section>
+            <section>
+                <h2>You can also...</h2>
+                <ul>
+                    <li>Use $http-services <b>convenience methods</b> to make your code a bit easier to read</li>
+                    <pre><code>
+                        $http.get('http://funchat.com/messages')
+                        $http.post('http://funchat.com/messages', data)
+                        // configuration object is optional second parameter
+                    </code></pre>
+
+                    <li>Interceptors - provide global functionality on <b>all</b> of our requests</li>
+                </ul>
+            </section>
+        </section>
+
+
+
+        <section>
+            <section>
+                <h2><a href="http://docs.angularjs.org/api/ngResource/service/$resource">$resource</a></h2>
+                <ul>
+                    <li>Higher-level service for accessing RESTful server-side resources</li>
+                    <li class="fragment">Prevent writing tedious and repetitive code</li>
+                    <li class="fragment">$resource allows making http calls by just calling methods like save or update</li>
+                    <li class="fragment">$resource is <b>implemented in a separate module</b> - not built into angular by default</li>
+                    <li class="fragment">Uses $http at the background</li>
+                    <li class="fragment">General usage:</li>
+                    <pre class="fragment">$resource(parametrizedUrl, [paramDefaults], [actions], options);</pre>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Installation and example</h2>
+                <pre><code>&lt;html ng-app>
+                    &lt;head>
+                    &lt;script src="angular.js">&lt;/script>
+                    &lt;script src="angular-resource.js">&lt;/script>
+                    <!-- Now you can inject ngResource-module to your module -->
+                    &lt;/head>
+                    &lt;body>
+                    <!-- ... -->
+
+                    &lt;/body>
+                    &lt;/html></code></pre>
+                <div class="fragment">
+                <pre><code>angular.module('myApp', ['ngResource']);
+                    // Now you can inject $resource anywhere you want in myApp</code></pre>
+                </div>
+                <div class="fragment">
+                    <pre><code>angular.module('myApp').factory('UserResource', function($resource) {
+                        return $resource('/user/:userId', {userId:'@id'});
+                        });
+                        // now you can inject UserResource anywhere you want in myApp</code></pre>
+                </div>
+                <div class="fragment">
+                    <pre><code>angular.module('myApp').controller('myController', function($scope, UserResource) {
+
+                        UserResource.get({id:123}, function(result) {
+                        $scope.user = result; // NOTE: $scope.user is undefined until the response arrives
+                        // now maybe make new rest-calls using this result
+                        }, function(error){
+                        // handle error
+                        });
+
+                        });</code></pre>
+                </div>
+
+
+            </section>
+            <section>
+                <h2>$resource returns an object</h2>
+                <pre><code>
+                    { 'get':    {method:'GET'},
+                    'save':   {method:'POST'},
+                    'query':  {method:'GET', isArray:true},
+                    'remove': {method:'DELETE'},
+                    'delete': {method:'DELETE'}
+                    };
+                </code></pre>
+                <ul>
+                    <li>You can define your own actions</li>
+                    <li>Common pitfall making REST-calls: if your backend responds with an array, you must have set the isArray-flag to true</li>
+                    <li>Configuration object for $resources actions is similar to $http-services configuration object</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Url parametrization</h2>
+                <p>$resource general usage again</p>
+                <pre>$resource(parametrizedUrl, [paramDefaults], [actions], options);</pre>
+                <div class="fragment">
+                    <pre><code>//Paramdefault maps keys from the given object to URLs colon notations
+                        angular.module('myApplication').factory('myresource', ['$resource', function($resource){
+                        return $resource('rest-api/autos/model/:model/color/:color',
+                        {model: '@calleesCarModelVariableName', color: '@calleesCarColor'});
+                        }]);
+
+                        angular.module('myApplication').controller('myController', ['$scope', 'myresource',
+                        function($scope, myresource) {
+                        $scope.cars = [];
+                        $scope.carSearch = {color: 'blue', model: 'golf'}
+                        myresource.query({calleesCarModelVariableName: $scope.carSearch.model,
+                        calleesCarColor: $scope.carSearch.color}, successFn, errorFn);
+                        }]);</code></pre>
+
+                </div>
+
+            </section>
+
+            <section>
+                <h2>Another example of customized use</h2>
+
+                <div class="fragment">
+                <pre><code>
+                    angular.module('myApplication').factory('HakemusResource', function($resource) {
+                    return $resource("server.com/rest-api/applications/:oid",
+                    {oid: "@oid", appState:["ACTIVE","INCOMPLETE"]}, {
+                    haeHakemus: {method: "GET"},
+                    haeHakemukset: {method: "GET", isArray: true, cache: true}
+                    });
+                    });
+                </code></pre>
+                </div>
+                <div class="fragment">
+                    <pre><code>angular.module('myApplication').controller('OppilasController', ['$scope',
+                        'HakemusResource', function($scope, HakemusResource) {
+                        $scope.oppilaanHakemukset = [];
+                        $scope.oppilasModel = {oid: "1.2.3.4.5"}
+
+                        HakemusResource.haeHakemukset({oid: $scope.oppilasModel.oid}, function(result) {
+                        $scope.oppilaanHakemukset = result;
+                        }, function(error) {
+                        // handle error
+                        })
+                        }]);</code></pre>
+                </div>
+                <div class="fragment">
+                    <pre>'server.com/rest-api/applications/1.2.3.4.5?appState=ACTIVE&appState=INCOMPLETE'</pre>
+                    <p>Response is cached into inmemory default cache</p>
+                </div>
+            </section>
+
+        </section>
+
+
+
+
+
+    </div>
+</div>
+
+
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+    </div>
+</div>
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+<script>
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            {
+                src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            }
+            },
+            {
+                src: 'plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            },
+            {
+                src: 'plugin/zoom-js/zoom.js', async: true, condition: function () {
+                return !!document.body.classList;
+            }
+            },
+            {
+                src: 'plugin/notes/notes.js', async: true, condition: function () {
+                return !!document.body.classList;
+            }
+            }
+            // { src: 'plugin/leap/leap.js', async: true }
+            // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+            // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+    });
+</script>
+</body>
+</html>
+
+
+

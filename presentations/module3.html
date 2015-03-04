@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>Introduction to AngularJS</title>
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/gofore.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+        document.write('<link rel="stylesheet" href="css/print/' + ( window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">');
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h1>Module 3</h1>
+            <h2>Forms, Routes and Resource</h2>
+        </section>
+
+        <section>
+            <h2>Contents</h2>
+            <ul>
+                <li><a href="module1.html">Module 1: Background, High-level Overview and core features</a></li>
+                <li><a href="module2.html">Module 2: Async and server-communications</a></li>
+                <li><b><a href="module3.html">Module 3: Forms, Routes and Resource</a></b></li>
+                <li><a href="module4.html">Module 4: Testing</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Routing</h3>
+            <ul>
+                <li>Angular provides a default implementation for routing, but there is a worthy 3rd party competitor (https://github.com/angular-ui/ui-router)</li>
+                <li><a href="http://jsfiddle.net/joshdmiller/NEuJ6/">Basic example</a></li>
+            </ul>
+
+        </section>
+
+        <section>
+            <h3>Angular 1.3 & 1.4</h3>
+        </section>
+
+        <section>
+            <h2><a href="http://docs.angularjs.org/guide/forms">Forms</a></h2>
+            <ul>
+                <li>Form element is also a directive in AngularJS </li>
+                <li class="fragment">There's also ng-form -directive that you can use to nest formst</li>
+                <li class="fragment">Outer form is valid when all of the child forms are valid as well</li>
+                <li class="fragment">All forms instantiantiate a <a href="https://docs.angularjs.org/api/ng/type/form.FormController">FormController</a></li>
+            </ul>
+        </section>
+        <section>
+            <h2>FormController</h2>
+            <ul>
+                <li>Keeps track of all its controls and nested forms as well as the state of them, such as being valid/invalid or dirty/pristine</li>
+                <li class="fragment">FormController gives access to some helpfull properties</li>
+                <ul>
+                    <li class="fragment">$pristine - True if user has not interacted with the form yet</li>
+                    <li class="fragment">$dirty - True if user has already interacted with the form</li>
+                    <li class="fragment">$valid - True if all of the containing forms and controls are valid</li>
+                    <li class="fragment">$invalid - True if at least one containing control or form is invalid</li>
+                    <li class="fragment">$submitted - True if user has submitted the form even if its invalid</li>
+                    <li class="fragment">$error - Is an object hash, containing references to all invalid controls or forms</li>
+                </ul>
+            </ul>
+        </section>
+        <section>
+            <h2>Validation</h2>
+            <ul>
+                <li>email</li>
+                <li>max</li>
+                <li>maxlength</li>
+                <li>min</li>
+                <li>minlength</li>
+                <li>number</li>
+                <li>pattern</li>
+                <li>required</li>
+                <li>url</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Example</h2>
+                <pre><code><form class="form-horizontal" name="form" ng-submit="submit()">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="nimi">OID</label>
+                        <p class="col-md-4 form-control-static">{{model.oid}}</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="nimi">Nimi</label>
+                        <div class="col-md-4">
+                            <input class="form-control" type="text" id="nimi"
+                                   required ng-model="model.nimi"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="maara">Määrä</label>
+                        <div class="col-md-4">
+                            <input class="form-control" type="number" min="0" required id="maara"
+                                   ng-model="model.maara"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-sm btn-default" ng-click="cancel()">Takaisin</button>
+
+                        <button ng-disabled="!form.$valid" class="btn btn-sm btn-primary" type="submit">
+                            <div ng-show="!model.oid"><i class="fa fa-floppy-o"></i> Lisää</div>
+                            <div ng-show="model.oid"><i class="fa fa-floppy-o"></i> Tallenna</div>
+                        </button>
+                    </div>
+                </form></code></pre>
+        </section>
+        </section>
+        <section>
+            <section>
+                <h2>Angular Under the Hood</h2>
+            </section>
+            <section>
+                <h2><a href="http://docs.angularjs.org/guide/providers">Providers</a></h2>
+                <ul>
+                    <li><b>Provider</b> = the way how registration of various objects
+                        for injector is handled in AngularJS</li>
+                    <li>Value, Factory, Service and Constant methods are just
+                        syntactic sugar on top of provider recipe</li>
+                    <li>More details: <a href="http://docs.angularjs.org/guide/providers">at Angular guide on Providers</a></li>
+                </ul>
+            </section>
+            <section>
+                <h2>$watch</h2>
+                <h3><a href="http://jsfiddle.net/jsalonen/gDM4c/">jsfiddle.net/jsalonen/gDM4c</a></h3>
+                <p>Register listeners with $scope.$watch to inspect for changes:</p>
+            <pre><code>$scope.$watch('firstname', function(newVal, oldVal) {
+                console.log(oldVal, ' -> ', newVal);
+                });</code></pre>
+            </section>
+            <section>
+                <h2><a href="http://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest">$digest</a></h2>
+                <div style="text-align: left;">
+                    <p>Calls watches within the current scope</p>
+                    <p>Since watchers may change the scope, digest keeps calling the watchers until
+                        model no longer changes</p>
+                    <p>Typically <b>you don't need to call $digest yourself</b></p>
+                </div>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Ensuring Code Quality</h2>
+            </section>
+            <section>
+                <h2><a href="http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/">ECMAScript 5 Strict Mode</a></h2>
+                <ul>
+                    <li>A new feature in ECMAScript 5 that allows you to place a program, or a function, in a “strict” operating context.</li>
+                    <li>Catches common coding "bloopers", throwing exceptions</li>
+                    <li>Prevents or throws errors on unsafe actions</li>
+                    <li>Disables confusing or poorly designed JavaScript features</li>
+                </ul>
+            </section>
+            <section>
+                <h2>"use strict"</h2>
+                <p>Enable for whole script by adding in the beginning of the file:</p>
+                <pre><code>"use strict"</code></pre>
+                <p>Can be also used for individual functions:</p>
+            <pre><code>function myFunc() {
+                "use strict";
+                }</code></pre>
+                <p><b>Catch: </b>requires IE 10 or later (but does not break on older versions)</p>
+            </section>
+            <section>
+                <h2>Linting</h2>
+                <ul>
+                    <li><b><a href="http://en.wikipedia.org/wiki/Lint_%28software%29">Linting</a> = </b> checking your source code for style guideline compliance and suspicious usage of language</li>
+                    <li>Especially important in dynamically typed languages like JavaScript where
+                        you lack the whole compile-time checking safety net</li>
+                    <li>In addition works as a style guideline compliance checker</li>
+                </ul>
+            </section>
+            <section>
+                <h2><a href="http://www.jslint.com/">jslint</a>, <a href="http://www.jshint.com/">jshint</a></h2>
+                <ul>
+                    <li>Commonly used JavaScript linting tools</li>
+                    <li>Choose one, add it to your build/CI-pipeline</li>
+                    <li>You may end up disagreeing with the defaults</li>
+                    <li>However: study to linting errors in depth before tweaking</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Tips on Building for Production</h2>
+            </section>
+            <section>
+                <h2>Minifying Angular Code</h2>
+                <p>Be careful when using dependency injection in this fashion:</p>
+            <pre><code>angular.module('myApp').controller('MyControl', function ($scope, $http) {
+                ...
+                });</code></pre>
+                <p>Minifiers can mangle object names, which break dependency injection (e.g. <code>$scope</code> &rarr; <code>s</code>)</p>
+                <p>To stay minification-safe, write:</p>
+            <pre><code>angular.module('myApp').controller('MyControl', ['$scope', '$http', function ($scope, $http) {
+                ...
+                })</code></pre>
+                <p>Minifiers don't mangle string values, ensuring injections work even with renamed parameter variables</p>
+                <p>Alternatively, work around the problem by using a preminifier (<a href="https://github.com/btford/ngmin">ngmin</a>)</p>
+            </section>
+            <section>
+                <h2><a href="http://docs.angularjs.org/guide/ie">Internet Explorer Compatibility</a></h2>
+                <ul>
+                    <li>Add <code>id="ng-app"</code> to the element containing ng-app (required for IE7)</li>
+                    <li>If you use custom element tags (<code>&lt;ng:view&gt;</code>), extra boilerplate need to be added <b>(IE &lt; 8)</b></li>
+                    <li>Polyfill <code>JSON.stringify</code> <b>(IE7 and below)</b></li>
+                    <li>Use <code>ng-style</code> tags for styles containing expressions <b>(IE &lt; 11)</b></li>
+                </ul>
+                <p><br>For details see <a href="http://docs.angularjs.org/guide/ie">http://docs.angularjs.org/guide/ie</a></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h1>References</h1>
+            </section>
+            <section>
+                <h2>Recommended Materials</h2>
+                <div style="text-align: left;">
+                    <p><a href="http://docs.angularjs.org/guide">Guide to AngularJS Documentation</a><br>
+                        The canonical AngularJS reference documentation
+                    </p>
+                    <p><a href="http://shop.oreilly.com/product/0636920028055.do">AngularJS (Green, Seshadri)</a><br>
+                        Introductionary book on basic features
+                    </p>
+                    <p>
+                        <a href="http://egghead.io/">Egghead.io</a><br>Bite-sized web development training with AngularJS (videos)
+                    </p>
+                    <p><a href="http://www.youtube.com/watch?v=zyYpHIOrk_Y">Karl Seamon on Angular Performance</a><br>
+                        Excellent video from NG-Conf (check out the others too!)
+                    </p>
+                    <p><a href="http://trochette.github.io/Angular-Design-Patterns-Best-Practices/#/intro">Advanced Design Patterns and Best Practices</a></p>
+                    <p><a href="https://www.ng-book.com/">ng-book</a></p>
+                </div>
+            </section>
+        </section>
+        <!-- Any section element inside of this container is displayed as a slide -->
+    </div>
+</div>
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+<script>
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            {
+                src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            }
+            },
+            {
+                src: 'plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            },
+            {
+                src: 'plugin/zoom-js/zoom.js', async: true, condition: function () {
+                return !!document.body.classList;
+            }
+            },
+            {
+                src: 'plugin/notes/notes.js', async: true, condition: function () {
+                return !!document.body.classList;
+            }
+            }
+            // { src: 'plugin/leap/leap.js', async: true }
+            // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+            // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+    });
+</script>
+</body>
+</html>
