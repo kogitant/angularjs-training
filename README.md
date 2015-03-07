@@ -10,7 +10,7 @@ The training consists of several modules, each teach and train individual aspect
 
 Before the first training session, ensure that the following tools and libraries have been set up correctly. 
 
-### Setup node.js, npm, git and bower
+### Step 1: Setup node.js, npm, git and bower
 
 - Install node.js and npm (<http://nodejs.org>)
 - Install git (<http://git-scm.com/>)
@@ -32,7 +32,7 @@ The following setup is confirmed to work:
     > bower --version
     1.3.12
 
-### Setup your favourite editor
+### Step 2: Setup your favourite editor
 
 Ensure that the editor/IDE of your choice has sufficient JavaScript support. Note that most of the tools work just find from command-line so IDE support for most tools is optional.
 
@@ -52,7 +52,7 @@ Alternatively or in addition, you can download and install Atom (<https://atom.i
 - NetBeans 8+ has built-in support for everything you need (JavaScript, node, etc.)
 - For older versions of NetBeans, complete your tool support with NodeJS plugin (<http://plugins.netbeans.org/plugin/36653/nodejs>)
 
-### Make a copy of angular-seed project
+### Step 3: Setup angular-seed project template
 
 Make a copy of angular-seed project into your work folder:
 
