@@ -8,7 +8,7 @@ The training consists of several modules, each teach and train individual aspect
 
 ## Getting started
 
-Before the first training session, ensure that the following tools and libraries have been set up correctly. 
+Before your first training session, ensure that the following tools and libraries have been set up correctly.
 
 ### Step 1: Setup node.js, npm, git and bower
 
