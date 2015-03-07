@@ -18,16 +18,16 @@ tuoreet versiot.
 Esimerkki toimivasta konfiguraatiosta:
 
     > node --version
-    v0.10.26
+    v0.10.33
 
     > npm --version
-    v1.4.3
+    v1.4.28
 
     > git --version
-    git version 1.7.10.4
+    git version 1.9.5
 
     > bower --version
-    1.3.2
+    1.3.12
 
 ## Editorin asennus
 
