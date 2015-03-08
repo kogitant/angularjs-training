@@ -1,6 +1,6 @@
 
 angular.module('front')
-.controller('LeaveAddsCtrl', function ($scope) {
+.controller('LeaveAddCtrl', function ($scope) {
 
   $scope.submit = function () {
     //TODO
