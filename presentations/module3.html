@@ -43,6 +43,132 @@
         </section>
 
         <section>
+            <section>
+                <h2><a href="http://docs.angularjs.org/api/ngResource/service/$resource">$resource</a></h2>
+                <ul>
+                    <li>Higher-level service for accessing RESTful server-side resources</li>
+                    <li class="fragment">Prevent writing tedious and repetitive code</li>
+                    <li class="fragment">$resource allows making http calls by just calling methods like save or update</li>
+                    <li class="fragment">$resource is <b>implemented in a separate module</b> - not built into angular by default</li>
+                    <li class="fragment">Uses $http at the background</li>
+                    <li class="fragment">General usage:</li>
+                    <pre class="fragment">$resource(parametrizedUrl, [paramDefaults], [actions], options);</pre>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Installation and example</h2>
+                <pre><code>&lt;html ng-app>
+                    &lt;head>
+                    &lt;script src="angular.js">&lt;/script>
+                    &lt;script src="angular-resource.js">&lt;/script>
+                    <!-- Now you can inject ngResource-module to your module -->
+                    &lt;/head>
+                    &lt;body>
+                    <!-- ... -->
+
+                    &lt;/body>
+                    &lt;/html></code></pre>
+                <div class="fragment">
+                <pre><code>angular.module('myApp', ['ngResource']);
+                    // Now you can inject $resource anywhere you want in myApp</code></pre>
+                </div>
+                <div class="fragment">
+                    <pre><code>angular.module('myApp').factory('UserResource', function($resource) {
+                        return $resource('/user/:userId', {userId:'@id'});
+                        });
+                        // now you can inject UserResource anywhere you want in myApp</code></pre>
+                </div>
+                <div class="fragment">
+                    <pre><code>angular.module('myApp').controller('myController', function($scope, UserResource) {
+
+                        UserResource.get({id:123}, function(result) {
+                        $scope.user = result; // NOTE: $scope.user is undefined until the response arrives
+                        // now maybe make new rest-calls using this result
+                        }, function(error){
+                        // handle error
+                        });
+
+                        });</code></pre>
+                </div>
+
+
+            </section>
+            <section>
+                <h2>$resource returns an object</h2>
+                <pre><code>
+                    { 'get':    {method:'GET'},
+                    'save':   {method:'POST'},
+                    'query':  {method:'GET', isArray:true},
+                    'remove': {method:'DELETE'},
+                    'delete': {method:'DELETE'}
+                    };
+                </code></pre>
+                <ul>
+                    <li>You can define your own actions</li>
+                    <li>Common pitfall making REST-calls: if your backend responds with an array, you must have set the isArray-flag to true</li>
+                    <li>Configuration object for $resources actions is similar to $http-services configuration object</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Url parametrization</h2>
+                <p>$resource general usage again</p>
+                <pre>$resource(parametrizedUrl, [paramDefaults], [actions], options);</pre>
+                <div class="fragment">
+                    <pre><code>//Paramdefault maps keys from the given object to URLs colon notations
+                        angular.module('myApplication').factory('myresource', ['$resource', function($resource){
+                        return $resource('rest-api/autos/model/:model/color/:color',
+                        {model: '@calleesCarModelVariableName', color: '@calleesCarColor'});
+                        }]);
+
+                        angular.module('myApplication').controller('myController', ['$scope', 'myresource',
+                        function($scope, myresource) {
+                        $scope.cars = [];
+                        $scope.carSearch = {color: 'blue', model: 'golf'}
+                        myresource.query({calleesCarModelVariableName: $scope.carSearch.model,
+                        calleesCarColor: $scope.carSearch.color}, successFn, errorFn);
+                        }]);</code></pre>
+
+                </div>
+
+            </section>
+
+            <section>
+                <h2>Another example of customized use</h2>
+
+                <div class="fragment">
+                <pre><code>
+                    angular.module('myApplication').factory('HakemusResource', function($resource) {
+                    return $resource("server.com/rest-api/applications/:oid",
+                    {oid: "@oid", appState:["ACTIVE","INCOMPLETE"]}, {
+                    haeHakemus: {method: "GET"},
+                    haeHakemukset: {method: "GET", isArray: true, cache: true}
+                    });
+                    });
+                </code></pre>
+                </div>
+                <div class="fragment">
+                    <pre><code>angular.module('myApplication').controller('OppilasController', ['$scope',
+                        'HakemusResource', function($scope, HakemusResource) {
+                        $scope.oppilaanHakemukset = [];
+                        $scope.oppilasModel = {oid: "1.2.3.4.5"}
+
+                        HakemusResource.haeHakemukset({oid: $scope.oppilasModel.oid}, function(result) {
+                        $scope.oppilaanHakemukset = result;
+                        }, function(error) {
+                        // handle error
+                        })
+                        }]);</code></pre>
+                </div>
+                <div class="fragment">
+                    <pre>'server.com/rest-api/applications/1.2.3.4.5?appState=ACTIVE&appState=INCOMPLETE'</pre>
+                    <p>Response is cached into inmemory default cache</p>
+                </div>
+            </section>
+
+        </section>
+
+        <section>
             <h3>Routing</h3>
             <ul>
                 <li>Angular provides a default implementation for routing, but there is a worthy 3rd party competitor (https://github.com/angular-ui/ui-router)</li>
@@ -55,48 +181,43 @@
             <section>
                 <h2><a href="http://docs.angularjs.org/guide/forms">Forms</a></h2>
                 <ul>
-                    <li>Form-element in Angular</li>
+                    <li>Form basics</li>
                     <li>FormController</li>
                     <li>Tools for form validation</li>
                 </ul>
-
-
             </section>
             <section>
+                <h3>Form basics</h3>
                 <ul>
-                    <li>In Angular form-element is a directive</li>
-                    <li>Angular enables nested forms</li>
-                    <ul>
-                        <li>Browsers don't allow nesting form-element so Angular provides an alias for form-directive</li>
-                        <li>ngForm-directive is identical to form-directive but it can be nested</li>
-                    </ul>
-                    <li>There are quite a few tools for monitoring the state of a form</li>
-                    <li class="fragment">There's also ng-form -directive that you can use to nest forms</li>
-                    <li class="fragment">Outer form is valid when all of the child forms are valid as well</li>
+                    <li>In Angular <a href="https://docs.angularjs.org/api/ng/directive/form">form</a>-element is a directive</li>
+                    <li>Browsers don't allow nesting form-element, but Angular does</li>
+                    <li>Angular provides <a href="https://docs.angularjs.org/api/ng/directive/ngForm">ngForm</a> which can be used for nesting</li>
+                    <li>ngForm-directive is identical to form-directive but it can be nested</li>
+                    <li>Angular prevents default default action on form submission (page reload)</li>
                 </ul>
             </section>
             <section>
+                <h3><a href="https://docs.angularjs.org/api/ng/type/form.FormController">FormController</a></h3>
                 <ul>
-                    <li class="fragment">All forms instantiantiate a <a href="https://docs.angularjs.org/api/ng/type/form.FormController">FormController</a></li>
-                </ul>
-            </section>
-            <section>
-                <h2>FormController</h2>
-                <ul>
+                    <li>All forms instantiate a FormController</li>
                     <li>Keeps track of all its controls and nested forms as well as the state of them, such as being valid/invalid or dirty/pristine</li>
-                    <li class="fragment">FormController gives access to some helpfull properties</li>
                     <ul>
                         <li class="fragment">$pristine - True if user has not interacted with the form yet</li>
                         <li class="fragment">$dirty - True if user has already interacted with the form</li>
                         <li class="fragment">$valid - True if all of the containing forms and controls are valid</li>
                         <li class="fragment">$invalid - True if at least one containing control or form is invalid</li>
                         <li class="fragment">$submitted - True if user has submitted the form even if its invalid</li>
-                        <li class="fragment">$error - Is an object hash, containing references to all invalid controls or forms</li>
+                        <li class="fragment">$error - Object hash, containing references to all invalid controls or forms</li>
                     </ul>
                 </ul>
             </section>
             <section>
+                <h3>Tools for form validation</h3>
+
+            </section>
+            <section>
                 <h2>Validation</h2>
+                <li>There are quite a few tools for monitoring the state of a form</li>
                 <ul>
                     <li>email</li>
                     <li>max</li>
