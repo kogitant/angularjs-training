@@ -172,28 +172,30 @@
 
         <section>
             <section>
-                <h2><a href="http://docs.angularjs.org/guide/forms">Forms</a></h2>
+                <h2><a href="http://docs.angularjs.org/guide/forms">Forms in Angular</a></h2>
                 <ul>
                     <li>Form basics</li>
+                    <li>Nesting</li>
                     <li>FormController</li>
-                    <li>Tools for form validation</li>
+                    <li>Validation</li>
                 </ul>
             </section>
             <section>
                 <h3>Form basics</h3>
                 <ul>
                     <li>In Angular <a href="https://docs.angularjs.org/api/ng/directive/form">form</a>-element is a directive</li>
-                    <li>Browsers don't allow nesting form-element, but Angular does</li>
-                    <li>Angular provides <a href="https://docs.angularjs.org/api/ng/directive/ngForm">ngForm</a> which can be used for nesting</li>
-                    <li>ngForm-directive is identical to form-directive but it can be nested</li>
-                    <li>Angular prevents default default action on form submission (page reload)</li>
+                    <li>All common input-elements are also wrapped inside directives</li>
+                    <li>Angular prevents default action (page reload) on form submission</li>
+                    <li>To track the state of a form in controller you have to specify a name attribute for it</li>
                 </ul>
             </section>
+
             <section>
                 <h3><a href="https://docs.angularjs.org/api/ng/type/form.FormController">FormController</a></h3>
                 <ul>
                     <li>All forms instantiate a FormController</li>
-                    <li>Keeps track of all its controls and nested forms as well as the state of them, such as being valid/invalid or dirty/pristine</li>
+                    <li>FormController handles state and controls for a form</li>
+                    <li>Properties of a FormController</li>
                     <ul>
                         <li class="fragment">$pristine - True if user has not interacted with the form yet</li>
                         <li class="fragment">$dirty - True if user has already interacted with the form</li>
@@ -205,59 +207,34 @@
                 </ul>
             </section>
             <section>
-                <h3>Tools for form validation</h3>
-
-            </section>
-            <section>
-                <h2>Validation</h2>
-                <li>There are quite a few tools for monitoring the state of a form</li>
+                <h3>Nesting</h3>
                 <ul>
-                    <li>email</li>
-                    <li>max</li>
-                    <li>maxlength</li>
-                    <li>min</li>
-                    <li>minlength</li>
-                    <li>number</li>
-                    <li>pattern</li>
-                    <li>required</li>
-                    <li>url</li>
+                    <li>Browsers don't allow nesting form-element</li>
+                    <li>Angular provides <a href="https://docs.angularjs.org/api/ng/directive/ngForm">ngForm</a> which can be used for nesting</li>
+                    <li>ngForm-directive is identical to form-directive but it can be nested</li>
                 </ul>
             </section>
-
-
-
-        <section>
-            <h2>Example</h2>
-            <pre><code><form class="form-horizontal" name="form" ng-submit="submit()">
-                <div class="form-group">
-                    <label class="col-md-2 control-label" for="nimi">OID</label>
-                    <p class="col-md-4 form-control-static">{{model.oid}}</p>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-2 control-label" for="nimi">Nimi</label>
-                    <div class="col-md-4">
-                        <input class="form-control" type="text" id="nimi"
-                               required ng-model="model.nimi"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-2 control-label" for="maara">Määrä</label>
-                    <div class="col-md-4">
-                        <input class="form-control" type="number" min="0" required id="maara"
-                               ng-model="model.maara"/>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <button class="btn btn-sm btn-default" ng-click="cancel()">Takaisin</button>
-
-                    <button ng-disabled="!form.$valid" class="btn btn-sm btn-primary" type="submit">
-                        <div ng-show="!model.oid"><i class="fa fa-floppy-o"></i> Lisää</div>
-                        <div ng-show="model.oid"><i class="fa fa-floppy-o"></i> Tallenna</div>
-                    </button>
-                </div>
-            </form></code></pre>
+            <section>
+                <h3>Validation</h3>
+                <ul>
+                    <li>A form is valid when all it's child forms are valid</li>
+                    <li>Angular provides a number of default validators for common input types</li>
+                    <ul class="fragment">
+                        <li>email</li>
+                        <li>max</li>
+                        <li>maxlength</li>
+                        <li>min</li>
+                        <li>minlength</li>
+                        <li>number</li>
+                        <li>pattern</li>
+                        <li>required</li>
+                        <li>url</li>
+                    </ul>
+                </ul>
+            </section>
         </section>
-        </section>
+
+        <!-- under the hood -->
         <section>
             <section>
                 <h2>Angular Under the Hood</h2>
