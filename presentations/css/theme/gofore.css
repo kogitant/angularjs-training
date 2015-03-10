@@ -7,6 +7,21 @@
 /*********************************************
  * GLOBAL STYLES
  *********************************************/
+.pro-tip {
+  background-color: #000 !important;
+  color: #fff !important;
+  border-radius: 2rem;
+  padding: 1rem !important;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 32px !important;
+}
+.pro-tip:before {
+  content: '\2605';
+  display: inline-block;
+  margin-right: 16px;
+}
+
 body {
   background: #ffffff;
   background-color: #ffffff; }

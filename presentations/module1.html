@@ -3,8 +3,6 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Introduction to AngularJS</title>
-
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -29,22 +27,9 @@
     <!-- Any section element inside of this container is displayed as a slide -->
     <div class="slides">
 
-
-        <!-- Module 1 -->
         <section>
-            <h1>Module 1</h1>
-
-            <h2>Background, High-level Overview and core features</h2>
-        </section>
-
-        <section>
-            <h2>Contents</h2>
-            <ul>
-                <li><b><a href="module1.html">Module 1: Background, High-level Overview and core features</a></b></li>
-                <li><a href="module2.html">Module 2: Asynchronous computing, server-communications and routing</a></li>
-                <li><a href="module3.html">Module 3: Forms and Resource</a></li>
-                <li><a href="module4.html">Module 4: Testing</a></li>
-            </ul>
+            <h2>AngularJS Training Module 1</h2>
+            <h3>Background, concepts and getting started</h3>
         </section>
 
         <section>
@@ -81,7 +66,7 @@
         </section>
         <section>
             <section>
-                <h2>AngularJS<sup>1</sup></h2>
+                <h2>AngularJS</h2>
                 <ul>
                     <li>Open-source JavaScript framework, maintained by Google</li>
                     <li>JavaScript MVC Framework for building Single-Page Applications (SPAs)</li>
@@ -158,14 +143,14 @@
                 <h2>Design Overview</h2>
             </section>
             <section>
-                <h2>The Zen of Angular<sup>2</sup></h2>
+                <h2><a href="https://docs.angularjs.org/guide/introduction#the-zen-of-angular">The Zen of Angular</a></h2>
                 <blockquote>"Angular is built around the belief that declarative code is better than imperative <b>when
                     it comes to building UIs and wiring software components together</b>, while imperative code is <b>excellent
                     for expressing business logic</b>."
                 </blockquote>
             </section>
             <section>
-                <h2>Design goals<sup>2</sup></h2>
+                <h2>Design goals</h2>
                 <ul>
                     <li>Decouple DOM manipulation from app logic (&rarr; testability)</li>
                     <li>Regard application testing as equal in importance to application writing (testing difficult
@@ -225,37 +210,21 @@
                     </ul>
             </section>
             <section>
-                <h2>When You Probably Should Not Use Angular</h2>
+                <h2>When You Should Not Use Angular</h2>
                 <ul>
                     <li>You already happily use another SPA framework :)</li>
                     <li>You need specific JavaScript components that are laborous to integrate with Angular</li>
-                    <li>You need a lightweight application and/or need to make an embeddable application [6]</li>
-                    <li>Generally when you are creating something that doesn't need Angular's core features
-                        (controllers, two-way data binding, etc.)
+                    <li>You need a lightweight application and/or need to make an embeddable application</li>
+                    <li>
+                        When you require server-side rendering or search engine visibility
+                        (OK there are solutions, but they will be tricky)                        
                     </li>
-                    <li>When you need to write ultra-clean code by hand and don't need to rush</li>
                 </ul>
             </section>
         </section>
+
         <section>
-            <h2>References and Further Reading</h2>
-
-            <div style="text-align: left">
-                <p>[1] <a href="http://en.wikipedia.org/wiki/AngularJS">AngularJS (Wikipedia)</a></p>
-
-                <p>[2] <a href="http://docs.angularjs.org/guide/overview">AngularJS Overview</a></p>
-
-                <p>[3] <a href="http://docs.angularjs.org/guide/concepts">AngularJS Conceptual Overview</a></p>
-
-                <p>[4] <a href="http://www.slideshare.net/olegp/oleg-podsechinfrontendconf">AngularJS - the folly of
-                    choice</a>, Frontend DEV Conf '13</p>
-
-                <p>[5] <a href="http://www.slideshare.net/olegp/tips-from-angular-js-users-anonymous-25199815">Tips from
-                    AngularJS Users Anonymous</a>, HelsinkiJS August 2013 at F-Secure.</p>
-
-                <p>[6] <a href="https://moot.it/blog/technology/frameworkless-javascript.html">Why Angular, Ember, or
-                    Backbone don't work for us</a>, Tero Piirainen</p>
-            </div>
+            <h2>Concepts and Getting Started</h2>
         </section>
 
         <section>
@@ -305,33 +274,34 @@
                 <h3><a href="http://jsfiddle.net/jsalonen/Z9XC9/">jsfiddle.net/jsalonen/Z9XC9/</a></h3>
 <pre><code>&lt;script type="text/javascript">
     var myApp = angular.module('myApp', []);
-    &lt;/script>
-    &lt;div ng-app="myApp">
+&lt;/script>
+&lt;div ng-app="myApp">
     1, 2, ..., 10 = {{1+2+3+4+5+6+7+8+910}}
-    &lt;/div>
-    &lt;div class="some-container">
+&lt;/div>
+&lt;div class="some-container">
     1 + 2 = {{1+2}}
-    &lt;/div>
+&lt;/div>
 </code></pre>
             </section>
 
             <section>
+                <h3 class="pro-tip">Pro tip</h3>
                 <h2>Manual Initialization</h2>
 
                 <h3>Omit <code>ng-app</code> to manually orchestrate initialization</h3>
 <pre><code>&lt;!doctype html>
-    &lt;html xmlns:ng="http://angularjs.org">
+&lt;html>
     &lt;body>
-    Hello {{'World'}}!
-    &lt;script src="http://code.angularjs.org/angular.js">&lt;/script>
-    &lt;script&gt;
-    angular.element(document).ready(function() {
-    angular.module('myApp', []);
-    angular.bootstrap(document, ['myApp']);
-    });
-    &lt;/script>
+        Hello {{'World'}}!
+        &lt;script src="http://code.angularjs.org/angular.js">&lt;/script>
+        &lt;script&gt;
+            angular.element(document).ready(function() {
+            angular.module('myApp', []);
+            angular.bootstrap(document, ['myApp']);
+        });
+        &lt;/script>
     &lt;/body>
-    &lt;/html></code></pre>
+&lt;/html></code></pre>
                 <ul>
                     <li class="fragment">element = <a href="http://docs.angularjs.org/api/ng/function/angular.element">angular.element</a>
                         ("Wraps a raw DOM element or HTML string as a jQuery element")
@@ -375,11 +345,11 @@
                 <h3><a href="http://jsfiddle.net/jsalonen/ZWu2s/">jsfiddle.net/jsalonen/ZWu2s/</a></h3>
 <pre><code>&lt;div ng-app ng-init="firstname='John'; lastname='Doe';">
     &lt;div>
-    &lt;input type="text" ng-model="firstname">
-    &lt;input type="text" ng-model="lastname">
+        &lt;input type="text" ng-model="firstname">
+        &lt;input type="text" ng-model="lastname">
     &lt;div>
     &lt;h1>Hello {{firstname + " " + lastname}}</h1>
-    &lt;/div></code></pre>
+&lt;/div></code></pre>
             </section>
             <section>
                 <h2>Data Binding Glues Models to Views</h2>
@@ -421,16 +391,15 @@
     $scope.names = ['Jaakko', 'Tapio', 'Juha'];
     }</code></pre>
 
-            <pre><code>&lt;div ng-app>
-                &lt;div ng-controller="NameListCtrl">
-                &lt;h1>Participants&lt;/h1>
-                &lt;ol>
-                <li ng-repeat="name in names">{{name}}</li>
-                &lt;/ol>
-                &lt;/div>
-                &lt;/div>
-            </code>
-</pre>
+<pre><code>&lt;div ng-app>
+    &lt;div ng-controller="NameListCtrl">
+        &lt;h1>Participants&lt;/h1>
+        &lt;ol>
+            <li ng-repeat="name in names">{{name}}</li>
+        &lt;/ol>
+    &lt;/div>
+&lt;/div>
+</code></pre>
 
                 <p>(<b>ng-repeat:</b> directive to instantiate template once per item from a collection)</p>
             </section>
@@ -441,24 +410,23 @@
                 <h3><a href="http://jsfiddle.net/jsalonen/tj78j/">jsfiddle.net/jsalonen/tj78j/</a></h3>
 <pre><code>function ParticipantCtrl($scope) {
     $scope.title = "Participants";
-    }
+}
 
-    function NameListCtrl($scope) {
+function NameListCtrl($scope) {
     $scope.title = "List";
     $scope.names = ['Jaakko', 'Tapio', 'Juha'];
-    }
+}
 </code></pre>
 
-            <pre><code>&lt;div ng-app>
-                &lt;div ng-controller="ParticipantCtrl">
-                &lt;h1>Participants&lt;/h1>
-                &lt;ol ng-controller="NameListCtrl">
-                <li ng-repeat="name in names">{{name}} (in list {{title}})</li>
-                &lt;/ol>
-                &lt;/div>
-                &lt;/div>
-            </code>
-</pre>
+<pre><code>&lt;div ng-app>
+    &lt;div ng-controller="ParticipantCtrl">
+        &lt;h1>Participants&lt;/h1>
+        &lt;ol ng-controller="NameListCtrl">
+            <li ng-repeat="name in names">{{name}} (in list {{title}})</li>
+        &lt;/ol>
+    &lt;/div>
+&lt;/div>
+</code></pre>
             </section>
         </section>
 
@@ -541,20 +509,20 @@
                 <h3><a href="http://jsfiddle.net/jsalonen/9c8Tz/">jsfiddle.net/jsalonen/9c8Tz</a></h3>
 
                 <p>Template (with search filter):</p>
-            <pre><code>&lt;div ng-controller="ParticipantsCtrl">
-                &lt;p>Search participants: <input type="text" ng-model="search" value=""/></p>
-                &lt;ol>
-                &lt;li ng-repeat="participant in participants | filter:search">
-                {{participant.name}}
-                &lt;/li>
-                &lt;/ol>
-                &lt;/div>
-            </code></pre>
+<pre><code>&lt;div ng-controller="ParticipantsCtrl">
+    &lt;p>Search participants: <input type="text" ng-model="search" value=""/></p>
+    &lt;ol>
+        &lt;li ng-repeat="participant in participants | filter:search">
+            {{participant.name}}
+        &lt;/li>
+    &lt;/ol>
+&lt;/div>
+</code></pre>
                 <p>Controller (with orderBy filter):</p>
-            <pre><code>function ParticipantsCtrl($scope, $filter) {
-                var participants = [{name: 'Jaakko'}, {name: 'Aaro'}, ...];
-                $scope.participants = $filter('orderBy')(participants, 'name');
-                }</code></pre>
+<pre><code>function ParticipantsCtrl($scope, $filter) {
+    var participants = [{name: 'Jaakko'}, {name: 'Aaro'}, ...];
+    $scope.participants = $filter('orderBy')(participants, 'name');
+}</code></pre>
             </section>
         </section>
 
@@ -590,20 +558,20 @@
                 <h3>Usage Example: Modular Controllers</h3>
                 <h4>(The right way of using controllers)</h4>
 
-                <h3><a href="http://jsfiddle.net/jsalonen/SdXG8/">jsfiddle.net/jsalonen/SdXG8/</a></h3>
-            <pre><code>&lt;div ng-app="myApp">
-                &lt;div ng-controller="NameListCtrl">
-                &lt;h1>Participants</h1>
-                &lt;ol>
-                &lt;li ng-repeat="name in names">{{name}}</li>
-                &lt;/ol>
-                &lt;/div>
-                &lt;/div></code></pre>
+<h3><a href="http://jsfiddle.net/jsalonen/SdXG8/">jsfiddle.net/jsalonen/SdXG8/</a></h3>
+<pre><code>&lt;div ng-app="myApp">
+    &lt;div ng-controller="NameListCtrl">
+        &lt;h1>Participants</h1>
+        &lt;ol>
+            &lt;li ng-repeat="name in names">{{name}}</li>
+        &lt;/ol>
+    &lt;/div>
+&lt;/div></code></pre>
 <pre><code>var myApp = angular.module('myApp',[]);
 
-    myApp.controller('NameListCtrl', function($scope) {
+myApp.controller('NameListCtrl', function($scope) {
     $scope.names = ['Jaakko', 'Tapio', 'Juha'];
-    });</code></pre>
+});</code></pre>
             </section>
         </section>
 
@@ -632,18 +600,18 @@
 <pre><code>angular
     .module('myApp',[])
     .controller('ParticipantsCtrl', function($scope, $log) {
-    var pickRandomName = function(names) {
-    var name = names[Math.floor(Math.random()*names.length)];
-    $log.log('Picked random name: ' + name);
-    return name;
-    };
+        var pickRandomName = function(names) {
+            var name = names[Math.floor(Math.random()*names.length)];
+            $log.log('Picked random name: ' + name);
+            return name;
+        };
 
-    $scope.participants = ['Jaakko', 'Tapio', 'Aapee'];
-    $scope.addRandomName = function() {
-    $scope.participants.push(
-    pickRandomName(['Jussi', 'Arto', 'Matti'])
-    );
-    };
+        $scope.participants = ['Jaakko', 'Tapio', 'Aapee'];
+        $scope.addRandomName = function() {
+            $scope.participants.push(
+                pickRandomName(['Jussi', 'Arto', 'Matti'])
+            );
+        };
     });
 </code></pre>
             </section>
@@ -663,19 +631,19 @@
 <pre><code>angular
     .module('myApp',[])
     .service('NameService', function($log) {
-    this.pickRandomName = function(names) {
-    var name = names[Math.floor(Math.random()*names.length)];
-    $log.log('Picked random name: ' + name);
-    return name;
-    };
+        this.pickRandomName = function(names) {
+            var name = names[Math.floor(Math.random()*names.length)];
+            $log.log('Picked random name: ' + name);
+            return name;
+        };
     })
     .controller('ParticipantsCtrl', function($scope, NameService) {
-    $scope.participants = ['Jaakko', 'Tapio', 'Aapee'];
-    $scope.addRandomName = function() {
-    $scope.participants.push(
-    NameService.pickRandomName(['Jussi', 'Arto', 'Matti'])
-    );
-    };
+        $scope.participants = ['Jaakko', 'Tapio', 'Aapee'];
+        $scope.addRandomName = function() {
+            $scope.participants.push(
+                NameService.pickRandomName(['Jussi', 'Arto', 'Matti'])
+            );
+        };
     });
 </code></pre>
             </section>
@@ -684,14 +652,14 @@
                 <a href="http://yuml.me/3e231371"><img src="images/dependency-graph-example.png"></a>
             </section>
             <section>
-                <h2>Alternative: construct services using <code>Factory</code></h2>
+                <h3>Alternative: make services using <code>Factory</code> method</h3>
               <pre><code>.factory('NameService', function() {
-                  return {
-                  pickRandomName: function(names) {
-                  ...
-                  }
-                  };
-                  });</code></pre>
+    return {
+        pickRandomName: function(names) {
+            ...
+        }
+    };
+});</code></pre>
                 <p><code>factory</code> generates services just like <code>service</code> -
                     useful especially when your service object is generated</p>
                 </pre>
@@ -756,25 +724,25 @@
                 <h2>Example: mouseHighlighter Directive</h2>
 
                 <h3><a href="http://jsfiddle.net/jsalonen/b6dB2/">jsfiddle.net/jsalonen/b6dB2</a></h3>
-            <pre><code>.directive('mouseHighlighter', function() {
-                return {
-                link: function(scope, element, attrs) {
-                element.bind('mouseenter', function() {
+<pre><code>.directive('mouseHighlighter', function() {
+    return {
+        link: function(scope, element, attrs) {
+            element.bind('mouseenter', function() {
                 element.addClass('highlight');
-                });
-                element.bind('mouseleave', function() {
+            });
+            element.bind('mouseleave', function() {
                 element.removeClass('highlight');
-                });
-                }
-                }
-                });</code></pre>
+            });
+        }
+    }
+});</code></pre>
             </section>
             <section>
                 <h2>Example: barchart directive</h2>
 
                 <h3><a href="http://jsfiddle.net/jsalonen/A3dJW/">jsfiddle.net/jsalonen/A3dJW/</a></h3>
                 <pre><code>
-                    <barchart title="My chart" values="12,25,15,9,4,3,12,22"></barchart>
+<barchart title="My chart" values="12,25,15,9,4,3,12,22"></barchart>
                 </code></pre>
 
                 <p>Notes:</p>
@@ -828,6 +796,24 @@
             </section>
         </section>
 
+        <section>
+            <section>
+                <h2>References and further reading</h2>
+                <div style="text-align: left">
+                    <p>
+                        <a href="https://docs.angularjs.org/guide">AngularJS Developer Guide</a><br>
+                        More information on concepts, conventions, etc.
+                    </p>
+                    <p>
+                        <a href="https://docs.angularjs.org/api">AngularJS API Reference</a><br>
+                        The canonical reference for Angular core implementation
+                    </p>
+                    <p>
+                        <a href="https://egghead.io/">Egghead.io</a><br>
+                        Probably the best video tutorials in the web for Angular
+                    </p>
+                </div>
+            </section>
         </section>
     </div>
 </div>
