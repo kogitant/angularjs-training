@@ -46,18 +46,50 @@
             <section>
                 <h2><a href="http://docs.angularjs.org/api/ngResource/service/$resource">$resource</a></h2>
                 <ul>
+                    <li>$resource basics</li>
+                    <li>Creating a $resource</li>
+                    <li>Usage example</li>
+                    <li></li>
+                </ul>
+            </section>
+            <section>
+                <h3>$resource basics</h3>
+                <ul>
                     <li>Higher-level service for accessing RESTful server-side resources</li>
                     <li>Prevent writing tedious and repetitive code</li>
-                    <li>$resource allows making http calls by just calling methods like save or update</li>
+                    <li>Allows making http calls by just calling methods like save or update</li>
+                    <li>Uses $http in the background</li>
                     <li>$resource is <b>implemented in a separate module</b> - not built into angular by default</li>
-                    <li>Uses $http at the background</li>
-                    <li>General usage:</li>
-                    <pre>$resource(parametrizedUrl, [paramDefaults], [actions], options);</pre>
                 </ul>
             </section>
 
             <section>
-                <h2>Installation and example</h2>
+                <h2>$resource object</h2>
+                <ul>
+                    <li>$resource is just a function that takes 1-4 parameters</li>
+                    <ul>
+                        <li>Parametrized Url</li>
+                        <li>Param defaults (optional)</li>
+                        <li>Actions (optional)</li>
+                        <li>Options (optional)</li>
+                    </ul>
+                    <pre><code>$resource('funmarket.com/items/:id', {id: '@id'})</code></pre>
+                    <li>Calling $resource returns an resource object containing 5 default actions + all optional actions defined</li>
+                    <li></li>
+                </ul>
+                <pre><code>{ 'get':    {method:'GET'},
+'save':   {method:'POST'},
+'query':  {method:'GET', isArray:true},
+'remove': {method:'DELETE'},
+'delete': {method:'DELETE'}
+};</code></pre>
+                    <li>Configuration object for $resources actions is similar to $http-services configuration object</li>
+            </section>
+
+
+
+            <section>
+                <h2>Usage example</h2>
                 <pre><code>&lt;html ng-app>
 &lt;head>
     &lt;script src="angular.js">&lt;/script>
@@ -91,26 +123,9 @@
 });</code></pre>
                 </div>
 
-
             </section>
             <section>
-                <h2>$resource returns an object</h2>
-                <ul>
 
-                </ul>
-                <pre><code>{ 'get':    {method:'GET'},
-'save':   {method:'POST'},
-'query':  {method:'GET', isArray:true},
-'remove': {method:'DELETE'},
-'delete': {method:'DELETE'}
-};</code></pre>
-                <ul>
-                    <li>You can define your own actions</li>
-                    <li>Common pitfall making REST-calls: if your backend responds with an array, you must have set the isArray-flag to true</li>
-                    <li>Configuration object for $resources actions is similar to $http-services configuration object</li>
-                </ul>
-            </section>
-            <section>
                 <h2>Url parametrization</h2>
                 <p>$resource general usage again</p>
                 <pre>$resource(parametrizedUrl, [paramDefaults], [actions], options);</pre>
