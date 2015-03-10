@@ -43,6 +43,104 @@
             </ul>
         </section>
 
+        <section>
+            <h2>Testing AngularJS applications</h2>
+        </section>
+
+
+
+        <section>
+
+            <section>
+                <h2>Why make automated tests for JavaScript UI?</h2>
+            </section>
+            <section>
+                <ul>
+                    <li>SPAs contain complex UI logic</li>
+                    <li>Javascript is not a compiled language. Dynamic typing introduces bugs easily at runtime.</li>
+                    <li>AngularJs is designed to be easily testable</li>
+                    <ul>
+                        <li>DOM manipulation is separated from the controllers</li>
+                        <li>Dependency Injection allows mocking of external dependencies</li>
+                    </ul>
+                </ul>
+            </section>
+            <section>
+                <ul>
+                    <li>Makes refactoring and new feature development easier and less likely to break existing features.</li>
+                    <ul>
+                        <li>Time used for automated tests is paid back in the long run</li>
+                    </ul>
+                    <li>High quality code always comes with automated tests</li>
+                    <ul>
+                        <li>Less errors for the end user</li>
+                        <li>Less manual regression testing</li>
+                        <li>Makes developers happy and secure when refactoring or making changes to existing code.</li>
+                    </ul>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>How much automated tests for UI?</h2>
+            </section>
+            <section>
+                <ul>
+                    <li>Test coverage should be practical</li>
+                    <ul>
+                        <li>100% coverage is not usually needed</li>
+                        <li>No point to test for self-evident</li>
+                    </ul>
+                    <li>Tests should cover core functionality and complex UI logic</li>
+                    <li>If bug is discovered, a test should be written to prevent the same code from breaking again</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>AngularJS test methods</h2>
+            </section>
+            <section>
+                <h2>Unit tests</h2>
+                <ul>
+                    <li>Test a single unit of code</li>
+                    <li>Controllers, services, filters, directives</li>
+                    <li>Mocks for injected external dependencies</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Testing every controller may not be practical</h3>
+            </section>
+            <section>
+                <h3>Moving logic from controllers to services, directives and filters is good practice and makes unit testing simpler</h3>
+            </section>
+            <section>
+                <h2>End to end tests</h2>
+                <ul>
+                    <li>Test the whole application stack</li>
+                    <li>E2E testing framework emulates user actions through browser</li>
+                    <li>Framework fills forms, clicks buttons etc and verifies that UI reacts correctly</li>
+                </ul>
+            </section>
+            <section>
+                <h3>End to end tests are the most important form of testing a web application</h3>
+            </section>
+            <section>
+                <h3>End to end tests take the most time to make but pay off in the long run</h3>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Where automated tests are run?</h2>
+            </section>
+            <section>
+                <h3>Developers should always run unit tests locally when making UI changes. End to end tests should be run every time any changes are made.</h3>
+            </section>
+            <section>
+                <h3>CI system should run automated tests every time changes are pushed to repository</h3>
+            </section>
+        </section>
+
         <!-- Any section element inside of this container is displayed as a slide -->
     </div>
 </div>
