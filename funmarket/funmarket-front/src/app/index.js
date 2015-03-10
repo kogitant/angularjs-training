@@ -18,5 +18,4 @@ angular.module('front', ['ngResource', 'ngRoute'])
       .otherwise({
         redirectTo: '/'
       });
-  })
-;
+  });

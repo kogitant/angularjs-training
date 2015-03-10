@@ -2,7 +2,15 @@
 
   <div ng-include="'components/navbar/navbar.html'"></div>
 
-  <h1>Jätä ilmoitus</h1>
+  <h1 ng-click="show()">Jätä ilmoitus</h1>
 
-  <form></form>
+  <form name="leaveproduct">
+
+    Tuotteen nimi: <input ng-model="productName" type="text" required/><br/>
+    Kuvaus: <textarea cols="30" rows="10" ng-model="description"></textarea>
+
+
+
+    <input ng-disabled="!leaveProduct.$valid" type="submit" />
+  </form>
 </div>
