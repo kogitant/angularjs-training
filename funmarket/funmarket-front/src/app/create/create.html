@@ -1,0 +1,58 @@
+
+
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+  <form name="newItemForm">
+
+    <div class="row">
+      <div class="six columns">
+        <label for="name">Item name*</label>
+        <input name="name" class="u-full-width" ng-model="item.name" type="text" id="name" required/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="four columns">
+        <label for="price">Price*</label>
+        <input name="price" class="u-full-width" ng-model="item.price" min="0" type="number" id="price" placeholder="€" required/>
+      </div>
+
+      <div class="four columns">
+        <label for="image">Image</label>
+        <input class="u-full-width" type="text" id="image" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="six columns">
+        <label for="description">Description</label>
+        <textarea name="description" class="u-full-width" ng-model="item.description" id="description" placeholder="Describe your item"/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="six columns">
+        <h5>Contact information</h5>
+        <label for="phone">Phone number</label>
+        <input name="phone" class="u-full-width" ng-model="item.phone" type="text" id="phone" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="six columns">
+        <label for="email">Email</label>
+        <input name="email" type="email" class="u-full-width" ng-model="item.email" id="email"/>
+      </div>
+    </div>
+  </form>
+
+  <div class="row">
+    <div class="six columns">
+      <button ng-click="return()">Return</button>
+      <button ng-disabled="!newItemForm.$valid" ng-click="preview()">Preview</button>
+      <button ng-disabled="!newItemForm.$valid" ng-click="publish()">Publish</button>
+    </div>
+  </div>
+
+</div>

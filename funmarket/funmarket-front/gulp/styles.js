@@ -37,7 +37,8 @@ gulp.task('styles', function () {
 
   return gulp.src([
     paths.src + '/app/index.less',
-    paths.src + '/app/vendor.less'
+    paths.src + '/app/vendor.less',
+    'bower_components/skeleton-css/css/skeleton.css'
   ])
     .pipe(indexFilter)
     .pipe($.inject(injectFiles, injectOptions))

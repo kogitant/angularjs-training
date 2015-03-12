@@ -1,11 +1,13 @@
-<nav class="navbar" ng-controller="NavbarCtrl">
-  <a href="https://github.com/Swiip/generator-gulp-angular">Gulp Angular</a>
+<nav class="container" ng-controller="NavbarCtrl">
+  <div class="row">
 
-  <ul>
-    <li><a ng-href="#/">Koti</a></li>
-    <li><a ng-href="#/leaveadd">Jätä ilmoitus</a></li>
-    <li><a ng-href="#/adds">Ilmoitukset</a></li>
+    <div class="ten columns">
+      <h1>FUNMARKET</h1>
+    </div>
 
-  </ul>
+    <div class="two columns">
+      <button ng-click="createNewAdd()" id="createBtn">Create new add</button>
+    </div>
 
+  </div>
 </nav>

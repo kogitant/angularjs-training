@@ -1,5 +1,17 @@
-<div class="container">
 
   <div ng-include="'components/navbar/navbar.html'"></div>
 
-</div>
+  <div class="container">
+    <div class="row">
+      <div class="twelve columns">
+        <input class="u-full-width" type="text" ng-model="addFilter" placeholder="searchword"/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="three columns" ng-repeat="data in adds">
+        <add data="data"></add>
+      </div>
+    </div>
+
+  </div>
