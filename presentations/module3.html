@@ -220,12 +220,6 @@ angular.module('myApplication').factory('HakemusResource', function($resource) {
         <section>
             <section>
                 <h2><a href="http://docs.angularjs.org/guide/forms">Forms in Angular</a></h2>
-                <ul>
-                    <li>Form basics</li>
-                    <li>Nesting</li>
-                    <li>FormController</li>
-                    <li>Validation</li>
-                </ul>
             </section>
             <section>
                 <h3>Form basics</h3>
@@ -261,20 +255,38 @@ angular.module('myApplication').factory('HakemusResource', function($resource) {
                         <li>$invalid - True if at least one containing control or form is invalid</li>
                         <li>$submitted - True if user has submitted the form even if its invalid</li>
                         <li>$error - Object hash, containing references to all invalid controls or forms</li>
+                        <ul>
+                            <li>keys are validation tokens (error names) - such as required, url or email), values are arrays of controls or forms that are invalid with given error</li>
+                        </ul>
                     </ul>
+                    <li><a href="http://jsfiddle.net/TJaakkola/o9x3v9uk/">example</a></li>
                 </ul>
             </section>
+
             <section>
-                <h3>ModelController</h3>
+                <h3>ngModel</h3>
                 <ul>
-                    <li></li>
+                    <li>Binding the view into the model, which other directives such as input, textarea or select require</li>
+                    <li>Providing validation behavior (i.e. required, number, email, url)</li>
+                    <li>Keeping the state of the control (valid/invalid, dirty/pristine, touched/untouched, validation errors)</li>
+                    <li>Setting related css classes on the element (ng-valid, ng-invalid, ng-dirty, ng-pristine, ng-touched, ng-untouched) including animations</li>
+                    <li>Registering the control with its parent form</li>
+                    <li>Every ngModel-directive instantiate a <a href="https://docs.angularjs.org/api/ng/type/form.FormController">ngModelController</a></li>
+                    <li><a href="http://jsfiddle.net/TJaakkola/xa7cjydv/">example</a></li>
                 </ul>
             </section>
+
             <section>
                 <h3>Validation</h3>
                 <ul>
                     <li>A form is valid when all it's child forms are valid</li>
-                    <li>Angular provides some default validators for common input types</li>
+                    <li>FormControllers and ngModelControllers include $error-object</li>
+                    <li>$error-hash is basicly a javascript object where:</li>
+                    <ul>
+                        <li>keys are validation token (listed below)</li>
+                        <li>values are arrays of controls or forms that have a failing validator for given error name</li>
+                    </ul>
+                    <li>Validation tokens</li>
                     <ul>
                         <li>email</li>
                         <li>max</li>
@@ -289,8 +301,12 @@ angular.module('myApplication').factory('HakemusResource', function($resource) {
                     <li>See the <a href="https://docs.angularjs.org/api/ng/directive/input">API</a> for more</li>
                 </ul>
             </section>
-        </section>
 
+            <section>
+
+            </section>
+
+        </section>
 
         </section>
         <section>
@@ -329,6 +345,8 @@ angular.module('myApplication').factory('HakemusResource', function($resource) {
                     <li><b>controller</b>: api for other directives. Instantiated before linking-phase</li>
                 </ul>
             </section>
+
+
 
             <section>
                 <pre><code>angular.module('myDirective', function() {
