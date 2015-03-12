@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('front', ['ngResource', 'ngRoute'])
+angular.module('front', ['ngResource', 'ngRoute', 'angularFileUpload'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

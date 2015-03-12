@@ -4,7 +4,7 @@
 
 <div class="container">
   <form name="newItemForm">
-
+    {{item}}
     <div class="row">
       <div class="six columns">
         <label for="name">Item name*</label>
@@ -20,7 +20,7 @@
 
       <div class="four columns">
         <label for="image">Image</label>
-        <input class="u-full-width" type="text" id="image" />
+        <div class="button" ng-file-select ng-model="item.img">upload image</div>
       </div>
     </div>
 
@@ -42,7 +42,7 @@
     <div class="row">
       <div class="six columns">
         <label for="email">Email</label>
-        <input name="email" type="email" class="u-full-width" ng-model="item.email" id="email"/>
+        <input name="email" type="email" minlength="5" maxlength="100"class="u-full-width" ng-model="item.email" id="email"/>
       </div>
     </div>
   </form>
@@ -51,7 +51,7 @@
     <div class="six columns">
       <button ng-click="return()">Return</button>
       <button ng-disabled="!newItemForm.$valid" ng-click="preview()">Preview</button>
-      <button ng-disabled="!newItemForm.$valid" ng-click="publish()">Publish</button>
+      <button ng-disabled="!newItemForm.$valid && !(newItemForm.phone.$viewValue || newItemForm.email.$viewValue)" ng-click="publish()">Publish</button>
     </div>
   </div>
 
