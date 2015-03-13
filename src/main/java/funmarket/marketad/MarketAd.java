@@ -21,7 +21,7 @@ public class MarketAd {
 
     @NotNull
     @Min(5)
-    @Max(100000)
+    @Max(10000000)
     private Integer priceCents;
 
     private String email;
