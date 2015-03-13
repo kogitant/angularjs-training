@@ -1,4 +1,4 @@
-package funmarket;
+package funmarket.marketad;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 

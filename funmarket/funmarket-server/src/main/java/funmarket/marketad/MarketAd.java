@@ -1,4 +1,4 @@
-package funmarket;
+package funmarket.marketad;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,6 +9,7 @@ public class MarketAd {
     private String id;
     private String title;
     private String description;
+    private Integer priceCents;
 
     public MarketAd() {
     }
@@ -24,6 +25,8 @@ public class MarketAd {
     public String getDescription() {
         return title;
     }
+
+    public Integer getPriceCents() { return priceCents; }
 
     @Override
     public String toString() {

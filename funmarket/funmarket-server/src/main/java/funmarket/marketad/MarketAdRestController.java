@@ -1,7 +1,6 @@
-package funmarket;
+package funmarket.marketad;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,10 +11,7 @@ public class MarketAdRestController {
     @Autowired
     MarketAdRepository marketAdRepository;
 
-    @Autowired
-    MongoTemplate mongoTemplate;
-
-    @RequestMapping("/marketads")
+    @RequestMapping(value="/marketads", method=RequestMethod.GET)
     public @ResponseBody
     List<MarketAd> findAll() {
         return marketAdRepository.findAll();
