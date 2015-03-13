@@ -13,10 +13,12 @@ angular.module('front')
     };
 
     $scope.publish = function () {
-      $http.save($scope.item);
-      var promise = MarketAdResource.posting($scope.item).$promise.then(function () {
-        $location.path('/');
-      });
+      console.log($scope.item);
+      $http.post('http://funmarket-api.herokuapp.com/marketads', $scope.item);
+
+      //MarketAdResource.save($scope.item).$promise.then(function () {
+      //  $location.path('/');
+      //});
     };
 
     $scope.$watch('files', function () {

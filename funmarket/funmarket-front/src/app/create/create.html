@@ -3,19 +3,19 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <div class="container">
-  <form name="newItemForm">
+  <form name="newAdForm">
     {{item}}
     <div class="row">
       <div class="six columns">
         <label for="title">Title*</label>
-        <input name="title" class="u-full-width" ng-model="item.title" type="text" id="title" required/>
+        <input name="title" class="u-full-width" maxlength="30" minlength="4" ng-model="item.title" type="text" id="title" required/>
       </div>
     </div>
 
     <div class="row">
       <div class="three columns">
-        <label for="price">Price*</label>
-        <input name="price" class="u-full-width" ng-model="item.price" min="0" type="number" id="price" placeholder="€" required/>
+        <label for="priceCents">Price*</label>
+        <input name="priceCents" class="u-full-width" ng-model="item.priceCents" min="0" type="number" id="priceCents" placeholder="€" required/>
       </div>
 
       <div class="three columns">
@@ -35,13 +35,16 @@
       <div class="six columns">
         <h5>Contact information</h5>
         <label for="phone">Phone number</label>
-        <input name="phone" class="u-full-width" ng-model="item.phone" type="text" id="phone" />
+        {{newAdForm.phone.$valid}}
+        <!--<input name="phone" class="u-full-width" ng-model="item.phone" type="text" id="phone" ng-required="!(newAdForm.phone.$valid || newAdForm.email.$valid)" />-->
+        <input name="phone" class="u-full-width" ng-model="item.phone" type="text" id="phone" ng-required="!(newAdForm.phone.$valid || newAdForm.email.$valid)" />
       </div>
     </div>
 
     <div class="row">
       <div class="six columns">
         <label for="email">Email</label>
+        <!--<input name="email" type="email" minlength="5" maxlength="100"class="u-full-width" ng-model="item.email" ng-required="(newAdForm.phone.$valid || newAdForm.email.$valid)" id="email"/>-->
         <input name="email" type="email" minlength="5" maxlength="100"class="u-full-width" ng-model="item.email" id="email"/>
       </div>
     </div>
@@ -50,8 +53,8 @@
   <div class="row">
     <div class="six columns">
       <button ng-click="return()">Return</button>
-      <button ng-disabled="!newItemForm.$valid" ng-click="preview()">Preview</button>
-      <button ng-disabled="!newItemForm.$valid && !(newItemForm.phone.$viewValue || newItemForm.email.$viewValue)" ng-click="publish()">Publish</button>
+      <button ng-disabled="newAdForm.$invalid" ng-click="preview()">Preview</button>
+      <button ng-disabled="newAdForm.$invalid" ng-click="publish()">Publish</button>
     </div>
   </div>
 
