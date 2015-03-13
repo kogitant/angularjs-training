@@ -17,19 +17,19 @@ public class MarketAdRestController {
     @Autowired
     MongoTemplate mongoTemplate;
 
+    @RequestMapping("/marketads")
+    public @ResponseBody
+    List<MarketAd> findAll() {
+        return marketAdRepository.findAll();
+    }
+
     @RequestMapping("/marketads/{marketAdId}")
     public @ResponseBody
     MarketAd findPersonById(@PathVariable("marketAdId") String marketAdId) {
         return marketAdRepository.findOne(marketAdId);
     }
 
-    @RequestMapping("/marketads/")
-    public @ResponseBody
-    List<MarketAd> findAll() {
-        return marketAdRepository.findAll();
-    }
-
-    @RequestMapping(value="/marketads/", method= RequestMethod.POST)
+    @RequestMapping(value="/marketads/", method=RequestMethod.POST)
     public @ResponseBody
     ResponseEntity add(@RequestBody MarketAd marketAd) {
         mongoTemplate.save(marketAd);
