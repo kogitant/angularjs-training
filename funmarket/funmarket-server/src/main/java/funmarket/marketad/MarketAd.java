@@ -1,5 +1,6 @@
 package funmarket.marketad;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -24,18 +25,23 @@ public class MarketAd {
     @Max(10000000)
     private Integer priceCents;
 
+    private String imageUrl;
+
+    @Email
     private String email;
+
     private String phone;
 
     public MarketAd() {
     }
 
-    public MarketAd(String title, String description, Integer priceCents, String email, String phone) {
+    public MarketAd(String title, String description, Integer priceCents, String email, String phone, String imageUrl) {
         this.title = title;
         this.description = description;
         this.priceCents = priceCents;
         this.email = email;
         this.phone = phone;
+        this.imageUrl = imageUrl;
     }
 
     public String getId() {
@@ -55,6 +61,8 @@ public class MarketAd {
     public String getEmail() {return email; }
 
     public String getPhone() {return phone; }
+
+    public String getImageUrl() {return imageUrl;}
 
     @Override
     public String toString() {

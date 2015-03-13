@@ -1,12 +1,15 @@
 <div class="market-ad">
+  <div ng-if="data.imageUrl" class="row">
+    <span class="twelve columns"><img ng-src="{{data.imageUrl}}" class="market-ad-image-thumbnail"></span>
+  </div>
 
   <div class="row">
     <span class="twelve columns">Title: {{data.title}}</span>
   </div>
 
-    <div class="row">
-      <span class="twelve columns">Description: {{data.description}}</span>
-    </div>
+  <div class="row">
+    <span class="twelve columns">Description: {{data.description}}</span>
+  </div>
 
   <div class="row">
     <span class="twelve columns">Price: {{data.priceCents/100.0}} €</span>
@@ -19,5 +22,4 @@
   <div class="row" ng-if="data.email">
     <span class="twelve columns">Email: {{data.email}}</span>
   </div>
-
 </div>

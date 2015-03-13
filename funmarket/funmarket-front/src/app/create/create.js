@@ -14,12 +14,9 @@ angular.module('front')
     };
 
     $scope.publish = function () {
-      console.log($scope.item);
-      $http.post(funmarketApiUrl, '/marketads', $scope.item);
-
-      //MarketAdResource.save($scope.item).$promise.then(function () {
-      //  $location.path('/');
-      //});
+      MarketAdResource.save($scope.item).$promise.then(function () {
+        $location.path('/');
+      });
     };
 
     $scope.upload = function (files) {
