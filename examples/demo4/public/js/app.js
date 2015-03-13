@@ -10,14 +10,14 @@ angular.module('app').controller('appController', function($scope, userDetailsSe
 });
 
 angular.module('app').service('userDetailsService', function($http) {
-    var userDetails = $http.get('http://localhost:3000/api/userdetails');
+    var userDetails = $http.get('/api/userdetails');
     this.getUserDetails = function() {
         return userDetails;
     }
 });
 
 angular.module('app').service('userService', function($http) {
-    var users = $http.get('http://localhost:3000/api/users');
+    var users = $http.get('/api/users');
     this.getUsers = function() {
         return users;
     }
