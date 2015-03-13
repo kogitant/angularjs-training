@@ -9,7 +9,7 @@ angular.module('front', ['ngResource', 'ngRoute', 'angularFileUpload'])
       })
       .when('/create', {
         templateUrl: 'app/create/create.html',
-        controller: 'CreateAddCtrl'
+        controller: 'CreateAdCtrl'
       })
       .otherwise({
         redirectTo: '/'

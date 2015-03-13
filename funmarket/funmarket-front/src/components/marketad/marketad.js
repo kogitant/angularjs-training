@@ -1,12 +1,12 @@
 
 angular.module('front')
 
-.directive('add', function () {
+.directive('marketAd', function () {
   return {
-    templateUrl: 'components/add/add.html',
+    templateUrl: 'components/marketad/marketad.html',
     restrict: 'E',
     scope: {
       data: '=data'
     }
-  }
+  };
 });

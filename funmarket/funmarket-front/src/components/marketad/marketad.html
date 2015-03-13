@@ -1,0 +1,23 @@
+<div class="market-ad">
+
+  <div class="row">
+    <span class="twelve columns">Title: {{data.title}}</span>
+  </div>
+
+    <div class="row">
+      <span class="twelve columns">Description: {{data.description}}</span>
+    </div>
+
+  <div class="row">
+    <span class="twelve columns">Price: {{data.price}}</span>
+  </div>
+
+  <div class="row" ng-if="data.phone">
+    <span class="twelve columns">Phone: {{data.phone}}</span>
+  </div>
+
+  <div class="row" ng-if="data.email">
+    <span class="twelve columns">Email: {{data.email}}</span>
+  </div>
+
+</div>

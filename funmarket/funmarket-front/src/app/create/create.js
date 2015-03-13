@@ -1,19 +1,22 @@
 
 angular.module('front')
 
-.controller('CreateAddCtrl', function ($scope, $location) {
+.controller('CreateAdCtrl', function ($scope, $location, MarketAdResource, $http) {
 
     $scope.return = function () {
       $scope.item = {};
       $location.path('/');
     };
 
-    $scope.review = function () {
-
+    $scope.preview = function () {
+      $scope.toggleReview = !$scope.toggleReview;
     };
 
     $scope.publish = function () {
-      console.log($scope.item);
+      $http.save($scope.item);
+      var promise = MarketAdResource.posting($scope.item).$promise.then(function () {
+        $location.path('/');
+      });
     };
 
     $scope.$watch('files', function () {

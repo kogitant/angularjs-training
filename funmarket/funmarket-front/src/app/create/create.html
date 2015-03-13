@@ -7,19 +7,19 @@
     {{item}}
     <div class="row">
       <div class="six columns">
-        <label for="name">Item name*</label>
-        <input name="name" class="u-full-width" ng-model="item.name" type="text" id="name" required/>
+        <label for="title">Title*</label>
+        <input name="title" class="u-full-width" ng-model="item.title" type="text" id="title" required/>
       </div>
     </div>
 
     <div class="row">
-      <div class="four columns">
+      <div class="three columns">
         <label for="price">Price*</label>
         <input name="price" class="u-full-width" ng-model="item.price" min="0" type="number" id="price" placeholder="€" required/>
       </div>
 
-      <div class="four columns">
-        <label for="image">Image</label>
+      <div class="three columns">
+        <label>Image</label>
         <div class="button" ng-file-select ng-model="item.img">upload image</div>
       </div>
     </div>
@@ -52,6 +52,12 @@
       <button ng-click="return()">Return</button>
       <button ng-disabled="!newItemForm.$valid" ng-click="preview()">Preview</button>
       <button ng-disabled="!newItemForm.$valid && !(newItemForm.phone.$viewValue || newItemForm.email.$viewValue)" ng-click="publish()">Publish</button>
+    </div>
+  </div>
+
+  <div ng-if="toggleReview" class="row">
+    <div class="six columns">
+      <market-ad data="item"></market-ad>
     </div>
   </div>
 

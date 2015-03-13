@@ -4,13 +4,13 @@
   <div class="container">
     <div class="row">
       <div class="twelve columns">
-        <input class="u-full-width" type="text" ng-model="addFilter" placeholder="searchword"/>
+        <input class="u-full-width" type="text" ng-model="marketAdFilter.title" placeholder="searchword"/>
       </div>
     </div>
 
     <div class="row">
-      <div class="three columns" ng-repeat="data in adds">
-        <add data="data"></add>
+      <div class="four columns" ng-repeat="ad in marketAds | filter:marketAdFilter">
+        <market-ad data="ad"></market-ad>
       </div>
     </div>
 
