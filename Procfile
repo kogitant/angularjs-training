@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar target/funmarket-server.jar
+web: java $JAVA_OPTS -jar target/funmarket-server.jar
