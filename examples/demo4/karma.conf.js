@@ -15,10 +15,10 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'demo4/public/lib/*.js',
-      'demo4/public/**/*.js',
-      'demo4/test/unit/lib/*.js',
-      'demo4/test/unit/**/*.js'
+      'public/lib/*.js',
+      'public/**/*.js',
+      'test/unit/lib/*.js',
+      'test/unit/**/*.js'
     ],
 
 
