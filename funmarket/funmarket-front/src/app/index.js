@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('front', ['ngResource', 'ngRoute', 'angularFileUpload'])
+  .value('funmarketApiUrl', 'http://localhost:8080') //http://funmarket-api.herokuapp.com')
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

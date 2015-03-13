@@ -6,7 +6,7 @@ import com.mongodb.gridfs.GridFSDBFile;
 import java.io.InputStream;
 import java.util.List;
 
-public interface ImageStorageRepository {
+public interface GridfsStoreInterface {
     public String store(InputStream inputStream, String fileName,
                         String contentType, DBObject metaData);
 

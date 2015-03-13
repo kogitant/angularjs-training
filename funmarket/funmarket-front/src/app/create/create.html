@@ -4,7 +4,6 @@
 
 <div class="container">
   <form name="newAdForm">
-    {{item}}
     <div class="row">
       <div class="six columns">
         <label for="title">Title*</label>
@@ -20,7 +19,12 @@
 
       <div class="three columns">
         <label>Image</label>
-        <div class="button" ng-file-select ng-model="item.img">upload image</div>
+        <div ng-if="!item.imageUrl">
+          <div class="button" ng-file-select ng-file-change="upload($files)">upload image</div>
+        </div>
+        <div ng-if="item.imageUrl">
+          {{item.imageUrl}}
+        </div>
       </div>
     </div>
 

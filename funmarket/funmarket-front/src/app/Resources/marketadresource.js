@@ -1,6 +1,6 @@
 
 angular.module('front')
 
-.factory('MarketAdResource', function ($resource) {
-  return $resource('http://funmarket-api.herokuapp.com/marketads');
+.factory('MarketAdResource', function (funmarketApiUrl, $resource) {
+  return $resource(funmarketApiUrl+ '/marketads');
 });
