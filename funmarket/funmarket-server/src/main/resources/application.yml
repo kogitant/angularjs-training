@@ -1,0 +1,18 @@
+spring:
+    data:
+        mongodb:
+            uri: mongodb://localhost/gofurl
+
+server:
+    port: 8080
+
+---
+
+spring:
+    profiles: heroku
+    data:
+        mongodb:
+            uri: ${MONGOLAB_URI}
+
+server:
+    port: ${PORT}
