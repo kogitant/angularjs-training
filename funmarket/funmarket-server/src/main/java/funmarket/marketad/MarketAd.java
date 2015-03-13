@@ -39,7 +39,7 @@ public class MarketAd {
     }
 
     public String getDescription() {
-        return title;
+        return description;
     }
 
     public Integer getPriceCents() { return priceCents; }
