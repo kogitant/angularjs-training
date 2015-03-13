@@ -2,8 +2,6 @@ package funmarket;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,10 +27,9 @@ public class MarketAdRestController {
         return marketAdRepository.findOne(marketAdId);
     }
 
-    @RequestMapping(value="/marketads/", method=RequestMethod.POST)
+    @RequestMapping(value="/marketads", method=RequestMethod.POST)
     public @ResponseBody
-    ResponseEntity add(@RequestBody MarketAd marketAd) {
-        mongoTemplate.save(marketAd);
-        return new ResponseEntity<String>("MarketAd saved", HttpStatus.OK);
+    MarketAd add(@RequestBody MarketAd marketAd) {
+        return marketAdRepository.save(marketAd);
     }
 }
