@@ -30,6 +30,14 @@ public class MarketAd {
     public MarketAd() {
     }
 
+    public MarketAd(String title, String description, Integer priceCents, String email, String phone) {
+        this.title = title;
+        this.description = description;
+        this.priceCents = priceCents;
+        this.email = email;
+        this.phone = phone;
+    }
+
     public String getId() {
         return id;
     }
