@@ -65,10 +65,13 @@ toimivat komentoriviltä.
 
 Jos osallistut kurssin testausosuudelle, varmistathan lisäksi, että seuraavat testaustyövälineet on asennettu:
 
-    npm install -g karma
+    npm install -g karma-cli
     npm install -g protractor
 
 Testaa, että ohjelmistot asentuivat oikein ajamalla seuraavat komennot:
 
-	karma start
-	protractor protractor.conf 
+	> karma --version
+	Karma version: 0.12.31
+
+	protractor --version
+	> Version 1.8.0
