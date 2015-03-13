@@ -7,7 +7,6 @@ import java.util.List;
 
 @RestController
 public class MarketAdRestController {
-
     @Autowired
     MarketAdRepository marketAdRepository;
 
