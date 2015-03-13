@@ -75,3 +75,9 @@ Testaa, että ohjelmistot asentuivat oikein ajamalla seuraavat komennot:
 
 	protractor --version
 	> Version 1.8.0
+
+Varmista lopuksi, että testaussovellukset toimivat ajamalla läpi muokkaamattoman Angular-seed projektin testit:
+
+    git clone https://github.com/angular/angular-seed angular-seed-tests
+    cd angular-seed-tests
+    npm test

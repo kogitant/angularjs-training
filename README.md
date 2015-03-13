@@ -67,3 +67,24 @@ Open your web browser and navigate to <http://localhost:8000/app/>
 If everything works, you should see the sample application.
 
 **Troubleshooting**: if something doesn't work, ensure all the above commands work as they should (node, npm, git, bower). If any of these tools fail, debug and fix them and attempt again.
+
+### Step 4: Setup test frameworks
+
+If you attend the testing part of the lesson, install the following tools:
+
+    npm install -g karma-cli
+    npm install -g protractor
+
+Ensure that the packages have been correctly installed as follows:
+
+    > karma --version
+    Karma version: 0.12.31
+
+    protractor --version
+    > Version 1.8.0
+
+As a final verification step, run the tools against fresh copy of Angular seed project:
+
+    git clone https://github.com/angular/angular-seed angular-seed-tests
+    cd angular-seed-tests
+    npm test
