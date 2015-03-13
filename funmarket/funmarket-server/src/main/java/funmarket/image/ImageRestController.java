@@ -5,12 +5,15 @@ import com.mongodb.DBObject;
 import com.mongodb.gridfs.GridFSDBFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 public class ImageRestController {
@@ -29,7 +32,7 @@ public class ImageRestController {
 
                 resp = new ImageUploadResponse();
                 resp.success = true;
-                resp.url = "/images/" + objectId;
+                resp.url = ControllerLinkBuilder.linkTo(methodOn(ImageRestController.class).getById(objectId)).toString();
                 return resp;
             } catch (Exception e) {
                 resp = new ImageUploadResponse();
