@@ -43,6 +43,86 @@
         </section>
 
         <section>
+            <section>
+                <h2>Module configuration</h2>
+            </section>
+            <section>
+                <h3>config block</h3>
+                <ul>
+                    <li>Angular modules can configure themselves before the module actually bootstraps and starts to run</li>
+                    <li>Configuration code is run in config block</li>
+                    <li>In Angular code we use methods that are syntactic sugar around .config() function and gets executed at configuration time</li>
+                </ul>
+
+            </section>
+
+            <section>
+                <p>This is functionally equivalent</p>
+                        <pre><code>angular.module('myApp', [])
+.factory('myFactory', function() {
+    var service = {};
+    return service;
+})
+.directive('myDirective', function() {
+    return {
+        template: '<button>Click me</button>'
+    }
+})</code></pre>
+                <p>To this</p>
+                <pre><code>angular.module('myApp', [])
+.config(function($provide, $compileProvider) {
+    $provide.factory('myFactory', function() {
+        var service = {};
+        return service;
+    });
+    $compileProvider.directive('myDirective',
+        function() {
+            return {
+                template: '<button>Click me</button>'
+            }
+        });
+    });
+});</code></pre>
+
+            </section>
+            <section>
+                <ul>
+                    <li>Angular runs configuration functions in order in which they are written and registered</li>
+                    <ul>
+                        <li>We can't inject something that hasn't been defined yet</li>
+                        <li>Only constants and providers (special syntax services) can be injected in to config-function</li>
+                        <li>.config() blocks are good for configurating our own services, such as setting API keys and custom URLs</li>
+                        <li>There may be multiple configuration blocks</li>
+                    </ul>
+                </ul>
+            </section>
+            <section>
+                <pre><code>angular.module('myApp', [])
+.config(function($routeProvider){
+    $routeProvider.when('/', {
+        controller: 'WelcomeController',
+        template: 'views/welcome.html'
+    })
+.config(function(ConnectionProvider) {
+    ConnectionProvider.setApiKey('SOME_API_KEY');
+})</code></pre>
+            </section>
+
+            <section>
+                <h3>run block</h3>
+                <ul>
+                    <li>run blocks are executed after the config blocks</li>
+                    <li>They are first methods that are executed in any Angular app</li>
+                    <li>Closest thing to a main method in Angular</li>
+                    <li>Good for setting up event listeners for routing events or unauthenticated requests</li>
+                </ul>
+            </section>
+
+        </section>
+
+
+
+        <section>
 
             <section>
                 <h2><a href="http://docs.angularjs.org/api/ngResource/service/$resource">$resource</a></h2>
@@ -314,46 +394,89 @@ angular.module('myApplication').factory('HakemusResource', function($resource) {
                 <h2>Directives</h2>
             </section>
             <section>
+                <ul>
+                    <li>Directive is a tool to provide extra functionality on an element</li>
+                    <li>Directive factory function is only invoked once when compiler matches the directive for the first time</li>
+                    <li>Directive behaviour is defined in Directive Definition Object (object return from directive factory)</li>
+                    <li>Angular 1.3 DDO has 16 keys most of which are optional</li>
+                    <li>Usually you need just a few of them</li>
+                </ul>
+            </section>
+            <section>
+                <pre><code>angular.module('myApp')
+.directive('ddo', function() {
+    return {
+        priority: 0,
+        template: '<div></div>', // or // function(tElement, tAttrs) { ... },
+        // or
+        // templateUrl: 'directive.html', // or // function(tElement, tAttrs) { ... },
+        transclude: false,
+        restrict: 'A',
+        templateNamespace: 'html',
+        scope: false,
+        controller: function($scope, $element, $attrs, $transclude, otherInjectables) { ... },
+        controllerAs: 'stringIdentifier',
+        require: 'siblingDirectiveName', // or // ['^parentDirectiveName', '?optionalDirectiveName', '?^optionalParent'],
+        compile: function compile(tElement, tAttrs, transclude) {
+        return {
+        pre: function preLink(scope, iElement, iAttrs, controller) { ... },
+        post: function postLink(scope, iElement, iAttrs, controller) { ... }
+        }
+        // or
+        // return function postLink( ... ) { ... }
+        },
+        // or
+        // link: {
+        //  pre: function preLink(scope, iElement, iAttrs, controller) { ... },
+        //  post: function postLink(scope, iElement, iAttrs, controller) { ... }
+        // }
+        // or
+        // link: function postLink( ... ) { ... }
+    };
+});
+                </code></pre>
+            </section>
+            <section>
+                <h3>Directive Definition Object</h3>
+                <ul>
+                    <li><b>restrict</b>: type for the directive element, attribute, class or comment</li>
+                    <li><b>priority</b>: directive compilation order relative to other directives</li>
+                    <li><b>template</b>: html-template as a string</li>
+                    <li><b>templateUrl</b>: urlString defining where template for this directive is</li>
+                    <li><b>require</b>: what other directives are needed to present for this directive</li>
+                    <li><b>scope</b>: directives relation to parent scope (create new/inherit parent/inherit partially)</li>
+                    <li><b>controller</b>: create api for other directives</li>
+                    <li><b>compile</b>: function run before scope has been set. DOM-manipulation</li>
+                    <li><b>link</b>: function run after compile. Scope has been attached to the dom</li>
+                    <li><b>transclude</b>: Move children of the directive in template to a location inside the new template</li>
+                </ul>
+            </section>
+            <section>
                 <img src="images/directiveinternals.jpg"/>
             </section>
             <section>
-                <h3>API for creating directives</h3>
+                <h3>Directive scope</h3>
                 <ul>
-                    <li>multiElement</li>
-                    <li>priority</li>
-                    <li>terminal</li>
-                    <li>scope</li>
-                    <li>bindToController</li>
-                    <li>controller</li>
-                    <li>require</li>
-                    <li>controllerAs</li>
-                    <li>restrict</li>
-                    <li>templateNamespace</li>
-                    <li>template</li>
-                    <li>templateUrl</li>
-                    <li>transclude</li>
-                    <li>compile</li>
-                    <li>link</li>
+                    <li>By default directive inherits parent scope</li>
+                    <li>You can make a new isolate scope for a directive</li>
+                    <li>Or you can make a new scope and deside what gets brought in from parent scope</li>
+
                 </ul>
             </section>
             <section>
+                <h3>Some personal opinions/guidelines for using directives</h3>
                 <ul>
-                    <li><b>priority</b>: Specify order in which the directives are applied</li>
-                    <li><b>controller</b>: Api for other directives. Instantiated before linking-phase</li>
-                    <li><b>compile</b>: Function run before scope has been set. DOM-manipulation</li>
-                    <li><b>controller</b>: api for other directives. Instantiated before linking-phase</li>
-                    <li><b>controller</b>: api for other directives. Instantiated before linking-phase</li>
+                    <li>Use them, but use them with care</li>
+                    <li>Creating big directives is hazardous
+                        <ul>
+                            <li>specially if they're manipulating parent scope</li>
+                            <li>if there are several directives in one element</li>
+                        </ul>
+                    <li>Smaller is usually better</li>
+                    <li>Directives may be hard to test</li>
+                    <li>Directives may be difficult to debug</li>
+                    <li>Prefer prefixes in names to avoid collations</li>
                 </ul>
-            </section>
-
-
-
-            <section>
-                <pre><code>angular.module('myDirective', function() {
-    return {
-
-    };
-});</code></pre>
             </section>
         </section>
         <!-- Any section element inside of this container is displayed as a slide -->
