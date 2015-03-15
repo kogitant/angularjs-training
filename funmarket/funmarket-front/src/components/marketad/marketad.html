@@ -1,25 +1,13 @@
 <div class="market-ad">
-  <div ng-if="data.imageUrl" class="row">
-    <span class="twelve columns"><img ng-src="{{data.imageUrl}}" class="market-ad-image-thumbnail"></span>
-  </div>
+  <a href="#/marketads/{{data.id}}">
+    <h5>{{data.title}} (<span class="price">{{data.priceCents/100.0}} €</span>)</h5>
 
-  <div class="row">
-    <span class="twelve columns">Title: {{data.title}}</span>
-  </div>
+    <div ng-if="data.imageUrl">
+      <img ng-src="{{data.imageUrl}}" class="market-ad-image-thumbnail"></span>
+    </div>
 
-  <div class="row">
-    <span class="twelve columns">Description: {{data.description}}</span>
-  </div>
-
-  <div class="row">
-    <span class="twelve columns">Price: {{data.priceCents/100.0}} €</span>
-  </div>
-
-  <div class="row" ng-if="data.phone">
-    <span class="twelve columns">Phone: {{data.phone}}</span>
-  </div>
-
-  <div class="row" ng-if="data.email">
-    <span class="twelve columns">Email: {{data.email}}</span>
-  </div>
+    <div>
+      {{data.description|limitTo:80}}
+    </div>
+  </a>
 </div>
