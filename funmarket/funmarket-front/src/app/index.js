@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('front', ['ngResource', 'ngRoute', 'angularFileUpload'])
-  .value('funmarketApiUrl', 'http://funmarket-api.herokuapp.com')
+  .value('funmarketApiUrl', 'funmarket-api.herokuapp.com'
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

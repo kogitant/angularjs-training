@@ -4,6 +4,8 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.gridfs.GridFSDBFile;
 import org.bson.types.ObjectId;
+import org.imgscalr.Scalr;
+import org.imgscalr.Scalr.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -12,15 +14,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static org.imgscalr.Scalr.resize;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 public class ImageRestController {
+    final static Integer IMAGE_MAX_SIZE = 1024;
+
     @Autowired
     GridfsStore gridfsStore;
 
@@ -28,12 +38,18 @@ public class ImageRestController {
     public @ResponseBody ImageUploadResponse uploadImage(@RequestParam("file") MultipartFile file) {
         ImageUploadResponse resp;
         if (!file.isEmpty()) {
-
             try {
+                BufferedImage img = ImageIO.read(file.getInputStream());
+                file.getInputStream().close();
+
                 DBObject metaData = new BasicDBObject();
-                UUID filename = UUID.randomUUID();;
+                UUID filename = UUID.randomUUID();
                 metaData.put("contentType", file.getContentType());
-                String objectId = gridfsStore.store(file.getInputStream(), filename.toString(), file.getContentType(), metaData);
+                String objectId = gridfsStore.store(
+                    resizeImageAsStream(img, IMAGE_MAX_SIZE, IMAGE_MAX_SIZE),
+                    filename.toString(),
+                    file.getContentType(),
+                    metaData);
 
                 resp = new ImageUploadResponse();
                 resp.success = true;
@@ -52,7 +68,6 @@ public class ImageRestController {
             return resp;
         }
     }
-
 
     @RequestMapping(value="/images", method=RequestMethod.GET)
     public @ResponseBody
@@ -85,5 +100,35 @@ public class ImageRestController {
                 .contentType(new MediaType(mediaType, subMediaType))
                 .body(new InputStreamResource(inputStream.getInputStream()));
         }
+    }
+
+    private BufferedImage resizeImage(BufferedImage img, int width, int height) {
+        if (width == 0 && height == 0) {
+            return img;
+        }
+        Mode mode = Mode.AUTOMATIC;
+        if (width == 0) {
+            mode = Mode.FIT_TO_HEIGHT;
+        } else if (height == 0) {
+            mode = Mode.FIT_TO_WIDTH;
+        } else {
+            double ratio = (double)img.getWidth() / img.getHeight();
+            double newWidth = height * ratio;
+            double newHeight = width / ratio;
+            if (newWidth >= width) {
+                mode = Mode.FIT_TO_HEIGHT;
+            } else if (newHeight >= height) {
+                mode = Mode.FIT_TO_WIDTH;
+            }
+        }
+        return resize(img, Scalr.Method.QUALITY, mode, width, height);
+    }
+
+    private InputStream resizeImageAsStream(BufferedImage img, int maxWidth, int maxHeight) throws IOException {
+        img = resizeImage(img, maxWidth, maxHeight);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(img, "jpg", baos);
+        return new ByteArrayInputStream(baos.toByteArray());
     }
 }
