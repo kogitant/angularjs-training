@@ -14,7 +14,7 @@ spring:
     profiles: heroku
     data:
         mongodb:
-            uri: ${MONGOLAB_URI}/funmarket
+            uri: ${MONGOLAB_URI}
     thymeleaf:
         cache: true
 
