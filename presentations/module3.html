@@ -90,13 +90,16 @@
                     <li>Angular runs configuration functions in order in which they are written and registered</li>
                     <ul>
                         <li>We can't inject something that hasn't been defined yet</li>
-                        <li>Only constants and providers (special syntax services) can be injected in to config-function</li>
-                        <li>.config() blocks are good for configurating our own services, such as setting API keys and custom URLs</li>
-                        <li>There may be multiple configuration blocks</li>
                     </ul>
+                    <li>Only constants and providers (special syntax services) can be injected in to config-function</li>
+                    <li>.config() blocks are good for configurating our own services, such as setting API keys and custom URLs</li>
+
                 </ul>
             </section>
             <section>
+                <ul>
+                    <li>There may be multiple configuration blocks</li>
+                </ul>
                 <pre><code>angular.module('myApp', [])
 .config(function($routeProvider){
     $routeProvider.when('/', {
@@ -340,6 +343,10 @@ angular.module('myApplication').factory('HakemusResource', function($resource) {
                     <li>In Angular <a href="https://docs.angularjs.org/api/ng/directive/form">form</a>-element is a directive</li>
                     <li>All common input-elements are also wrapped inside <a href="https://docs.angularjs.org/api/ng/directive/input">directives</a></li>
                     <li>Angular prevents default action (page reload) on form submission</li>
+                    <ul>
+                        <li>Note that you don't need to use form-element to bind input value to $scope</li>
+                    </ul>
+                    <li>In Angular forms have a state which is maintained in <a href="https://docs.angularjs.org/api/ng/type/form.FormController">FormController</a></li>
                     <li>To track the state of a form in controller you have to specify a name attribute for it</li>
                 </ul>
             </section>
@@ -349,7 +356,8 @@ angular.module('myApplication').factory('HakemusResource', function($resource) {
                 <ul>
                     <li>Browsers don't allow nesting form-element</li>
                     <li>Angular provides <a href="https://docs.angularjs.org/api/ng/directive/ngForm">ngForm</a> which can be used for nesting</li>
-                    <li>ngForm-directive is identical to form-directive but it can be nested</li>
+                    <li>ngForm directive is identical to form-directive but it can be nested</li>
+                    <li>ngForm directive (as well as form directive) also creates state</li>
                     <li>The outmost form is in valid state when all it's child form are valid</li>
                 </ul>
             </section>
@@ -358,7 +366,7 @@ angular.module('myApplication').factory('HakemusResource', function($resource) {
                 <h3><a href="https://docs.angularjs.org/api/ng/type/form.FormController">FormController</a></h3>
                 <ul>
                     <li>All forms instantiate a FormController</li>
-                    <li>FormController handles state and controls of a form</li>
+                    <li>FormController handles state of a form</li>
                     <li>Doesn't handle the actual values in user inputs</li>
                     <li>Properties of a FormController</li>
                     <ul>
@@ -416,7 +424,77 @@ angular.module('myApplication').factory('HakemusResource', function($resource) {
             </section>
 
             <section>
+                <h3><a href="https://docs.angularjs.org/api/ng/directive/ngModelOptions">ngModelOptions</a></h3>
+                <ul>
+                    <li>Provides tools for fine tuning how your model updates</li>
+                    <li>Speficy a custom list of events that will trigger a model update</li>
+                    <ul>
+                        <li>You may for example set a debounce time in to a input</li>
+                    </ul>
+                    <li>See <a href="https://docs.angularjs.org/api/ng/directive/ngModelOptions">examples</a> in the documentation</li>
+                </ul>
+            </section>
 
+            <section>
+                <h3><a href="https://docs.angularjs.org/api/ngMessages">ngMessages</a></h3>
+                <ul>
+                    <li>Introduced in Angular 1.3</li>
+                    <li>Implemented in a separated module</li>
+                    <li>Provides tools for showing messages about forms state</li>
+                    <li>Enables avoiding complicated ng-show/ng-if directive usage</li>
+                    <li>Complements ngModelControllers validation properties</li>
+                </ul>
+
+            </section>
+
+            <section>
+                <h3>Quick example</h3>
+                <pre><code><form name="myForm">
+    <input type="text" ng-model="field" name="myField" required minlength="5" />
+    <div ng-messages="myForm.myField.$error">
+        <div ng-message="required">You did not enter a field</div>
+        <div ng-message="minlength, maxlength">
+            Your email must be between 5 and 100 characters long
+        </div>
+    </div>
+</form></code></pre></section>
+
+            <section>
+                <h3>Recap</h3>
+                <ul>
+                    <li>Form element or ngForm isn't really needed but on more complicated it's recommended to use them</li>
+                    <li>New form (form/ngForm) creates a FormController</li>
+                        <ul>
+                            <li>Handles state of the form (all of its controls/inputs)</li>
+                            <li>Set name-attribute for form to see its state in controller</li>
+
+                        </ul>
+                    <li>ngModel directive creates a ngModelController and binds inputs value to scope</li>
+                    <ul>
+                        <li>Handles state of the input</li>
+                        <li>ngModelController provides validation properties</li>
+                    </ul>
+                    <li>ngModelOptions gives you some tools for fine tuning model updating</li>
+                    <li>ngMessages provides tools for showing messages about forms state</li>
+
+                </ul>
+            </section>
+
+            <section>
+                <h3>Small exercise</h3>
+
+                <ul>
+                    <li>Create a simple registration form with two inputs 'name' and 'email'</li>
+                    <ul>
+                        <li>Submit button should be disabled when either of the inputs is invalid</li>
+                        <li>Name input must be at least 4 digits long</li>
+                        <li>Use Angular validation for email-field</li>
+                        <li>Both name and email are mandatory</li>
+                    </ul>
+                    <li><a href="../examples/demo3/formexercise.html">Start here</a> (angularjs-training/examples/demo3/formexercise.html)</li>
+                    <li>Run 'npm install' in the examples folder</li>
+                    <li>Don't peak the answer :)</li>
+                </ul>
             </section>
 
         </section>
