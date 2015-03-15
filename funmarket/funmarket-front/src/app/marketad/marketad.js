@@ -7,7 +7,7 @@ angular.module('front')
   .config(function ($routeProvider) {
     $routeProvider
       .when('/marketads/:id', {
-        templateUrl: 'app/marketad/marketad.html',
+        templateUrl: 'app/marketad/view.html',
         controller: 'ViewMarketAdCtrl',
         resolve: {marketAd: function(MarketAdResource, $route) {
           return MarketAdResource.get({id: $route.current.params.id})

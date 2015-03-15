@@ -31,7 +31,8 @@ angular.module('front')
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
           }).success(function (data, status, headers, config) {
-            $scope.item.imageUrl = data.url;
+            $scope.item.imageUrl = data.imageUrl;
+            $scope.item.thumbnailUrl = data.thumbnailUrl;
           });
         }
       }

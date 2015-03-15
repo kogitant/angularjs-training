@@ -22,8 +22,8 @@
         <div ng-if="!item.imageUrl">
           <div class="button" ng-file-select ng-file-change="upload($files)">upload image</div>
         </div>
-        <div ng-if="item.imageUrl">
-          <img ng-src="{{item.imageUrl}}" class="market-ad-image-thumbnail">
+        <div ng-if="item.thumbnailUrl">
+          <img ng-src="{{item.thumbnailUrl}}" class="market-ad-image-thumbnail">
         </div>
       </div>
     </div>

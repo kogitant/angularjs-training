@@ -30,6 +30,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RestController
 public class ImageRestController {
     final static Integer IMAGE_MAX_SIZE = 1024;
+    final static Integer IMAGE_THUMB_MAX_SIZE = 256;
 
     @Autowired
     GridfsStore gridfsStore;
@@ -45,15 +46,22 @@ public class ImageRestController {
                 DBObject metaData = new BasicDBObject();
                 UUID filename = UUID.randomUUID();
                 metaData.put("contentType", file.getContentType());
-                String objectId = gridfsStore.store(
+                String imageId = gridfsStore.store(
                     resizeImageAsStream(img, IMAGE_MAX_SIZE, IMAGE_MAX_SIZE),
                     filename.toString(),
                     file.getContentType(),
                     metaData);
 
+                String thumbId = gridfsStore.store(
+                    resizeImageAsStream(img, IMAGE_THUMB_MAX_SIZE, IMAGE_THUMB_MAX_SIZE),
+                    "thumb-" + filename.toString(),
+                    file.getContentType(),
+                    metaData);
+
                 resp = new ImageUploadResponse();
                 resp.success = true;
-                resp.url = ControllerLinkBuilder.linkTo(methodOn(ImageRestController.class).getById(objectId)).toString();
+                resp.imageUrl = ControllerLinkBuilder.linkTo(methodOn(ImageRestController.class).getById(imageId)).toString();
+                resp.thumbnailUrl = ControllerLinkBuilder.linkTo(methodOn(ImageRestController.class).getById(thumbId)).toString();
                 return resp;
             } catch (Exception e) {
                 resp = new ImageUploadResponse();

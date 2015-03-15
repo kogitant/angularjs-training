@@ -26,6 +26,7 @@ public class MarketAdModel {
     private Integer priceCents;
 
     private String imageUrl;
+    private String thumbnailUrl;
 
     @Email
     private String email;
@@ -35,13 +36,15 @@ public class MarketAdModel {
     public MarketAdModel() {
     }
 
-    public MarketAdModel(String title, String description, Integer priceCents, String email, String phone, String imageUrl) {
+    public MarketAdModel(String title, String description, Integer priceCents, String email, String phone, String imageUrl,
+                         String thumbnailUrl) {
         this.title = title;
         this.description = description;
         this.priceCents = priceCents;
         this.email = email;
         this.phone = phone;
         this.imageUrl = imageUrl;
+        this.thumbnailUrl = thumbnailUrl;
     }
 
     public String getId() {
@@ -63,6 +66,8 @@ public class MarketAdModel {
     public String getPhone() {return phone; }
 
     public String getImageUrl() {return imageUrl;}
+
+    public String getThumbnailUrl() {return thumbnailUrl;}
 
     @Override
     public String toString() {
