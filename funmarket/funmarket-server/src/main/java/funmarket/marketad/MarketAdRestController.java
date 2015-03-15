@@ -12,19 +12,19 @@ public class MarketAdRestController {
 
     @RequestMapping(value="/marketads", method=RequestMethod.GET)
     public @ResponseBody
-    List<MarketAd> findAll() {
+    List<MarketAdModel> findAll() {
         return marketAdRepository.findAll();
     }
 
     @RequestMapping("/marketads/{marketAdId}")
     public @ResponseBody
-    MarketAd findPersonById(@PathVariable("marketAdId") String marketAdId) {
+    MarketAdModel findPersonById(@PathVariable("marketAdId") String marketAdId) {
         return marketAdRepository.findOne(marketAdId);
     }
 
     @RequestMapping(value="/marketads", method=RequestMethod.POST)
     public @ResponseBody
-    MarketAd add(@RequestBody MarketAd marketAd) {
-        return marketAdRepository.save(marketAd);
+    MarketAdModel add(@RequestBody MarketAdModel marketAdModel) {
+        return marketAdRepository.save(marketAdModel);
     }
 }

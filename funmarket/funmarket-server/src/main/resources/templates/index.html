@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="${frontpage.title}" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <h1 th:text="${frontpage.title}" />
+
+        <h2><a href="/marketads">/marketads</a></h2>
+        <pre>
+            GET /marketads
+            POST /marketads
+
+            GET /marketads/:id
+        </pre>
+
+        <h2><a href="/images">/images</a></h2>
+        <pre>
+            GET /images
+            POST /images
+
+            GET /images/:id
+        </pre>
+    </body>
+</html>

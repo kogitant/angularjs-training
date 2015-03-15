@@ -38,7 +38,7 @@ public class GridfsStore implements GridfsStoreInterface {
             new Query(Criteria.where("filename").is(fileName)));
     }
 
-    public List findAll() {
+    public List<GridFSDBFile> findAll() {
         return gridFsTemplate.find(null);
     }
 }

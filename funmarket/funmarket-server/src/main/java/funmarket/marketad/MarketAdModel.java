@@ -10,7 +10,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Document(collection = "marketads")
-public class MarketAd {
+public class MarketAdModel {
     @Id
     private String id;
 
@@ -32,10 +32,10 @@ public class MarketAd {
 
     private String phone;
 
-    public MarketAd() {
+    public MarketAdModel() {
     }
 
-    public MarketAd(String title, String description, Integer priceCents, String email, String phone, String imageUrl) {
+    public MarketAdModel(String title, String description, Integer priceCents, String email, String phone, String imageUrl) {
         this.title = title;
         this.description = description;
         this.priceCents = priceCents;

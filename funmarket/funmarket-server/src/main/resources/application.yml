@@ -1,7 +1,9 @@
 spring:
     data:
         mongodb:
-            uri: mongodb://localhost/gofurl
+            uri: mongodb://localhost/funmarket
+    thymeleaf:
+        cache: false
 
 server:
     port: 8080
@@ -12,7 +14,9 @@ spring:
     profiles: heroku
     data:
         mongodb:
-            uri: ${MONGOLAB_URI}
+            uri: ${MONGOLAB_URI}/funmarket
+    thymeleaf:
+        cache: true
 
 server:
     port: ${PORT}
