@@ -31,11 +31,184 @@
         <!-- Module 2 -->
         <section>
             <h1>Module 2</h1>
-            <h2>Asynchronous programming and <br>server-side communications</h2>
+            <h2>Asynchronous and network programming</h2>
         </section>
 
         <section>
             <section>
+                <h2>Asynchronous programming</h2>
+            </section>
+            <section>
+                <h2>Blocking vs. non-blocking execution</h2>
+                <ul>
+                    <li>JavaScript is single-threaded</li>
+                    <li>Prefer non-blocking scripts to avoid blocking UI</li>
+                    <li>Most of the blocking is avoided by using asynchronous I/O</li>
+                    <li>Other sources of blocking: timers, user input, long running scripts / CPU intensive computations</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Callbacks</h2>
+                <ul>
+                    <li>Instead of waiting for event, register a callback</li>
+                    <li>Control is passed back to running program</li>
+                    <li>Apply callback function when event is invoked</li>
+                    <li>Applicable for timers, user input, waiting for I/O</li>
+                </ul>
+            </section>
+            <section>
+                <h2><a href="http://jsfiddle.net/jsalonen/5tochfkL/">Simple callback</a></h2>
+<pre><code>
+&lt;button ng-click="loadData()">Load data&lt;/button>
+</code></pre>
+<pre><code>
+$scope.loadData = function() {
+  $scope.data = new Date();
+};</code></pre>
+                <ul>
+                    <li>Anonymous function is assigned to <b>loadData</b></li>
+                    <li><b>ng-click</b> directive registers <b>loadData</b> call as <code>onclick</code> DOM event listener</li>
+                    <li>Executed every time event is triggered</li>
+                </ul>
+            </section>
+            <section>
+                <h2><a href="http://jsfiddle.net/jsalonen/8hdzy5qn/">Callback inside callback</a></h2>
+<pre><code>var started = new Date();  
+  $scope.loadData = function() {
+    $scope.data = '(Loading...)';
+    $timeout(function() {
+      $scope.data = Math.round((new Date() - started) / 1000);
+    }, 1000);
+  };</code></pre>
+                <ul>
+                    <li><b>$timeout</b> is also asynchronous - register callback inside callback</li>
+                    <li>Note how variables from outer functions <b>are visible inside nested functions</b></li>
+                </ul>
+            </section>
+            <section>
+                <h2><a href="http://jsfiddle.net/jsalonen/8hdzy5qn/">Creating a callback</a></h2>
+<pre><code>var started = new Date();  
+    var dataLoader = function(callback) {
+      $scope.data = '(Loading...)';
+      $timeout(function() {
+        $scope.data = Math.round((new Date() - started) / 1000)
+        callback();
+      }, 1000);
+    };
+      
+    $scope.loadData = dataLoader;
+    dataLoader(function() {
+      alert('initial data loaded');
+    });</code></pre>
+                <ul>
+                    <li>Bind dataLoader callbacks into separate variable</li>
+                    <li>On click, simply call it</li>
+                    <li>After loading, call once and execute custom code after it in a callback</li>
+                </ul>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Network programming</h2>
+            </section>
+            <section>
+                <h2>Network I/O</h2>
+                <ul>
+                    <li>Common source of async execution</li>
+                    <li>Most commonly AJAX calls via HTTP</li>
+                    <li>Streaming connections via <a href="https://github.com/wilk/ng-websocket">Websockets</a> or even <a href="http://blog.mgechev.com/2014/12/26/multi-user-video-conference-webrtc-angularjs-yeoman/">WebRTC</a>!</li>
+                    <li>We will focus on HTTP here - just note its not the only option</li>
+                </ul>
+            </section>
+            <section>                
+                <h2>AJAX/HTTP in Angular</h2>
+                <ul>
+                    <li>Low-level method: <b>XMLHttpRequest</b> (&rarr; cross-browser issues)</li>
+                    <li>Third-party libraries like jQuery work</li>
+                    <li>...BUT</li>
+                    <li><b>We strongly recommend using Angular's own libraries</b></li>
+                </ul>
+            </section>
+            <section>
+                <h2><a href="https://docs.angularjs.org/api/ng/service/$http">$http</a> = Angular service for making HTTP requests</h2>
+                <ul>
+                    <li>High-level Angular service for making HTTP requests</li>
+                    <li>Very similar to jQuery's ajax methods so it will be familiar</li> 
+                    <li>Full HTTP method support (GET, HEAD, POST, PUT, DELETE, PATCH)</li>
+                    <li><a href="https://docs.angularjs.org/api/ng/service/$http#jsonp">Supports JSONP</a> for making cross-domain requests when CORS is not applicable</li>
+                </ul>
+            </section>
+            <section>
+            </section>
+            <section>
+                <h2>Example</h2>
+              <pre>
+                  <code>// inject $http
+                      var promise = $http({method: 'GET', url: 'http://funchat.com/messages'});
+
+                      promise.success(function(data, status, headers, config) {
+                      // this callback will be called asynchronously
+                      // when the response is available
+                      }).
+                      error(function(data, status, headers, config) {
+                      // called asynchronously if an error occurs
+                      // or server returns response with an error status.
+                      });</code>
+              </pre>
+            </section>
+            <section>
+                <h2><a href="https://docs.angularjs.org/api/ng/service/$http#usage">Configuration object</a></h2>
+                <ul>
+                    <li>Object given to $http when calling it as a method</li>
+                    <li>Describe how to craft the XMLHttpRequest</li>
+                </ul>
+                    <pre><code>
+                        var myPromise;
+                        myPromise = $http({
+                        method: 'POST',                                 // http-method type
+                        url: 'http://myservice/library/books',          // URL for a resource
+                        params: {author: 'Jaakko Salonen'},             // queryparams
+                        data: {name: 'How to AngularJS', text: '...'},  // payload
+                        headers: {myheader: 'myheader'},                // headers for the call
+                        cache: true                                     // cache result for this request
+                        }); //makes a call to 'http://myservice.com/library/books?author=Jaakko+Salonen'
+                        //handle promise
+                    </code></pre>
+                <ul>
+                    <li>Also some other more advanced configuration options e.g. transformRequest and transformResponse</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Response object</h2>
+                <ul>
+                    <li>Response to a $http call is a promise</li>
+                    <li class="fragment">Resolve and reject callback functions both get 4 properties (or parameters)</li>
+                    <ul>
+                        <li class="fragment">data - response payload</li>
+                        <li class="fragment">status - status number for the response</li>
+                        <li class="fragment">headers [function] - function to get the header value for given argument</li>
+                        <li class="fragment">config - configuration objects that was used to generate the original request</li>
+                    </ul>
+                </ul>
+            </section>
+            <section>
+                <h2>You can also...</h2>
+                <ul>
+                    <li>Use $http-services <b>convenience methods</b> to make your code a bit easier to read</li>
+                    <pre><code>
+                        $http.get('http://funchat.com/messages')
+                        $http.post('http://funchat.com/messages', data)
+                        // configuration object is optional second parameter
+                    </code></pre>
+
+                    <li>Interceptors - provide global functionality on <b>all</b> of our requests</li>
+                </ul>
+            </section>
+        </section>
+
+        <section>
+            <section>            
                 <h2>Promises</h2>
             </section>
 
@@ -297,86 +470,6 @@
             </section>
         </section>
 
-
-        <section>
-            <section>
-                <h2><a href="http://docs.angularjs.org/api/ng/service/$http">$http</a></h2>
-                <ul>
-                    <li>Angular service for making HTTP requests</li>
-                    <li>Higher-level adapter around XMLHttpRequest object</li>
-                    <li>Supported http-methods: GET, HEAD, POST, PUT, DELETE</li>
-                    <li>Make requests using <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XHR objects </a>or <a href="http://en.wikipedia.org/wiki/JSONP">JSONP</a></li>
-                    <li>Very similar to jQuery's <code>ajax</code> method</li>
-                    <li>Based on deferred/promise APIs from <a href="https://docs.angularjs.org/api/ng/service/$q">$q</a></li>
-
-
-                </ul>
-            </section>
-            <section>
-                <h2>Example</h2>
-              <pre>
-                  <code>// inject $http
-                      var promise = $http({method: 'GET', url: 'http://funchat.com/messages'});
-
-                      promise.success(function(data, status, headers, config) {
-                      // this callback will be called asynchronously
-                      // when the response is available
-                      }).
-                      error(function(data, status, headers, config) {
-                      // called asynchronously if an error occurs
-                      // or server returns response with an error status.
-                      });</code>
-              </pre>
-            </section>
-            <section>
-                <h2><a href="https://docs.angularjs.org/api/ng/service/$http#usage">Configuration object</a></h2>
-                <ul>
-                    <li>Object given to $http when calling it as a method</li>
-                    <li>Describe how to craft the XMLHttpRequest</li>
-                </ul>
-                    <pre><code>
-                        var myPromise;
-                        myPromise = $http({
-                        method: 'POST',                                 // http-method type
-                        url: 'http://myservice/library/books',          // URL for a resource
-                        params: {author: 'Jaakko Salonen'},             // queryparams
-                        data: {name: 'How to AngularJS', text: '...'},  // payload
-                        headers: {myheader: 'myheader'},                // headers for the call
-                        cache: true                                     // cache result for this request
-                        }); //makes a call to 'http://myservice.com/library/books?author=Jaakko+Salonen'
-                        //handle promise
-                    </code></pre>
-                <ul>
-                    <li>Also some other more advanced configuration options e.g. transformRequest and transformResponse</li>
-                </ul>
-            </section>
-            <section>
-                <h2>Response object</h2>
-                <ul>
-                    <li>Response to a $http call is a promise</li>
-                    <li class="fragment">Resolve and reject callback functions both get 4 properties (or parameters)</li>
-                    <ul>
-                        <li class="fragment">data - response payload</li>
-                        <li class="fragment">status - status number for the response</li>
-                        <li class="fragment">headers [function] - function to get the header value for given argument</li>
-                        <li class="fragment">config - configuration objects that was used to generate the original request</li>
-                    </ul>
-                </ul>
-            </section>
-            <section>
-                <h2>You can also...</h2>
-                <ul>
-                    <li>Use $http-services <b>convenience methods</b> to make your code a bit easier to read</li>
-                    <pre><code>
-                        $http.get('http://funchat.com/messages')
-                        $http.post('http://funchat.com/messages', data)
-                        // configuration object is optional second parameter
-                    </code></pre>
-
-                    <li>Interceptors - provide global functionality on <b>all</b> of our requests</li>
-                </ul>
-            </section>
-        </section>
         <section>
             <section>
                 <h3>Routing</h3>
