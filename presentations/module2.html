@@ -140,22 +140,17 @@ $scope.loadData = function() {
                 </ul>
             </section>
             <section>
-            </section>
-            <section>
-                <h2>Example</h2>
-              <pre>
-                  <code>// inject $http
-                      var promise = $http({method: 'GET', url: 'http://funchat.com/messages'});
-
-                      promise.success(function(data, status, headers, config) {
-                      // this callback will be called asynchronously
-                      // when the response is available
-                      }).
-                      error(function(data, status, headers, config) {
-                      // called asynchronously if an error occurs
-                      // or server returns response with an error status.
-                      });</code>
-              </pre>
+                <h2><a href="http://jsfiddle.net/jsalonen/y49fq3f6/">Callbacks with $http</a></h2>
+<pre><code>$http
+  .post('/echo/json/', {data: {json: "abc", delay: 10}})
+  .success(function(data, status, headers, config) {
+    console.info('Response status: ', status); 
+    console.info('Response data: ', data);
+    $scope.data = Math.round((data.now - started) / 1000);  
+  })
+  .error(function(data, status, headers, config) {
+    $scope.data = 'ERROR';
+  });</code></pre>
             </section>
             <section>
                 <h2><a href="https://docs.angularjs.org/api/ng/service/$http#usage">Configuration object</a></h2>
@@ -190,19 +185,6 @@ $scope.loadData = function() {
                         <li class="fragment">headers [function] - function to get the header value for given argument</li>
                         <li class="fragment">config - configuration objects that was used to generate the original request</li>
                     </ul>
-                </ul>
-            </section>
-            <section>
-                <h2>You can also...</h2>
-                <ul>
-                    <li>Use $http-services <b>convenience methods</b> to make your code a bit easier to read</li>
-                    <pre><code>
-                        $http.get('http://funchat.com/messages')
-                        $http.post('http://funchat.com/messages', data)
-                        // configuration object is optional second parameter
-                    </code></pre>
-
-                    <li>Interceptors - provide global functionality on <b>all</b> of our requests</li>
                 </ul>
             </section>
         </section>
