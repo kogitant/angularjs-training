@@ -118,6 +118,23 @@
                 </ul>
             </section>
 
+            <section>
+                <p>Using run block for unauthenticated users</p>
+                <pre><code>angular.module('myApp', ['ngRoute'])
+.run(function($rootScope, AuthService) { $rootScope.$on('$routeChangeStart',
+    function(evt, next, current) {
+        // If the user is NOT logged in
+        if (!AuthService.userLoggedIn()) {
+            if (next.templateUrl === "login.html") {
+                // Already heading to the login route so no need to redirect
+            } else {
+                $location.path('/login');
+            }
+        }
+    });
+});</code></pre>
+            </section>
+
         </section>
 
 
@@ -157,7 +174,8 @@
             <section>
                 <h3>Resource object</h3>
                 <p>Calling $resource factory returns an resource object containing 5 default actions + all optional actions defined</p>
-                <pre><code>{ 'get': {method:'GET'},
+                <pre><code>{
+'get': {method:'GET'},
 'save':   {method:'POST'},
 'query':  {method:'GET', isArray:true},
 'remove': {method:'DELETE'},
@@ -168,8 +186,23 @@ Video.get({id: '12345'}).$promise.then(function(data){
     //handle data
 })
 </code></pre>
-
             </section>
+
+            <section>
+                <p>To get the response for a rest-call you get a promise an individual call</p>
+                <pre><code>var Video = $resource('videorepository.com/items/:id', {id: '@id'})
+Video.get({id: '12345'}).$promise.then(function(data){
+    //handle data
+})</code></pre>
+                <p>Alternatively you can defined success and reject callback functions as 2nd and 3rd params for a resource action call</p>
+                <pre><code>var Video = $resource('videorepository.com/items/:id', {id: '@id'})
+Video.get({id: '12345'}, function(data){
+    //success
+}, function(error) {
+    //much fail
+}))</code></pre>
+            </section>
+
             <section>
                 <h3>Defining custom actions</h3>
                 <ul>
@@ -177,10 +210,10 @@ Video.get({id: '12345'}).$promise.then(function(data){
                     <li>See <a href="http://docs.angularjs.org/api/ngResource/service/$resource">$resource api</a> for more configuration options</li>
                 </ul>
                 <pre><code>var Videos = $resource('videorepository.com/items/', {},{
-    getHollywoodProductions: {method: 'GET', isArray: true, cache: true}
+    getCachedVideos: {method: 'GET', isArray: true, cache: true}
 });
 
-Video.getHollywoodProductions().$promise.then(function(data){
+Video.getCachedVideos().$promise.then(function(data){
 //handle data
 })</code></pre>
             </section>
