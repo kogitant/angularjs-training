@@ -460,6 +460,7 @@ var promise = authServiceDeferred.promise;
             </section>
             <section>
                 <h3>Resolve</h3>
+<p>Add objects to resolve</p>
 <pre><code>
 .config(function($routeProvider) {
   $routeProvider.when('/all', {
@@ -469,7 +470,13 @@ var promise = authServiceDeferred.promise;
         return $http.get('/api/contents/all');
       }
     }
+});</code></pre>
+<p>Promises are resolved when controller is constructed:</p>
+<pre><code>
+.controller('ListAllCtrl', function($scope, contents) {
+   $scope.contents = contents; 
 });
+</code></pre>
             </section>            
         </section>
     </div>
