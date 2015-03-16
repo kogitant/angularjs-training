@@ -317,11 +317,11 @@ promise.then(function(greeting) {
                 <div class="fragment">
                     <h3>Deferred API</h3>
                 <pre><code>// Inject $q
-                    var deferred = $q.defer();
-                    deferred.promise; // Promise object bind to this deferred object
-                    deferred.resolve(); // Resolves the promise and success callback gets executed
-                    deferred.reject(); // Resolves the promise and reject callback gets executed
-                    deferred.notify(); // Send notification
+var deferred = $q.defer();
+deferred.promise; // Promise object bind to this deferred object
+deferred.resolve(); // Resolves the promise and success callback gets executed
+deferred.reject(); // Resolves the promise and reject callback gets executed
+deferred.notify(); // Send notification
                 </code></pre>
                 </div>
             </section>
@@ -348,47 +348,47 @@ promise.then(function(greeting) {
             <section>
                 <h2>Promise API</h2>
                 <pre><code>// Inject $q
-                    var deferred = $q.defer();
-                    var promise = deferred.promise;
-                    //Use deferred api to resolve the promise
+var deferred = $q.defer();
+var promise = deferred.promise;
+//Use deferred api to resolve the promise
 
-                    // regardless of when the promise was or will be resolved or rejected,
-                    // then-method calls success or error callbacks asynchronously
-                    // as soon as the result is available.
-                    promise.then(successCallback, errorCallback, notifyCallback);
+// regardless of when the promise was or will be resolved or rejected,
+// then-method calls success or error callbacks asynchronously
+// as soon as the result is available.
+promise.then(successCallback, errorCallback, notifyCallback);
 
-                    // shorthand for promise.then(null, errorCallback)
-                    promise.catch(errorCallback);
+// shorthand for promise.then(null, errorCallback)
+promise.catch(errorCallback);
 
-                    // allows you to observe either the fulfillment or rejection of a promise,
-                    // but to do so without modifying the final value.
-                    promise.finally(callback);</code></pre>
+// allows you to observe either the fulfillment or rejection of a promise,
+// but to do so without modifying the final value.
+promise.finally(callback);</code></pre>
             </section>
 
             <section>
                 <h2>Basic example</h2>
                 <pre><code>//assume $q is injected
-                    var deferred = $q.defer();
-                    var promise = deferred.promise;
+var deferred = $q.defer();
+var promise = deferred.promise;
 
-                    alert('start processing...');
+alert('start processing...');
 
-                    setTimeout(function(){
-                    deferred.notify('still processing...');
-                    },1000);
+setTimeout(function(){
+    deferred.notify('still processing...');
+},1000);
 
-                    setTimeout(function(){
-                    deferred.resolve('success');
-                    }, 3000);
+setTimeout(function(){
+    deferred.resolve('success');
+}, 3000);
 
 
-                    promise.then(function(successMsg){
-                    console.log('Process succeeded, message: ' + successMsg);
-                    }, function(errorMsg) {
-                    console.log('Process failed, error:' + errorMs);
-                    }, function(notificationMsg) {
-                    console.log('Got notification: ' + notificationMsg);
-                    });
+promise.then(function(successMsg){
+    console.log('Process succeeded, message: ' + successMsg);
+}, function(errorMsg) {
+    console.log('Process failed, error:' + errorMs);
+}, function(notificationMsg) {
+    console.log('Got notification: ' + notificationMsg);
+});
                 </code></pre>
             </section>
 
@@ -403,12 +403,11 @@ promise.then(function(greeting) {
                 </div>
                 <div class="fragment">
                 <pre><code>promiseB = promiseA.then(function(result) {
-                    return result + 1;
-                    });
+    return result + 1;
+});
 
-                    // promiseB will be resolved immediately after promiseA is resolved and its value
-                    // will be the result of promiseA incremented by 1
-                </code></pre>
+// promiseB will be resolved immediately after promiseA is resolved and its value
+// will be the result of promiseA incremented by 1</code></pre>
                 </div>
 
             </section>
@@ -425,26 +424,28 @@ promise.then(function(greeting) {
             <section>
                 <h2>One more example</h2>
                 <pre><code>var authServiceDeferred = $q.defer();
-                    AuthService.getOrganizations('APP_VALINTAPERUSTEET').then(function (oidList) {
-                    var organizationPromises = [];
-                    _.forEach(oidList, function (oid) {
-                    var deferred = $q.defer();
-                    organizationPromises.push(deferred.promise);
-                    OrganizationByOid.get({oid: oid}, function (organization) {
-                    myOrganizations.push(organization);
-                    deferred.resolve();
-                    }, function (error) { deferred.reject(error); });
-                    }
-                    });
+AuthService.getOrganizations('APP_VALINTAPERUSTEET').then(function (oidList) {
+    var organizationPromises = [];
+    _.forEach(oidList, function (oid) {
+        var deferred = $q.defer();
+        organizationPromises.push(deferred.promise);
+        OrganizationByOid.get({oid: oid}, function (organization) {
+            myOrganizations.push(organization);
+            deferred.resolve();
+        }, function (error) {
+            deferred.reject(error);
+        });
+    }
+});
 
-                    $q.all(organizationPromises).then(function () {
-                    authServiceDeferred.resolve();
-                    }, function () { authServiceDeferred.reject(); });
+$q.all(organizationPromises).then(function () {
+    authServiceDeferred.resolve();
+}, function(error) {
+    authServiceDeferred.reject()
+});
 
-                    }, function(error) {authServiceDeferred.reject()});
-
-                    var promise = authServiceDeferred.promise;
-                    //handle promise
+var promise = authServiceDeferred.promise;
+//handle promise
                 </code></pre>
             </section>
         </section>
