@@ -190,55 +190,57 @@ $http
             </section>
 
             <section>
+                <h2>Callbacks = Low-level async programming</h2>
                 <ul>
-                    <li>A promise is a mechanism to catch a future event and attach a callback function to that event</li>
-                    <li>Great way to handle problems with asyncronous code</li>
+                    <li>In simple cases, callbacks are fine</li>
+                    <li>For more complex cases, better abstractions are needed</li>
+                    <li>Pain points: error handling, concurrency, long sequences</li>
                 </ul>
             </section>
 
             <section>
+                <h2>Promises</h2>
                 <ul>
-                    <li>A Promise has 3 possible states: pending (initial), resolved and rejected</li>
-                    <li>A Promise's state can only change in two ways:
-                        <ul>
-                            <li>pending -> resolved</li>
-                            <li>pending -> rejected</li>
-                        </ul>
-                    </li>
-                    <li>a Promise can only be resolved or rejected once</li>
+                    <li>Promise is a mechanism to catch a future event and attach a callback function to that event</li>
+                    <li>Higher-level abstraction for delaying with evented, async code</li>
+                    <li>Async methods return promises</li>
+                    <li>Instead of registering callbacks, use Promise interface</li>
                 </ul>
             </section>
 
             <section>
-                <h3>Main usage of promises is to turn this Pyramid of Doom</h3>
-            <pre><code>async1(function() {
-                async2(function() {
-                async3(function() {
-                async4(function() {
-                ....
-                ....
-                ....
-                asyncN(null, null);
-                ....
-                ....
-                ....
-                }, null);
-                }, null);
-                }, null);
-                }, null);</code></pre>
+                <h2><a href="https://github.com/promises-aplus/promises-spec#promise-states">Promise Contract</a></h2>
+                <ul>
+                    <li>Three possible states: <b>pending, fulfilled, rejected</b></li>
+                    <li><b>Pending</b> promise can only transtion to <i>fufilled</i> or <i>rejected</i></li>
+                    <li><b>Fulfilled</b> promise may not transtion to any other state and must have value that doesn't change</li>
+                    <li><b>Rejected</b> promise may not transtion to any other state and must have a reason that doesn't change</li>
+                </ul>
             </section>
 
             <section>
-                <h3>Into something like this</h3>
-            <pre><code>async1()
-                .then(async2)
-                .then(async3)
-                .then(async4)
-                ....
-                ....
-                ....
-                .then(asyncN)
-            </code></pre>
+                <h2>Then</h2>
+                <ul>
+                    <li>Executed when promise is fulfilled</li>
+                    <li>Two possible callbacks, called when promises are 1) fulfilled or 2) rejected</li>
+                </ul>
+<pre><code>
+var promise = methodThatReturnsAPromise();
+
+promise.then(function(greeting) {
+  alert('Success: ' + greeting);
+}, function(reason) {
+  alert('Failed: ' + reason);
+});</code></pre>                        
+            </section>
+
+            <section>
+                <h3>Promises in JavaScript - not (yet) a standard</h3>
+                <ul>
+                    <li>Multiple implementations in JavaScript (jQuery, $q, bluebird)</li>
+                    <li>Not always interoperable, <a href="https://promisesaplus.com/">Promises/A+</a> spec attempt towards standard</li>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Becoming standard in ES6</a>, not there yet</li>
+                </ul>
             </section>
 
             <section>
