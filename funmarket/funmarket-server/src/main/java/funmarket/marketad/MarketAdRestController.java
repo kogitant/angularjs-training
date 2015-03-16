@@ -1,6 +1,8 @@
 package funmarket.marketad;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,15 +18,30 @@ public class MarketAdRestController {
         return marketAdRepository.findAll();
     }
 
-    @RequestMapping("/marketads/{marketAdId}")
-    public @ResponseBody
-    MarketAdModel findPersonById(@PathVariable("marketAdId") String marketAdId) {
-        return marketAdRepository.findOne(marketAdId);
-    }
-
     @RequestMapping(value="/marketads", method=RequestMethod.POST)
     public @ResponseBody
     MarketAdModel add(@RequestBody MarketAdModel marketAdModel) {
         return marketAdRepository.save(marketAdModel);
+    }
+
+    @RequestMapping(value="/marketads/{marketAdId}", method=RequestMethod.GET)
+    public @ResponseBody
+    Object get(@PathVariable("marketAdId") String marketAdId) {
+        MarketAdModel marketAd = marketAdRepository.findOne(marketAdId);
+        if(marketAd != null) {
+            return marketAd;
+        } else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value="/marketads/{marketAdId}", method=RequestMethod.DELETE)
+    public @ResponseBody
+    ResponseEntity remove(@PathVariable("marketAdId") String marketAdId) {
+        if(get(marketAdId) == null) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        marketAdRepository.delete(marketAdId);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
