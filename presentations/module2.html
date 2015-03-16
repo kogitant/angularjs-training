@@ -458,11 +458,22 @@ var promise = authServiceDeferred.promise;
                     <li><a href="http://jsfiddle.net/joshdmiller/NEuJ6/">Basic example</a></li>
                 </ul>
             </section>
+            <section>
+                <h3>Resolve</h3>
+<pre><code>
+.config(function($routeProvider) {
+  $routeProvider.when('/all', {
+    controller: 'ListAllCtrl',
+    resolve: {
+      contents: function($http) {
+        return $http.get('/api/contents/all');
+      }
+    }
+});
+            </section>            
         </section>
     </div>
 </div>
-
-
 
         <!-- Any section element inside of this container is displayed as a slide -->
     </div>
