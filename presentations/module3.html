@@ -348,8 +348,17 @@ angular.module('myApp')
                             <li>keys are validation tokens (error names) - such as required, url or email), values are arrays of controls or forms that are invalid with given error</li>
                         </ul>
                     </ul>
-                    <li><a href="http://jsfiddle.net/TJaakkola/o9x3v9uk/">example</a></li>
                 </ul>
+            </section>
+
+            <section>
+                <h3><a href="http://jsfiddle.net/TJaakkola/o9x3v9uk/">example</a></h3>
+                <pre><code><form name="myform">
+    Name: <input type="text" ng-model="name" required/>
+    password: <input type="password" ng-model="pswd" required>
+</form>
+
+formname: {{myform.$name}}</code></pre>
             </section>
 
             <section>
@@ -361,19 +370,29 @@ angular.module('myApp')
                     <li>Setting related css classes on the element (ng-valid, ng-invalid, ng-dirty, ng-pristine, ng-touched, ng-untouched) including animations</li>
                     <li>Registering the control with its parent form</li>
                     <li>Every ngModel-directive instantiate a <a href="https://docs.angularjs.org/api/ng/type/form.FormController">ngModelController</a></li>
-                    <li><a href="http://jsfiddle.net/TJaakkola/xa7cjydv/">example</a></li>
                 </ul>
+            </section>
+
+            <section>
+                <h3><a href="http://jsfiddle.net/TJaakkola/xa7cjydv/">example</a></h3>
+                <pre><code><form name="myform">
+    Name: <input type="text" ng-model="test" name="test"  required/>
+    password: <input type="password" name="pswd" ng-model="pswd" required>
+</form>
+
+{{myform.test.$valid}}</code></pre>
             </section>
 
             <section>
                 <h3>Validation</h3>
                 <ul>
                     <li>A form is valid when all it's child forms are valid</li>
-                    <li>FormControllers and ngModelControllers include $error-object</li>
+                    <li><a href="https://docs.angularjs.org/api/ng/type/ngModel.NgModelController">FormControllers</a> and
+                        <a href="https://docs.angularjs.org/api/ng/type/ngModel.NgModelController">ngModelControllers</a> include $error-object</li>
                     <li>$error-hash is basicly a javascript object where:</li>
                     <ul>
-                        <li>keys are validation token (listed below)</li>
-                        <li>values are arrays of controls or forms that have a failing validator for given error name</li>
+                        <li>keys are validation tokens (listed below)</li>
+                        <li>values are arrays of controls (or forms) that have a failing validator for given error name</li>
                     </ul>
                     <li>Validation tokens</li>
                     <ul>
@@ -387,8 +406,18 @@ angular.module('myApp')
                         <li>required</li>
                         <li>url</li>
                     </ul>
-                    <li>See the <a href="https://docs.angularjs.org/api/ng/directive/input">API</a> for more</li>
                 </ul>
+            </section>
+
+            <section>
+                <h3><a href="http://jsfiddle.net/TJaakkola/k5tb22ap/">Example</a></h3>
+                <pre><code><form name="myform">
+Name: <input type="text" ng-model="test" name="name" ng-minlength="5" required/>
+password: <input type="password" ng-model="pswd" name="pswd" required>
+count: <input type="number" ng-model="count" name="count" />
+</form>
+
+{{myform.name.$valid}}</code></pre>
             </section>
 
             <section>
@@ -409,7 +438,7 @@ angular.module('myApp')
                     <li>Introduced in Angular 1.3</li>
                     <li>Implemented in a separated module</li>
                     <li>Provides tools for showing messages about forms state</li>
-                    <li>Enables avoiding complicated ng-show/ng-if directive usage</li>
+                    <li>Avoid complicated ng-show/ng-if directive usage</li>
                     <li>Complements ngModelControllers validation properties</li>
                 </ul>
 
@@ -459,12 +488,16 @@ angular.module('myApp')
                         <li>Use Angular validation for email-field</li>
                         <li>Both name and email are mandatory</li>
                     </ul>
+
+                </ul>
+            </section>
+            <section>
+                <ul>
                     <li><a href="../examples/demo3/formexercise.html">Start here</a> (angularjs-training/examples/demo3/formexercise.html)</li>
                     <li>Run 'npm install' in the examples folder</li>
                     <li>Don't peek the answer :)</li>
                 </ul>
             </section>
-
         </section>
 
         </section>
