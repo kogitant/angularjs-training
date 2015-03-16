@@ -572,7 +572,6 @@ count: <input type="number" ng-model="count" name="count" />
                     <li>By default directive inherits parent scope</li>
                     <li>You can make a new isolate scope for a directive</li>
                     <li>Or you can make a new scope and decide what gets brought in from parent scope</li>
-
                 </ul>
             </section>
             <section>
@@ -590,9 +589,9 @@ count: <input type="number" ng-model="count" name="count" />
     return {
         restrict: "A",
         scope: {
-            text: "@myText",
-            twoWayBind: "=myTwoWayBind",
-            oneWayBind: "&myOneWayBind"
+            text: "@myText", // Text Binding - attribute value is parsed to a string
+            twoWayBind: "=myTwoWayBind", // two way binding
+            oneWayBind: "&myOneWayBind" // one-way binding - any type
         }
     };
 })
@@ -622,6 +621,9 @@ count: <input type="number" ng-model="count" name="count" />
                 <h3>Small exercise</h3>
                 <ul>
                     <li>Refactor contents of ng-repeat into a directive</li>
+                    <li><a href="../examples/demo3/directiveexercise.html">Start here</a> (angularjs-training/examples/demo3/directiveexercise.html)</li>
+                    <li>Run 'npm install' in the examples folder</li>
+                    <li>Don't peek the answer :)</li>
                 </ul>
             </section>
         </section>
@@ -639,8 +641,8 @@ count: <input type="number" ng-model="count" name="count" />
                     </ul>
                     <li>Get started</li>
                     <ul>
-                        <li>npm install yo --save</li>
-                        <li>npm install generator-gulp-angular --save</li>
+                        <li>npm install yo</li>
+                        <li>npm install generator-gulp-angular</li>
                         <li>yo gulp-angular</li>
                     </ul>
                 </ul>
