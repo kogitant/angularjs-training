@@ -35,21 +35,20 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="six columns">
-        <h5>Contact information</h5>
-        <label for="phone">Phone number</label>
-        {{newAdForm.phone.$valid}}
-        <!--<input name="phone" class="u-full-width" ng-model="item.phone" type="text" id="phone" ng-required="!(newAdForm.phone.$valid || newAdForm.email.$valid)" />-->
-        <input name="phone" class="u-full-width" ng-model="item.phone" type="text" id="phone" ng-required="!(newAdForm.phone.$valid || newAdForm.email.$valid)" />
+    <div ng-form="contacts">
+      <div class="row">
+        <div class="six columns">
+          <h5>Contact information</h5>
+          <label for="phone">Phone number</label>
+          <input name="phone" class="u-full-width" ng-model="item.phone" type="text" id="phone" required />
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="six columns">
-        <label for="email">Email</label>
-        <!--<input name="email" type="email" minlength="5" maxlength="100"class="u-full-width" ng-model="item.email" ng-required="(newAdForm.phone.$valid || newAdForm.email.$valid)" id="email"/>-->
-        <input name="email" type="email" minlength="5" maxlength="100"class="u-full-width" ng-model="item.email" id="email"/>
+      <div class="row">
+        <div class="six columns">
+          <label for="email">Email</label>
+          <input name="email" type="email" minlength="5" maxlength="100" class="u-full-width" ng-model="item.email" required id="email"/>
+        </div>
       </div>
     </div>
   </form>
