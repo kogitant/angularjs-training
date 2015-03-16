@@ -1,8 +1,9 @@
 'use strict';
 
 module.exports = function(config) {
+
     config.set({
-        autoWatch : false,
+        autoWatch : true,
 
         frameworks: ['jasmine'],
 

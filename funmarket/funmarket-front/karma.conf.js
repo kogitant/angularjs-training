@@ -7,11 +7,14 @@ module.exports = function(config) {
 
     frameworks: ['jasmine'],
 
-    browsers : ['PhantomJS'],
+    browsers : ['Chrome'],
 
     plugins : [
-        'karma-phantomjs-launcher',
+        'karma-chrome-launcher',
         'karma-jasmine'
+    ],
+    files : [
+        'test/unit/**/*.js'
     ]
   });
 };
