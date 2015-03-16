@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ![AngularJS Training](banner.png)
 
 # AngularJS Training
@@ -89,16 +88,3 @@ As a final verification step, run the tools against fresh copy of Angular seed p
     git clone https://github.com/angular/angular-seed angular-seed-tests
     cd angular-seed-tests
     npm test
-=======
-# funmarket-server
-
-## Deploying to Heroku
-
-Add Heroku remote to your local git repo:
-
-    git remote add heroku-funmarket-api https://git.heroku.com/funmarket-api.git
-
-Push the actual server subtree to Heroku:
-
-	git subtree push --prefix funmarket/funmarket-server heroku-funmarket-api master
->>>>>>> Update funmarket-server deploy jar name, added instructions
