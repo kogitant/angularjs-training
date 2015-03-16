@@ -503,7 +503,7 @@ count: <input type="number" ng-model="count" name="count" />
         </section>
         <section>
             <section>
-                <h2>Directives</h2>
+                <h2>A little more about directives</h2>
             </section>
             <section>
                 <ul>
@@ -571,10 +571,37 @@ count: <input type="number" ng-model="count" name="count" />
                 <ul>
                     <li>By default directive inherits parent scope</li>
                     <li>You can make a new isolate scope for a directive</li>
-                    <li>Or you can make a new scope and deside what gets brought in from parent scope</li>
+                    <li>Or you can make a new scope and decide what gets brought in from parent scope</li>
 
                 </ul>
             </section>
+            <section>
+                <h3>Scope handling with directives</h3>
+                <pre><code><div ng-controller="myController">
+    <div my-directive
+         my-text="hello {{ bar }}"
+         my-two-way-bind="foo"
+         my-one-way-bind="bar">
+    </div>
+</div></code></pre>
+
+                <pre><code>angular.module("myApp",[])
+.directive("myDirective", function () {
+    return {
+        restrict: "A",
+        scope: {
+            text: "@myText",
+            twoWayBind: "=myTwoWayBind",
+            oneWayBind: "&myOneWayBind"
+        }
+    };
+})
+.controller("myController", function ($scope) {
+    $scope.foo = {name: "Tapio"};
+    $scope.bar = "foobar";
+});</code></pre>
+            </section>
+
             <section>
                 <h3>Some personal opinions/guidelines for using directives</h3>
                 <ul>
@@ -588,6 +615,13 @@ count: <input type="number" ng-model="count" name="count" />
                     <li>Directives may be hard to test</li>
                     <li>Directives may be difficult to debug</li>
                     <li>Prefer prefixes in names to avoid collations</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Small exercise</h3>
+                <ul>
+                    <li>Refactor contents of ng-repeat into a directive</li>
                 </ul>
             </section>
         </section>
