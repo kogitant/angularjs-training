@@ -31,7 +31,7 @@
         <!-- Module 2 -->
         <section>
             <h1>Module 2</h1>
-            <h2>Asynchronous and network programming</h2>
+            <h2>Asynchronous and <br>network programming</h2>
         </section>
 
         <section>
@@ -131,8 +131,9 @@ $scope.loadData = function() {
                 </ul>
             </section>
             <section>
-                <h2><a href="https://docs.angularjs.org/api/ng/service/$http">$http</a> = Angular service for making HTTP requests</h2>
+                <h2><a href="https://docs.angularjs.org/api/ng/service/$http">$http</a></h2>
                 <ul>
+                    <li>Angular service for making HTTP requests</li>
                     <li>High-level Angular service for making HTTP requests</li>
                     <li>Very similar to jQuery's ajax methods so it will be familiar</li> 
                     <li>Full HTTP method support (GET, HEAD, POST, PUT, DELETE, PATCH)</li>
@@ -142,49 +143,43 @@ $scope.loadData = function() {
             <section>
                 <h2><a href="http://jsfiddle.net/jsalonen/y49fq3f6/">Callbacks with $http</a></h2>
 <pre><code>$http
-  .post('/echo/json/', {data: {json: "abc", delay: 10}})
+  .post('/echo/json/', data)
   .success(function(data, status, headers, config) {
-    console.info('Response status: ', status); 
-    console.info('Response data: ', data);
-    $scope.data = Math.round((data.now - started) / 1000);  
+    $scope.data = data.msg + ' ' + (new Date(data.when) - started);
   })
   .error(function(data, status, headers, config) {
-    $scope.data = 'ERROR';
+    $scope.data = 'ERROR ' + status;
   });</code></pre>
+<p></p>
             </section>
             <section>
-                <h2><a href="https://docs.angularjs.org/api/ng/service/$http#usage">Configuration object</a></h2>
+                <h2><a href="https://docs.angularjs.org/api/ng/service/$http#setting-http-headers">Using HTTP Headers</a></h2>
+                <p>Some defaults are provided:</p>
                 <ul>
-                    <li>Object given to $http when calling it as a method</li>
-                    <li>Describe how to craft the XMLHttpRequest</li>
-                </ul>
-                    <pre><code>
-                        var myPromise;
-                        myPromise = $http({
-                        method: 'POST',                                 // http-method type
-                        url: 'http://myservice/library/books',          // URL for a resource
-                        params: {author: 'Jaakko Salonen'},             // queryparams
-                        data: {name: 'How to AngularJS', text: '...'},  // payload
-                        headers: {myheader: 'myheader'},                // headers for the call
-                        cache: true                                     // cache result for this request
-                        }); //makes a call to 'http://myservice.com/library/books?author=Jaakko+Salonen'
-                        //handle promise
-                    </code></pre>
-                <ul>
-                    <li>Also some other more advanced configuration options e.g. transformRequest and transformResponse</li>
-                </ul>
+                    <li><b>Accept</b> - defaults to <code>application/json, text/plain, * / *</code></li>
+                    <li><b>Content-Type</b> - defaults to <code>application/json</code> (in POST and PUT)</li>
+                    <li>Modify <b>$httpProvider.defaults.headers.*</b> to change defaults</li>
+                </ul>                  
+            </section>
+            <section> 
+                <h2>Custom request headers</h2>
+                <p>Override/set new headers per request with configuration object:</p>
+                <pre><code>
+var myheaders = {
+  'Accept': 'application/json',
+  'Authorization': 'Bearer 12fa-1238-be8a-f54a'   
+};
+
+$http
+  .post('/echo/json/', data, {headers: myheaders})
+</code></pre>          
             </section>
             <section>
-                <h2>Response object</h2>
+                <h2><a href="https://docs.angularjs.org/api/ng/service/$http#transforming-requests-and-responses#">Request / Response transformations and Interceptors</a></h2>
                 <ul>
-                    <li>Response to a $http call is a promise</li>
-                    <li class="fragment">Resolve and reject callback functions both get 4 properties (or parameters)</li>
-                    <ul>
-                        <li class="fragment">data - response payload</li>
-                        <li class="fragment">status - status number for the response</li>
-                        <li class="fragment">headers [function] - function to get the header value for given argument</li>
-                        <li class="fragment">config - configuration objects that was used to generate the original request</li>
-                    </ul>
+                    <li>Built-in JSON serialization/deserilization</li>
+                    <li>Provide your own <b>transformationResponse</b> / <b>transformationRequest</b> to customize</li>
+                    <li>Write interceptors to provide global error handling, authentication/authorization</li>
                 </ul>
             </section>
         </section>
