@@ -1,26 +1,16 @@
-angular.module('app', []);
+angular.module('app', ['ngResource']);
 
 angular.module('app').controller('appController', function($scope, userDetailsService, userService) {
-    userDetailsService.getUserDetails().then(function(result) {
-       $scope.userDetails = result.data;
-    });
-    userService.getUsers().then(function(result){
-        $scope.users = result.data;
-    });
+    $scope.userDetails = userDetailsService.get();
+    $scope.users = userService.query();
 });
 
-angular.module('app').service('userDetailsService', function($http) {
-    var userDetails = $http.get('/api/userdetails');
-    this.getUserDetails = function() {
-        return userDetails;
-    }
+angular.module('app').factory('userDetailsService', function($resource) {
+    return $resource('/api/userdetails');
 });
 
-angular.module('app').service('userService', function($http) {
-    var users = $http.get('/api/users');
-    this.getUsers = function() {
-        return users;
-    }
+angular.module('app').factory('userService', function($resource) {
+    return $resource('/api/users');
 });
 
 angular.module('app').filter('userFilter', function($filter) {

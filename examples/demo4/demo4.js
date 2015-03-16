@@ -6,9 +6,9 @@ app.use("/", express.static(__dirname + '/public'));
 
 app.get('/api/userdetails', function(req, res) {
     res.status(200).json({
-        username : 'akuankka',
-        firstname : 'Aku',
-        lastname : 'Ankka'
+        username : 'markorautajoki',
+        firstname : 'Marko',
+        lastname : 'Rautajoki'
     });
 });
 

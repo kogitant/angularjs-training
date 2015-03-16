@@ -3,7 +3,7 @@ describe('userDetailsService', function() {
     var $httpBackend, userDetailsService;
 
     var apiUrl = '/api/userdetails';
-    var mockUserDetails = {username : 'akuankka', firstname : 'Aku', lastname : 'Ankka'};
+    var mockUserDetails = {username : 'markorautajoki', firstname : 'Marko', lastname : 'Rautajoki'};
 
     beforeEach(module('app'));
 
@@ -16,9 +16,10 @@ describe('userDetailsService', function() {
     it('Should fetch user details', function() {
         $httpBackend.expectGET(apiUrl);
 
-        userDetailsService.getUserDetails().then(function(result) {
-            var details = result.data;
-            expect(details).toEqual(mockUserDetails);
+        userDetailsService.get().$promise.then(function(result) {
+            expect(result.username).toEqual(mockUserDetails.username);
+            expect(result.firstname).toEqual(mockUserDetails.firstname);
+            expect(result.lastname).toEqual(mockUserDetails.lastname);
         });
 
         $httpBackend.flush();

@@ -140,6 +140,192 @@
                 <h3>CI system should run automated tests every time changes are pushed to repository</h3>
             </section>
         </section>
+        <section>
+            <section>
+                <h2>Unit tests in more detail</h2>
+            </section>
+            <section>
+                <h3>How to setup unit testing in AngularJS</h3>
+                <ul>
+                    <li>Unit tests are run with a Node.js app Karma</li>
+                    <li>Tests can be written with almost any JS testing library. Jasmine, Mocha and QUnit are supported out of the box by Karma.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Setup Karma</h2>
+                <ul>
+                    <li>Install Karma locally in project's directory (project package.json file required. Use npm init to create one if needed.):</li>
+                    <pre><code>npm install karma --save-dev</code></pre>
+                    <pre><code>npm install karma-jasmine karma-chrome-launcher --save-dev</code></pre>
+                    <li>To install Karma globally:</li>
+                    <pre><code>npm install -g karma-cli</code></pre>
+                    <li>Create karma.conf file: <a href="https://github.com/gofore/angularjs-training/blob/master/examples/demo4/karma.conf.js">Example</a></li>
+                    <li>Start karma:</li>
+                    <pre><code>karma start</code></pre>
+                </ul>
+            </section>
+            <section>
+                <p>Structure of Jasmine tests:</p>
+                <pre><code>describe('componentName', function() {
+
+    var injectedComponent;
+
+    beforeEach(module('requiredModule'));
+
+    beforeEach(inject(_injectedComponent_) {
+        injectedComponent = _injectedComponent_;
+    })
+
+    it('Expected behaviour', function(){
+        expect(injectedComponent.methodThatReturnsBoolean()).toBe(true);
+    })
+});</code></pre>
+            </section>
+            <section>
+                <h3>Testing AngularJS components with no dependencies</h3>
+            </section>
+            <section>
+                <p>Let's write a unit test for a filter:</p>
+<pre><code>angular.module('app').filter('userFilter', function($filter) {
+    return function(users, city){
+        return $filter('filter')(users, {city : city});
+    }
+});</code></pre>
+            </section>
+            <section>
+                <p>userFilterTest.js</p>
+                <pre><code>describe('userFilter', function() {
+    var userFilter;
+    var user1 = {name : 'Tapio', city  : 'Tampere'};
+    var user2 = {name : 'Marko', city : 'Tampere'};
+    var user3 = {name : 'Kari', city  : 'Helsinki'};
+    var user4 = {name : 'Kalle', city : 'Turku'};
+    var users = [user1, user2, user3, user4];
+    beforeEach(module('app'));
+    beforeEach(inject(function($filter){
+        userFilter = $filter('userFilter');
+    }));
+    it('Will filter users by city (Tampere)', function() {
+        expect(userFilter(users, 'Tampere')).toEqual([user1, user2]);
+    });
+    it('Will filter users by city (Helsinki)', function() {
+        expect(userFilter(users, 'Helsinki')).toEqual([user3]);
+    });
+    it('Will filter users by city (Turku)', function() {
+        expect(userFilter(users, 'Turku')).toEqual([user4]);
+    });
+});</code></pre>
+
+            </section>
+            <section>
+                <h3>Testing AngularJS controller with mocked depencencies</h3>
+            </section>
+
+            <section>
+                <p>Let's write a test for a controller:</p>
+                <pre><code>angular.module('app').controller('appController', function($scope, userDetailsService, userService) {
+    $scope.userDetails = userDetailsService.get();
+    $scope.users = userService.query();
+});</code></pre>
+            </section>
+            <section>
+                <p>appControllerTest.js</p>
+                <pre><code>describe('appController', function() {
+    var $controller, $rootScope, $q;
+
+    beforeEach(module('app'));
+
+    var userDetails = {
+        username : 'markorautajoki',
+        firstname : 'Marko',
+        lastname : 'Rautajoki'
+    };
+
+    var user1 = {name : 'Tapio', city  : 'Tampere'};
+    var user2 = {name : 'Marko', city : 'Tampere'};
+    var user3 = {name : 'Kari', city  : 'Helsinki'};
+    var user4 = {name : 'Kalle', city : 'Turku'};
+
+    var users = [user1, user2, user3, user4];
+
+    var userDetailsServiceMock = {
+        get : function() {
+            return userDetails;
+        }
+    }
+
+    var userServiceMock = {
+        query : function() {
+            return users;
+        }
+    }
+
+    beforeEach(inject(function(_$controller_, _$rootScope_, _$q_){
+        $controller = _$controller_;
+        $rootScope = _$rootScope_;
+        $q = _$q_;
+    }));
+
+    it('Will fetch user details and users list', function() {
+        var scope = $rootScope.$new();
+        $controller('appController', {$scope : scope, userDetailsService : userDetailsServiceMock, userService : userServiceMock});
+        expect(scope.userDetails).toEqual(userDetails);
+        expect(scope.users).toEqual(users);
+    });
+});
+
+                </code></pre>
+            </section>
+            <section>
+                <h3>Using $httpBackend to test $resource calls</h3>
+            </section>
+            <section>
+                <p>Let's write a test for a factory that uses $resource</p>
+                <pre><code>angular.module('app').factory('userDetailsService', function($resource) {
+    return $resource('/api/userdetails');
+});</code></pre>
+            </section>
+            <section>
+                <pre><code>describe('userDetailsService', function() {
+    var $httpBackend, userDetailsService;
+
+    var apiUrl = '/api/userdetails';
+    var mockUserDetails = {username : 'markorautajoki', firstname : 'Marko', lastname : 'Rautajoki'};
+
+    beforeEach(module('app'));
+
+    beforeEach(inject(function(_$httpBackend_, _userDetailsService_) {
+        $httpBackend = _$httpBackend_;
+        $httpBackend.when('GET', apiUrl).respond(mockUserDetails);
+        userDetailsService = _userDetailsService_;
+    }));
+    it('Should fetch user details', function() {
+        $httpBackend.expectGET(apiUrl);
+
+        userDetailsService.get().$promise.then(function(result) {
+            expect(result.username).toEqual(mockUserDetails.username);
+            expect(result.firstname).toEqual(mockUserDetails.firstname);
+            expect(result.lastname).toEqual(mockUserDetails.lastname);
+        });
+
+        $httpBackend.flush();
+
+    });
+    afterEach(function() {
+        $httpBackend.verifyNoOutstandingExpectation();
+        $httpBackend.verifyNoOutstandingRequest();
+    });
+});</code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>E2e tests in more details</h2>
+            </section>
+            <section>
+
+            </section>
+        </section>
 
         <!-- Any section element inside of this container is displayed as a slide -->
     </div>

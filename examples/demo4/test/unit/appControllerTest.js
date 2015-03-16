@@ -17,18 +17,14 @@ describe('appController', function() {
     var users = [user1, user2, user3, user4];
 
     var userDetailsServiceMock = {
-        getUserDetails : function(){
-            var deferred = $q.defer();
-            deferred.resolve({data: userDetails});
-            return deferred.promise;
+        get : function() {
+            return userDetails;
         }
     }
 
     var userServiceMock = {
-        getUsers : function() {
-            var deferred = $q.defer();
-            deferred.resolve({data: users});
-            return deferred.promise;
+        query : function() {
+            return users;
         }
     }
 
@@ -41,7 +37,6 @@ describe('appController', function() {
     it('Will fetch user details and users list', function() {
         var scope = $rootScope.$new();
         $controller('appController', {$scope : scope, userDetailsService : userDetailsServiceMock, userService : userServiceMock});
-        scope.$digest();
         expect(scope.userDetails).toEqual(userDetails);
         expect(scope.users).toEqual(users);
     });
