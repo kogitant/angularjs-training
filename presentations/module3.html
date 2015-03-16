@@ -29,17 +29,7 @@
     <div class="slides">
         <section>
             <h1>Module 3</h1>
-            <h2>Forms and Resource</h2>
-        </section>
-
-        <section>
-            <h2>Contents</h2>
-            <ul>
-                <li><a href="module1.html">Module 1: Background, High-level Overview and core features</a></li>
-                <li><a href="module2.html">Module 2: Asynchronous computing, server-communications and routing</a></li>
-                <li><b><a href="module3.html">Module 3: Forms and Resource</a></b></li>
-                <li><a href="module4.html">Module 4: Testing</a></li>
-            </ul>
+            <h2>Module configuration, Resource, Forms and Directives</h2>
         </section>
 
         <section>
@@ -228,25 +218,24 @@ Video.getCachedVideos().$promise.then(function(data){
     &lt;script src="angular-resource.js">&lt;/script>
 <!-- Now you can inject ngResource-module to your module -->
 &lt;/head>
-&lt;body>
-<!-- ... -->
-
-&lt;/body>
+&lt;body><!-- ... -->&lt;/body>
 &lt;/html></code></pre>
                 <div class="fragment">
                 <pre><code>angular.module('myApp', ['ngResource']);
 // Now you can inject $resource anywhere you want in myApp</code></pre>
                 </div>
                 <div class="fragment">
-                    <pre><code>angular.module('myApp').factory('UserResource', function($resource) {
-    return $resource('/user/:userId', {userId:'@id'});
+                    <pre><code>angular.module('myApp')
+.constant('FUNCHAT-API', 'http://funchat-api.herokuapp.com/messages')
+.factory('MessageResource', function($resource, FUNCHAT-API) {
+    return $resource(FUNCHAT-API + '/:messageId', {messageId:'@messageId'});
 });
-// now you can inject UserResource anywhere you want in myApp</code></pre>
+// now you can inject MessageResource anywhere you want in myApp</code></pre>
                 </div>
                 <div class="fragment">
-                    <pre><code>angular.module('myApp').controller('myController', function($scope, UserResource) {
-    UserResource.get({id:123}, function(result) {
-        $scope.user = result; // NOTE: $scope.user is undefined until the response arrives
+                    <pre><code>angular.module('myApp').controller('myController', function($scope, MessageResource) {
+    MessageResource.get({id:123}, function(message) {
+        $scope.message = message; // NOTE: $scope.message is undefined until the response arrives
         // now maybe make new rest-calls using this result
     }, function(error){
         // handle error
@@ -256,58 +245,37 @@ Video.getCachedVideos().$promise.then(function(data){
                 </div>
 
             </section>
-            <section>
-
-                <h3>Parametrization example</h3>
-                <div>
-                    <pre><code>//Paramdefault maps keys from the given object to URLs colon notations
-angular.module('myApplication')
-.factory('myresource', ['$resource', function($resource){
-    return $resource('vehiclerepo.com/autos/model/:model/color/:color',
-        {model: '@model', color: '@color'});
-}]);
-
-angular.module('myApplication').controller('myController', ['$scope', 'myresource',
-function($scope, myresource) {
-    $scope.carSearch = {color: 'blue', model: 'VW'};
-    myresource.query({model: $scope.carSearch.model,
-    color: $scope.carSearch.color}).$promise.then(function(data){
-        //handle
-    });
-}]);</code></pre>
-                </div>
-
-            </section>
 
             <section>
                 <h2>Another example of customized use</h2>
 
-                <div class="fragment">
                 <pre><code>
-angular.module('myApplication').factory('HakemusResource', function($resource) {
-    return $resource("server.com/rest-api/applications/:oid",
-    {oid: "@oid", appState:["ACTIVE","INCOMPLETE"]}, {
-    haeHakemus: {method: "GET"},
-    haeHakemukset: {method: "GET", isArray: true, cache: true}
+angular.module('myApp')
+
+.constant('FUNCHAT-API', 'http://funchat-api.herokuapp.com/messages')
+
+.factory('MessageResource', function($resource, FUNCHAT-API) {
+    return $resource(FUNCHAT-API + '/messages',
+    {messageTypes:["ORIGINAL","EDITED"]}, {
+        getMessages: {method: "GET", isArray: true, cache: true}
     });
 });
                 </code></pre>
-                </div>
                 <div class="fragment">
-                    <pre><code>angular.module('myApplication').controller('OppilasController', ['$scope',
-'HakemusResource', function($scope, HakemusResource) {
-    $scope.oppilaanHakemukset = [];
-    $scope.oppilasModel = {oid: "1.2.3.4.5"}
+                    <pre><code>angular.module('myApp')
 
-    HakemusResource.haeHakemukset({oid: $scope.oppilasModel.oid}, function(result) {
-        $scope.oppilaanHakemukset = result;
+.controller('myController', function($scope, MessageResource) {
+    $scope.messages = [];
+
+    MessageResource.getMessages({}, function(result) {
+        $scope.messages = result;
     }, function(error) {
         // handle error
     })
-}]);</code></pre>
+});</code></pre>
                 </div>
                 <div class="fragment">
-                    <pre>'server.com/rest-api/applications/1.2.3.4.5?appState=ACTIVE&appState=INCOMPLETE'</pre>
+                    <pre>'http://funchat-api.herokuapp.com/messages?messageTypes=ORIGINAL&messageTypes=EDITED'</pre>
                     <p>Response is cached into inmemory default cache</p>
                 </div>
             </section>
@@ -493,7 +461,7 @@ angular.module('myApplication').factory('HakemusResource', function($resource) {
                     </ul>
                     <li><a href="../examples/demo3/formexercise.html">Start here</a> (angularjs-training/examples/demo3/formexercise.html)</li>
                     <li>Run 'npm install' in the examples folder</li>
-                    <li>Don't peak the answer :)</li>
+                    <li>Don't peek the answer :)</li>
                 </ul>
             </section>
 
@@ -587,6 +555,27 @@ angular.module('myApplication').factory('HakemusResource', function($resource) {
                     <li>Directives may be hard to test</li>
                     <li>Directives may be difficult to debug</li>
                     <li>Prefer prefixes in names to avoid collations</li>
+                </ul>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>Exercise</h3>
+
+                <ul>
+                    <li>About stack</li>
+                    <ul>
+                        <li>Gulp - taskamanager, frontend build</li>
+                        <li>Yeoman - bootstrapping your application</li>
+                        <li>npm & bower - package managers</li>
+                    </ul>
+                    <li>Get started</li>
+                    <ul>
+                        <li>npm install yo --save</li>
+                        <li>npm install generator-gulp-angular --save</li>
+                        <li>yo gulp-angular</li>
+                    </ul>
                 </ul>
             </section>
         </section>
