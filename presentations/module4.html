@@ -152,19 +152,6 @@
                 </ul>
             </section>
             <section>
-                <h2>Setup Karma</h2>
-                <ul>
-                    <li>Install Karma locally in project's directory (project package.json file required. Use npm init to create one if needed.):</li>
-                    <pre><code>npm install karma --save-dev</code></pre>
-                    <pre><code>npm install karma-jasmine karma-chrome-launcher --save-dev</code></pre>
-                    <li>To install Karma globally:</li>
-                    <pre><code>npm install -g karma-cli</code></pre>
-                    <li>Create karma.conf file: <a href="https://github.com/gofore/angularjs-training/blob/master/examples/demo4/karma.conf.js">Example</a></li>
-                    <li>Start karma:</li>
-                    <pre><code>karma start</code></pre>
-                </ul>
-            </section>
-            <section>
                 <p>Structure of Jasmine tests:</p>
                 <pre><code>describe('componentName', function() {
 
@@ -324,7 +311,55 @@
         </section>
         <section>
             <section>
-                <h2>E2e tests in more details</h2>
+                <h2>End to end tests in more details</h2>
+            </section>
+            <section>
+                <h3>How to setup end to end testing in AngularJS</h3>
+                <ul>
+                    <li>Recommended way of running e2e tests in AngularJS is by a Node.js program Protractor.</li>
+                    <li>Protractor uses webdriver to control browser. Tests use Jasmine syntax.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>How protractor works</h3>
+                <ul>
+                    <li>Element api is used to locate elements in DOM</li>
+                    <li>Element api creates promises, that abstract away the asynchronous nature of AngularJS application and allow tests to be written (mostly) without callbacks.</li>
+                    <li>Element api uses locators that locate elements for instance by css.</li>
+                    <li>Browser api is used to navigate between urls</li>
+                    <li>Protractor <a href="http://angular.github.io/protractor/#/api">api documentation</a></li>
+                </ul>
+            </section>
+            <section>
+                <p>Basic structure of protractor tests</p>
+                <pre><code>describe('Some web ui functionality', function() {
+
+    beforeEach(function(){
+        browser.get('http://appurl');
+    });
+
+    it('Should do something', function() {
+        element(by.css('button.somebutton')).click();
+
+        element(by.css('input.someinput')).sendKeys('sometext');
+
+        element(by.model('modelName')).sendKeys('sometext');
+
+        element.all(by.repeater('item in items')).first().click();
+
+        expect(element(by.css('.result-text')).getText()).toEqual('sometext');
+    }
+});</code></pre>
+            </section>
+            <section>
+                <p>frontpageTest.js</p>
+                <pre><code>describe('frontpage', function(){
+    it('should load the front page', function(){
+        browser.get('http://localhost:3000');
+        expect(element(by.cssContainingText('h1', 'Page title')).isPresent()).toEqual(true);
+    });
+});
+                </code></pre>
             </section>
             <section>
 

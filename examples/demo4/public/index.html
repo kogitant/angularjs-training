@@ -6,10 +6,10 @@
     <script src="lib/angular-resource.js"></script>
 </head>
 <body ng-controller="appController">
-	<h2>User info</h2>
-    <h3>username : {{userDetails.username}}</h3>
-    <h3>firstname : {{userDetails.firstname}}</h3>
-    <h3>lastname : {{userDetails.lastname}}</h3>
+	<h1>Page title</h1>
+    <h3>username : <span>{{userDetails.username}}</span></h3>
+    <h3>firstname : <span>{{userDetails.firstname}}</span></h3>
+    <h3>lastname : <span>{{userDetails.lastname}}</span></h3>
 
     <h2>Users list</h2>
     <select ng-model="selectedCity">
@@ -18,7 +18,13 @@
         <option value="Turku">Turku</option>
     </select>
     <div ng-repeat="user in users |userFilter:selectedCity">
-        {{user.name}}
+        <span>{{user.name}}</span> <a href="" ng-click="selectUser(user)"> > </a>
+    </div>
+
+    <div ng-if="selectedUser">
+        <h3>Selected user</h3>
+        <div>{{selectedUser.name}}</div>
+        <div>{{selectedUser.city}}</div>
     </div>
 
     <script src="js/app.js"></script>
