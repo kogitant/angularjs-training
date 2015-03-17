@@ -15,6 +15,9 @@ Install Yeoman and yeoman generators
 
 Scaffold project base:
 
+    cd ~/work
+	mkdir funmarket
+	cd funmarket
 	yo gulp-angular 
 
 ## Implement features
