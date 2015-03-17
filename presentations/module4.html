@@ -321,7 +321,7 @@
                 </ul>
             </section>
             <section>
-                <h3>How protractor works</h3>
+                <h3>How Protractor works</h3>
                 <ul>
                     <li>Element api is used to locate elements in DOM</li>
                     <li>Element api creates promises, that abstract away the asynchronous nature of AngularJS application and allow tests to be written (mostly) without callbacks.</li>
@@ -331,7 +331,7 @@
                 </ul>
             </section>
             <section>
-                <p>Basic structure of protractor tests</p>
+                <p>Basic structure of Protractor tests</p>
                 <pre><code>describe('Some web ui functionality', function() {
 
     beforeEach(function(){
@@ -347,22 +347,30 @@
 
         element.all(by.repeater('item in items')).first().click();
 
+        element(by.cssContainingText('.some-class', 'sometext')).click();
+
+        element(by.css('.some-class')).getText().then(function(text) {
+            //Do something with the text
+        });
+
+        element.all(by.repeater('item in items')).filter(function(element) {
+           //Return boolean to include or exclude item
+        });
+
         expect(element(by.css('.result-text')).getText()).toEqual('sometext');
     }
 });</code></pre>
             </section>
             <section>
-                <p>frontpageTest.js</p>
-                <pre><code>describe('frontpage', function(){
-    it('should load the front page', function(){
-        browser.get('http://localhost:3000');
-        expect(element(by.cssContainingText('h1', 'Page title')).isPresent()).toEqual(true);
-    });
-});
-                </code></pre>
+                <h3>Some pointers about protractor element finding</h3>
+                <ul>
+                    <li>element() is used to create finder for a single element</li>
+                    <li>element.all() is used to create finder for an array of elements</li>
+                    <li>Most commonly used locators: by.css, by.cssContainingText, by.model, by.binding, by.repeater</li>
+                </ul>
             </section>
             <section>
-
+                <h2>Some <a href="https://github.com/gofore/angularjs-training/tree/master/examples/demo4/test/e2e">examples</a></h2>
             </section>
         </section>
 
