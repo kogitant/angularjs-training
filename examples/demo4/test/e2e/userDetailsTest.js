@@ -4,9 +4,9 @@ describe('User details ', function(){
     });
 
     it('Will show user details', function(){
-        expect(element(by.binding('userDetails.username')).getText()).toEqual('markorautajoki');
-        expect(element(by.binding('userDetails.firstname')).getText()).toEqual('Marko');
-        expect(element(by.binding('userDetails.lastname')).getText()).toEqual('Rautajoki');
+        expect(element(by.binding('userDetails.username')).getText()).toEqual('perttiesimerkki');
+        expect(element(by.binding('userDetails.firstname')).getText()).toEqual('Pertti');
+        expect(element(by.binding('userDetails.lastname')).getText()).toEqual('Esimerkki');
     });
 
 });

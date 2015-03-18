@@ -148,15 +148,23 @@
 
     var injectedComponent;
 
+    //Any module dependencies are specified by calling module function on them
     beforeEach(module('requiredModule'));
 
+    //If Angular core service or your custom services are needed they can be injected here
+    //Note the _name_ feature of the injector
     beforeEach(inject(_injectedComponent_) {
         injectedComponent = _injectedComponent_;
     })
-
+    //Each test is wrapped in it function
     it('Expected behaviour', function(){
+        //Multiple expectations can be verified inside it function
         expect(injectedComponent.methodThatReturnsBoolean()).toBe(true);
     })
+    //Individual tests can also inject components if needed
+    it('Another expected behaviour with some injects', inject(function(injectedComponent2){
+        expect(injectedComponent2.methodThatReturnsBoolean()).toBe(false);
+    }))
 });</code></pre>
             </section>
             <section>
@@ -299,17 +307,16 @@
                 </ul>
             </section>
             <section>
-                <h3>How Protractor works</h3>
+                <h3>How Protractor tests work</h3>
                 <ul>
-                    <li>Element api is used to locate elements in DOM</li>
-                    <li>Element api creates promises, that abstract away the asynchronous nature of AngularJS application and allow tests to be written (mostly) without callbacks.</li>
-                    <li>Element api uses locators that locate elements for instance by css.</li>
-                    <li>Browser api is used to navigate between urls</li>
-                    <li>Protractor <a href="http://angular.github.io/protractor/#/api">api documentation</a></li>
+                    <li>Browser is first directed to some url by using browser.get(url)</li>
+                    <li>DOM element finders are created with element() or element.all()</li>
+                    <li>Asynchronous nature of AngularJS app is abstracted away by the element finders.</li>
+                    <li>Element finders allow tests to be written mostly without callbacks or manual async waiting.</li>
                 </ul>
             </section>
             <section>
-                <p>Basic structure of Protractor tests</p>
+                <p>Basic structure and elements of Protractor tests</p>
                 <pre><code>describe('Some web ui functionality', function() {
 
     beforeEach(function(){
@@ -317,25 +324,36 @@
     });
 
     it('Should do something', function() {
+        //Click one DOM element
         element(by.css('button.somebutton')).click();
 
+        //Input some text
         element(by.css('input.someinput')).sendKeys('sometext');
 
+        //Input some text. Select by angularjs model.
         element(by.model('modelName')).sendKeys('sometext');
 
+        //Click first item of a repeater
         element.all(by.repeater('item in items')).first().click();
 
+        //cssContainingText is one of the most used locators
         element(by.cssContainingText('.some-class', 'sometext')).click();
 
+        //Example of a case, where callback is needed
         element(by.css('.some-class')).getText().then(function(text) {
             //Do something with the text
         });
 
+        //All kinds of functional operations can be used for element finder arrays. Most commonly used is filter
         element.all(by.repeater('item in items')).filter(function(element) {
            //Return boolean to include or exclude item
         });
 
+        //Multiple expectations per it function can be made
         expect(element(by.css('.result-text')).getText()).toEqual('sometext');
+
+        //Sometimes it is useful to freeze the test flow for a second and see what's going on.
+        browser.sleep(10000);
     }
 });</code></pre>
             </section>
