@@ -1,6 +1,4 @@
 describe('appController', function() {
-    var $controller, $rootScope, $q;
-
     var userDetails = {
         username : 'perttiesimerkki',
         firstname : 'Pertti',
@@ -14,31 +12,28 @@ describe('appController', function() {
 
     var users = [user1, user2, user3, user4];
 
-    var userDetailsResourceMock = {
-        get : function() {
-            return userDetails;
-        }
-    };
-
-    var userResourceMock = {
-        query : function() {
-            return users;
-        }
-    };
-
     beforeEach(module('app'));
 
-    beforeEach(inject(function(_$controller_, _$rootScope_, _$q_){
-        $controller = _$controller_;
-        $rootScope = _$rootScope_;
-        $q = _$q_;
-    }));
+    it('Will fetch user details and users list', inject(function($controller, $rootScope, $httpBackend) {
+        var userDetailsUrl = '/api/userdetails';
+        var usersUrl = '/api/users';
 
-    it('Will fetch user details and users list', function() {
         var scope = $rootScope.$new();
-        $controller('appController', {$scope : scope, userDetailsResource : userDetailsResourceMock, userResource : userResourceMock});
-        expect(scope.userDetails).toEqual(userDetails);
-        expect(scope.users).toEqual(users);
-    });
+        $httpBackend.when('GET', userDetailsUrl).respond(userDetails);
+        $httpBackend.when('GET', usersUrl).respond(users);
+
+        $httpBackend.expectGET(userDetailsUrl);
+        $httpBackend.expectGET(usersUrl);
+
+        $controller('appController', {$scope : scope});
+
+        $httpBackend.flush();
+
+        expect(scope.userDetails.username).toEqual(userDetails.username);
+        expect(scope.users.length).toEqual(users.length);
+
+        $httpBackend.verifyNoOutstandingExpectation();
+        $httpBackend.verifyNoOutstandingRequest();
+    }));
 
 });
