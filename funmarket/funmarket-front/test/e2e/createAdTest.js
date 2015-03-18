@@ -1,4 +1,5 @@
 var uuid = require('node-uuid');
+var path = require('path');
 
 describe('createAd', function(){
 
