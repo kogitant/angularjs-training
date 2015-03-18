@@ -160,3 +160,15 @@ button {
   max-width: 240px;
   border: 1px solid #ddd;
 }
+
+.locale {
+  padding: 10px;
+  .lang-option {
+    cursor : pointer;
+    &.selected {color : #1EAEDB; cursor : default;}
+    &:before {content : "|"; margin: 5px; color: #000}
+    &:first-child {
+      &:before {display: none;}
+    }
+  }
+}
