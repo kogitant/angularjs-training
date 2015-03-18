@@ -56,7 +56,7 @@
             </section>
             <section>
                 <ul>
-                    <li>SPAs contain complex UI logic</li>
+                    <li>SPAs contain complex UI logic.</li>
                     <li>Javascript is not a compiled language. Dynamic typing introduces bugs easily at runtime.</li>
                     <li>AngularJs is designed to be easily testable</li>
                     <ul>
@@ -66,23 +66,17 @@
                 </ul>
             </section>
             <section>
+                <h3>High quality code always includes automated tests!</h3>
                 <ul>
-                    <li>Makes refactoring and new feature development easier and less likely to break existing features.</li>
-                    <ul>
-                        <li>Time used for automated tests is paid back in the long run</li>
-                    </ul>
-                    <li>High quality code always comes with automated tests</li>
-                    <ul>
-                        <li>Less errors for the end user</li>
-                        <li>Less manual regression testing</li>
-                        <li>Makes developers happy and secure when refactoring or making changes to existing code.</li>
-                    </ul>
+                    <li>Less errors for the end user</li>
+                    <li>Less manual regression testing</li>
+                    <li>Makes developers happy and secure when refactoring or making changes to existing code.</li>
                 </ul>
             </section>
         </section>
         <section>
             <section>
-                <h2>How much automated tests for UI?</h2>
+                <h2>How much automated tests?</h2>
             </section>
             <section>
                 <ul>
@@ -123,10 +117,7 @@
                 </ul>
             </section>
             <section>
-                <h3>End to end tests are the most important form of testing a web application</h3>
-            </section>
-            <section>
-                <h3>End to end tests take the most time to make but pay off in the long run</h3>
+                <h3>End to end tests are the most important form of testing any web application!</h3>
             </section>
         </section>
         <section>
@@ -210,9 +201,9 @@
 
             <section>
                 <p>Let's write a test for a controller:</p>
-                <pre><code>angular.module('app').controller('appController', function($scope, userDetailsService, userService) {
-    $scope.userDetails = userDetailsService.get();
-    $scope.users = userService.query();
+                <pre><code>angular.module('app').controller('appController', function($scope, userDetailsResource, userResource) {
+    $scope.userDetails = userDetailsResource.get();
+    $scope.users = userResource.query();
 });</code></pre>
             </section>
             <section>
@@ -220,12 +211,10 @@
                 <pre><code>describe('appController', function() {
     var $controller, $rootScope, $q;
 
-    beforeEach(module('app'));
-
     var userDetails = {
-        username : 'markorautajoki',
-        firstname : 'Marko',
-        lastname : 'Rautajoki'
+        username : 'perttiesimerkki',
+        firstname : 'Pertti',
+        lastname : 'Esimerkki'
     };
 
     var user1 = {name : 'Tapio', city  : 'Tampere'};
@@ -235,17 +224,19 @@
 
     var users = [user1, user2, user3, user4];
 
-    var userDetailsServiceMock = {
+    var userDetailsResourceMock = {
         get : function() {
             return userDetails;
         }
     }
 
-    var userServiceMock = {
+    var userResourceMock = {
         query : function() {
             return users;
         }
     }
+
+    beforeEach(module('app'));
 
     beforeEach(inject(function(_$controller_, _$rootScope_, _$q_){
         $controller = _$controller_;
@@ -255,7 +246,7 @@
 
     it('Will fetch user details and users list', function() {
         var scope = $rootScope.$new();
-        $controller('appController', {$scope : scope, userDetailsService : userDetailsServiceMock, userService : userServiceMock});
+        $controller('appController', {$scope : scope, userDetailsResource : userDetailsResourceMock, userResource : userResourceMock});
         expect(scope.userDetails).toEqual(userDetails);
         expect(scope.users).toEqual(users);
     });
@@ -274,39 +265,26 @@
             </section>
             <section>
                 <pre><code>describe('userDetailsService', function() {
-    var $httpBackend, userDetailsService;
-
     var apiUrl = '/api/userdetails';
-    var mockUserDetails = {username : 'markorautajoki', firstname : 'Marko', lastname : 'Rautajoki'};
+    var mockUserDetails = {username : 'perttiesimerkki', firstname : 'Pertti', lastname : 'Esimerkki'};
 
     beforeEach(module('app'));
 
-    beforeEach(inject(function(_$httpBackend_, _userDetailsService_) {
-        $httpBackend = _$httpBackend_;
+    it('Should fetch user details', inject(function($httpBackend, userDetailsResource) {
         $httpBackend.when('GET', apiUrl).respond(mockUserDetails);
-        userDetailsService = _userDetailsService_;
-    }));
-    it('Should fetch user details', function() {
         $httpBackend.expectGET(apiUrl);
 
-        userDetailsService.get().$promise.then(function(result) {
+        userDetailsResource.get().$promise.then(function(result) {
             expect(result.username).toEqual(mockUserDetails.username);
             expect(result.firstname).toEqual(mockUserDetails.firstname);
             expect(result.lastname).toEqual(mockUserDetails.lastname);
         });
-
         $httpBackend.flush();
 
-    });
-    afterEach(function() {
         $httpBackend.verifyNoOutstandingExpectation();
         $httpBackend.verifyNoOutstandingRequest();
-    });
+    }));
 });</code></pre>
-            </section>
-            <section>
-                <p>Exercise: Write unit tests for funmarket-front to /test/unit_exercise.
-                    Do not immediately peek the answers from /test/unit ;)<p>
             </section>
         </section>
         <section>

@@ -1,12 +1,10 @@
 describe('appController', function() {
     var $controller, $rootScope, $q;
 
-    beforeEach(module('app'));
-
     var userDetails = {
-        username : 'markorautajoki',
-        firstname : 'Marko',
-        lastname : 'Rautajoki'
+        username : 'perttiesimerkki',
+        firstname : 'Pertti',
+        lastname : 'Esimerkki'
     };
 
     var user1 = {name : 'Tapio', city  : 'Tampere'};
@@ -16,17 +14,19 @@ describe('appController', function() {
 
     var users = [user1, user2, user3, user4];
 
-    var userDetailsServiceMock = {
+    var userDetailsResourceMock = {
         get : function() {
             return userDetails;
         }
-    }
+    };
 
-    var userServiceMock = {
+    var userResourceMock = {
         query : function() {
             return users;
         }
-    }
+    };
+
+    beforeEach(module('app'));
 
     beforeEach(inject(function(_$controller_, _$rootScope_, _$q_){
         $controller = _$controller_;
@@ -36,7 +36,7 @@ describe('appController', function() {
 
     it('Will fetch user details and users list', function() {
         var scope = $rootScope.$new();
-        $controller('appController', {$scope : scope, userDetailsService : userDetailsServiceMock, userService : userServiceMock});
+        $controller('appController', {$scope : scope, userDetailsResource : userDetailsResourceMock, userResource : userResourceMock});
         expect(scope.userDetails).toEqual(userDetails);
         expect(scope.users).toEqual(users);
     });

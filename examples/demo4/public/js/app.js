@@ -1,19 +1,21 @@
 angular.module('app', ['ngResource']);
 
-angular.module('app').controller('appController', function($scope, userDetailsService, userService) {
-    $scope.userDetails = userDetailsService.get();
-    $scope.users = userService.query();
+angular.module('app').controller('appController', function($scope, userDetailsResource, userResource) {
+
+    $scope.userDetails = userDetailsResource.get();
+    $scope.users = userResource.query();
+
     $scope.selectedUser = null;
     $scope.selectUser = function(user) {
         $scope.selectedUser = user;
     }
 });
 
-angular.module('app').factory('userDetailsService', function($resource) {
+angular.module('app').factory('userDetailsResource', function($resource) {
     return $resource('/api/userdetails');
 });
 
-angular.module('app').factory('userService', function($resource) {
+angular.module('app').factory('userResource', function($resource) {
     return $resource('/api/users');
 });
 
