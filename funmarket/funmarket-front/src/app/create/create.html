@@ -7,14 +7,14 @@
     <div class="row">
       <div class="six columns">
         <label for="title">Title*</label>
-        <input name="title" class="u-full-width" maxlength="30" minlength="4" ng-model="item.title" type="text" id="title" required/>
+        <input name="title" class="u-full-width" maxlength="100" minlength="4" ng-model="item.title" type="text" id="title" required/>
       </div>
     </div>
 
     <div class="row">
       <div class="three columns">
         <label for="priceCents">Price*</label>
-        <input name="priceCents" class="u-full-width" ng-model="item.priceCents" min="0" type="number" id="priceCents" placeholder="€" required/>
+        <input name="priceCents" class="u-full-width" ng-model="item.priceCents" min="5" type="number" id="priceCents" placeholder="€" required/>
       </div>
 
       <div class="three columns">
@@ -30,8 +30,8 @@
 
     <div class="row">
       <div class="six columns">
-        <label for="description">Description</label>
-        <textarea name="description" class="u-full-width" ng-model="item.description" id="description" placeholder="Describe your item"/>
+        <label for="description">Description*</label>
+        <textarea name="description" class="u-full-width" ng-model="item.description" id="description" placeholder="Describe your item" required/>
       </div>
     </div>
 
@@ -39,14 +39,14 @@
       <div class="row">
         <div class="six columns">
           <h5>Contact information</h5>
-          <label for="phone">Phone number</label>
+          <label for="phone">Phone number*</label>
           <input name="phone" class="u-full-width" ng-model="item.phone" type="text" id="phone" required />
         </div>
       </div>
 
       <div class="row">
         <div class="six columns">
-          <label for="email">Email</label>
+          <label for="email">Email*</label>
           <input name="email" type="email" minlength="5" maxlength="100" class="u-full-width" ng-model="item.email" required id="email"/>
         </div>
       </div>
@@ -60,6 +60,8 @@
       <button ng-disabled="newAdForm.$invalid" ng-click="publish()">Publish</button>
     </div>
   </div>
+
+    {{newAdForm.$valid}}
 
   <div ng-if="toggleReview" class="row">
     <div class="six columns">
