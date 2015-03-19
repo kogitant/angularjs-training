@@ -12,6 +12,10 @@ describe('frontPage', function(){
         browser.get('http://localhost:3000');
 
         var ads = element.all(by.repeater('ad in marketAds'));
+
+
+        console.log("Tämä logittaa sinne konsoliin mistä protractoria ajetaan");
+
         expect(ads.count()).toBeGreaterThan(0);
     });
 });
