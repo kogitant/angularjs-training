@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <option name="DEFAULT_COMPILER" value="Javac" />
+    <resourceExtensions />
+    <wildcardResourcePatterns>
+      <entry name="!?*.java" />
+      <entry name="!?*.form" />
+      <entry name="!?*.class" />
+      <entry name="!?*.groovy" />
+      <entry name="!?*.scala" />
+      <entry name="!?*.flex" />
+      <entry name="!?*.kt" />
+      <entry name="!?*.clj" />
+    </wildcardResourcePatterns>
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="false">
+        <processorPath useClasspath="true" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="DependencyValidationManager">
+    <option name="SKIP_IMPORT_STATEMENTS" value="false" />
+  </component>
+  <component name="EclipseCodeFormatter">
+    <option name="defaultSettings" value="true" />
+    <option name="formatter" value="ECLIPSE" />
+    <option name="id" value="1424099936118" />
+    <option name="name" value="EOVOL3" />
+    <option name="pathToConfigFileJava" value="D:/devtools/eovol3_eclipse_java_conventions.xml" />
+    <option name="selectedJavaProfile" value="Java Conventions - Eovol3" />
+  </component>
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
+  <component name="IdProvider" IDEtalkID="EFC36D62B65D472580FB47D0F63FB200" />
+  <component name="JRebel Project data">
+    <option name="privateKey" value="3082025c0201000281810084e2060bab4abc5e8a58ce0f8259a0e6eaab9d4ef970e393b492ec4606e17fb7dcd5a2bc52cd522339b665e0e22bddadd042187a59307329025d4e7a21dc950598fab5da77ffa1221756c34c5c20048dc7a4c189a37b07d7a0bc24c61e99664fa34da82880a38fcff57fd890d1deec79cb971e968206e9c65e71db858b00e34d0203010001028180328615b25e207e5a9bd3841595842a8f61ee7a534ab8476f239b3146b6db0a4a88269a476c5c30bcbff6bfe9af54ea6669e69793fd515497e514410062db91b50ea417230d684642f3fafd56c7f7e475f6519d2a534a3c46f9eb7c431368908334dbe9f933e76ec3ee87d7bbd5bad0736150a4c4a6f115c38d1dfc08e8bf8ea9024100dc7ff0d276e573adb4edb10cbf089a3a864687bf89e8ab0d4f1d8fecf5dc60cb28dd427a146fd5813e5abc7b0e1f39b9afad5a808e5e03092e648fd1629a4c7b0241009a46e3c76b127483f4f47e0ae026b7fef0fdb30a4e4a63ae8966a106f12e9138b9fb0adef4f580dd0df08172d99040a0d158ae10f0f3414e2e7ebf213c6378d7024100af2c5144d2c22ce96660a3148e3ba65332539c0ab5e40ae852df1875574991f83469bb234353295a39105ac6a40c788ea51b6257d942a4c4c97f88a5fee0b83b02403a628d9d5096216636f3b827a180c5ad43c29f594d1bb5f1bdaa0b52b73faa51cf808432b07da09107cf770de1ec47a914d0fcbf0890e6ac11c881c8b033eced02407c0ee184e2cfbc4849a4aae9eed195b6ab28a7c4127c899b569908efa6365fd4c00472abdffef8577398e0808e8333fd218e54b3d8931d8565c7f48196bacf07" />
+    <option name="publicKey" value="3081890281810084e2060bab4abc5e8a58ce0f8259a0e6eaab9d4ef970e393b492ec4606e17fb7dcd5a2bc52cd522339b665e0e22bddadd042187a59307329025d4e7a21dc950598fab5da77ffa1221756c34c5c20048dc7a4c189a37b07d7a0bc24c61e99664fa34da82880a38fcff57fd890d1deec79cb971e968206e9c65e71db858b00e34d0203010001" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Class structure</id>
+          </State>
+          <State>
+            <id>Code maturity issues</id>
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+          <State>
+            <id>Java language level migration aids</id>
+          </State>
+          <State>
+            <id>Javadoc issues</id>
+          </State>
+          <State>
+            <id>Performance issues</id>
+          </State>
+          <State>
+            <id>Spring Model</id>
+          </State>
+          <State>
+            <id>TestNG</id>
+          </State>
+          <State>
+            <id>Threading issues</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Abstraction issues</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/funmarket-front.iml" filepath="$PROJECT_DIR$/funmarket-front.iml" />
+    </modules>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="" />
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
+

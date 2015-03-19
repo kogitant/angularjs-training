@@ -22,6 +22,7 @@ angular.module('app').factory('userResource', function($resource) {
 angular.module('app').filter('userFilter', function($filter) {
     return function(users, city){
         if(!city) {
+            //return [];
             return users;
         } else {
             return $filter('filter')(users, {city : city});

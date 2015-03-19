@@ -18,6 +18,8 @@ describe('appController', function() {
         var userDetailsUrl = '/api/userdetails';
         var usersUrl = '/api/users';
 
+        // Creates a new child scope under $rootScope
+        // This is the scope that ewill be used in the conroller i.e. the controller's own scope
         var scope = $rootScope.$new();
         $httpBackend.when('GET', userDetailsUrl).respond(userDetails);
         $httpBackend.when('GET', usersUrl).respond(users);
@@ -34,6 +36,10 @@ describe('appController', function() {
 
         $httpBackend.verifyNoOutstandingExpectation();
         $httpBackend.verifyNoOutstandingRequest();
+
+
+        scope.selectUser(user2);
+        expect(scope.selectedUser.name).toEqual(user2.name);
     }));
 
 });

@@ -23,4 +23,12 @@ describe('User list ', function(){
             expect(element(by.binding('selectedUser.name')).getText()).toEqual(userToSelect);
         });
     })
+
+    /*
+    it('Will select user from list when arrow is clicked by xpath', function() {
+        var userToSelect = 'Tapio';
+        element(By.xpath("/body/div[@id='menu']/div[@id='button']")).click();
+        expect(element(by.binding('selectedUser.name')).getText()).toEqual(userToSelect);
+    })
+    */
 });
