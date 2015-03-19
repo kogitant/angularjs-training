@@ -72,7 +72,8 @@
                     <li>AngularJs is designed to be easily testable</li>
                     <ul>
                         <li>DOM manipulation is separated from the controllers</li>
-                        <li>Dependency Injection allows mocking of external dependencies</li>
+                        <li>Dependency injection allows developer to isolate code logic to easily testable units</li>
+                        <li>Dependency injection allows mocking of external dependencies</li>
                     </ul>
                 </ul>
             </section>
@@ -114,10 +115,10 @@
                 </ul>
             </section>
             <section>
-                <h3>Testing every controller may not be practical</h3>
+                <h3>Moving logic from controllers to services, directives and filters is good practice and makes unit testing simpler.</h3>
             </section>
             <section>
-                <h3>Moving logic from controllers to services, directives and filters is good practice and makes unit testing simpler</h3>
+                <h3>Unit tests should focus mainly on more complex logic units. Testing every view controller may not be very beneficial.</h3>
             </section>
             <section>
                 <h2>End to end tests</h2>
@@ -144,10 +145,25 @@
                 </ul>
             </section>
             <section>
-                <p>Structure of Jasmine tests:</p>
+                <h3>Structure of Jasmine tests:</h3>
+                <ul>
+                    <li>Test is wrapped inside a describe function</li>
+                    <li>Actual tests are inside it function</li>
+                </ul>
+                <pre><code>describe('componentName or behaviour', function() {
+    it('Is expected to do something in some scenario', function(){
+        expect(someValue).toEqual(someValue);
+    });
+});</code></pre>
+            </section>
+            <section>
                 <pre><code>describe('componentName', function() {
 
     var injectedComponent;
+
+    beforeEach(function(){
+        //Do something before each test
+    });
 
     //Any module dependencies are specified by calling module function on them
     beforeEach(module('requiredModule'));
@@ -166,6 +182,9 @@
     it('Another expected behaviour with some injects', inject(function(injectedComponent2){
         expect(injectedComponent2.methodThatReturnsBoolean()).toBe(false);
     }))
+    afterEach(function(){
+        //Do something after each test
+    })
 });</code></pre>
             </section>
             <section>
